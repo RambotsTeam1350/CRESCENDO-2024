@@ -40,7 +40,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     this.m_drivetrain = new Drivetrain();
-    this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
+    this.m_driverController = new CommandXboxController(Constants.Controllers.Driver.PORT);
 
     m_drivetrain.setDefaultCommand(new SwerveDrive(this.m_drivetrain, this.m_driverController.getHID()));
 

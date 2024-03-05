@@ -45,7 +45,8 @@ public class ProblemChildCANSparkMAX extends CANSparkMax {
      * @param maxOutput  Reverse power maximum to allow the controller to output
      */
     public ProblemChildCANSparkMAX(int deviceId, MotorType m, IdleMode mode, int limit, boolean isInverted,
-            double kP, double kI, double kD, double minOutput, double maxOutput) {
+            double kP, double kI, double kD, double minOutput, double maxOutput, boolean positionPIDWrapping,
+            double positionPIDWrappingMinInput, double positionPIDWrappingMaxInput) {
         super(deviceId, m);
         this.restoreFactoryDefaults();
         this.setSmartCurrentLimit(limit);
@@ -55,6 +56,9 @@ public class ProblemChildCANSparkMAX extends CANSparkMax {
         this.getPIDController().setI(kI, 0);
         this.getPIDController().setD(kD, 0);
         this.getPIDController().setOutputRange(minOutput, maxOutput, 0);
+        this.getPIDController().setPositionPIDWrappingEnabled(true);
+        this.getPIDController().setPositionPIDWrappingMinInput(positionPIDWrappingMinInput);
+        this.getPIDController().setPositionPIDWrappingMaxInput(positionPIDWrappingMaxInput);
         this.burnFlash();
         String key = "Spark " + this.getDeviceId() + " Flashes";
         Preferences.setDouble(key, Preferences.getDouble(key, 0) + 1);

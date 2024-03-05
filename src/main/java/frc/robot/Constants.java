@@ -26,8 +26,15 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static class Controllers {
-    public static final int DRIVER_PORT = 0;
-    public static final int OPERATOR_PORT = 1;
+    public static final class Driver {
+      public static final int PORT = 0;
+      public static final double TRANSLATION_DEADBAND = 0.05;
+      public static final double ROTATION_DEADBAND = 0.1;
+    }
+
+    public static final class Operator {
+      public static final int PORT = 1;
+    }
   }
 
   public static final class Swerve {
@@ -73,7 +80,11 @@ public final class Constants {
     public static final double ANGLE_MOTOR_PCONVERSION = 2 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
-    public static final double KP_TURNING = 0.5; // TODO: tune
+
+    // TODO: tune
+    public static final double KP_TURNING = 20;
+    public static final double KI_TURNING = 0;
+    public static final double KD_TURNING = 1;
 
     public static final double DRIVETRAIN_MAX_SPEED = 4.0;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;

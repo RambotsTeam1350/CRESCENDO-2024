@@ -21,6 +21,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.Swerve;
 
 public class Drivetrain extends SubsystemBase {
@@ -121,9 +122,9 @@ public class Drivetrain extends SubsystemBase {
       boolean fieldOriented, Translation2d centerOfRotation, boolean deadband) { // Drive with rotational speed control
                                                                                  // w/ joystick
     if (deadband) {
-      frontSpeed = Math.abs(frontSpeed) > 0.1 ? frontSpeed : 0;
-      sideSpeed = Math.abs(sideSpeed) > 0.1 ? sideSpeed : 0;
-      turnSpeed = Math.abs(turnSpeed) > 0.1 ? turnSpeed : 0;
+      frontSpeed = Math.abs(frontSpeed) > Constants.Controllers.Driver.TRANSLATION_DEADBAND ? frontSpeed : 0;
+      sideSpeed = Math.abs(sideSpeed) > Constants.Controllers.Driver.TRANSLATION_DEADBAND ? sideSpeed : 0;
+      turnSpeed = Math.abs(turnSpeed) > Constants.Controllers.Driver.ROTATION_DEADBAND ? turnSpeed : 0;
     }
 
     frontSpeed = m_frontLimiter.calculate(frontSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;

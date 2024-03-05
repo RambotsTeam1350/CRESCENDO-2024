@@ -53,7 +53,7 @@ public class SwerveModule extends SubsystemBase {
     this.m_driveEncoder = m_driveMotor.getEncoder();
     this.m_angleEncoder = m_angleMotor.getEncoder();
 
-    this.m_turnPIDController = new PIDController(Swerve.KP_TURNING, 0, 0);
+    this.m_turnPIDController = new PIDController(Swerve.KP_TURNING, Swerve.KI_TURNING, Swerve.KD_TURNING);
     this.m_turnPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
     this.m_lastAngle = getState().angle;
