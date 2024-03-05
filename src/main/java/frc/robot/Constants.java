@@ -31,6 +31,7 @@ public final class Constants {
   }
 
   public static final class Swerve {
+    // TODO: potentially need to use more decimal places for offset, will experiment
     public static final class FL {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 12;
