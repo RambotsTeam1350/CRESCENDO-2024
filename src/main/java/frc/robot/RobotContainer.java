@@ -44,7 +44,7 @@ public class RobotContainer {
 
     m_drivetrain.setDefaultCommand(new SwerveDrive(this.m_drivetrain, this.m_driverController.getHID()));
 
-    this.m_autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
+    this.m_autoChooser = AutoBuilder.buildAutoChooser("Default Auto");
     SmartDashboard.putData("Auto Chooser", m_autoChooser);
 
     registerNamedCommands();
@@ -70,7 +70,7 @@ public class RobotContainer {
     this.m_driverController.povUp().toggleOnTrue(Commands.startEnd(
         // command start
         () -> this.m_drivetrain.swerveDrive(
-            1,
+            0.1,
             0,
             0,
             !this.m_driverController.getHID().getBButtonPressed(),
