@@ -16,6 +16,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.ProblemChildCANSparkMAX;
+import frc.robot.Constants;
 import frc.robot.Constants.Swerve;
 
 public class SwerveModule extends SubsystemBase {
@@ -45,9 +46,11 @@ public class SwerveModule extends SubsystemBase {
 
     this.m_angleAbsoluteEncoder = new CANcoder(absoluteEncoderId);
 
-    this.m_driveMotor = new ProblemChildCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast, 45,
+    this.m_driveMotor = new ProblemChildCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast,
+        Constants.Swerve.DRIVE_MOTOR_SMART_LIMIT,
         driveMotorReversed);
-    this.m_angleMotor = new ProblemChildCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast, 25,
+    this.m_angleMotor = new ProblemChildCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast,
+        Constants.Swerve.ANGLE_MOTOR_SMART_LIMIT,
         turnMotorReversed);
 
     this.m_driveEncoder = m_driveMotor.getEncoder();

@@ -80,6 +80,8 @@ public final class Constants {
     public static final double ANGLE_MOTOR_PCONVERSION = 2 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
+    public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
+    public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
     // TODO: tune
     public static final double KP_TURNING = 20;
