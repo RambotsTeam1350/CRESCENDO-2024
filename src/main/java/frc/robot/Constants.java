@@ -84,9 +84,9 @@ public final class Constants {
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
     // TODO: tune
-    public static final double KP_TURNING = 20;
+    public static final double KP_TURNING = 0.5;
     public static final double KI_TURNING = 0;
-    public static final double KD_TURNING = 1;
+    public static final double KD_TURNING = 0;
 
     public static final double DRIVETRAIN_MAX_SPEED = 4.0;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;

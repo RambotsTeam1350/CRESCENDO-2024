@@ -128,7 +128,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setAngle(SwerveModuleState desiredState) {
-    // desiredState = SwerveModuleState.optimize(desiredState, this.m_lastAngle);
+    desiredState = SwerveModuleState.optimize(desiredState, this.m_lastAngle);
     Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Swerve.DRIVETRAIN_MAX_SPEED * 0.01))
         ? this.m_lastAngle
         : desiredState.angle; // Prevent rotating module if speed is less then 1%. Prevents Jittering.
