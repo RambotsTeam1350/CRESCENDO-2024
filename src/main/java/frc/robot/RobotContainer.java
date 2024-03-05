@@ -7,9 +7,11 @@ package frc.robot;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -27,9 +29,9 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain drivetrain;
+  private final Drivetrain m_drivetrain;
 
-  private final CommandXboxController driverController;
+  private final CommandXboxController m_driverController;
 
   // private final SendableChooser<Command> autoChooser;
 
@@ -37,12 +39,12 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    this.drivetrain = new Drivetrain();
-    this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
+    this.m_drivetrain = new Drivetrain();
+    this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
     registerNamedCommands();
     configureBindings();
 
-    drivetrain.setDefaultCommand(new SwerveDrive(this.drivetrain, this.driverController.getHID()));
+    m_drivetrain.setDefaultCommand(new SwerveDrive(this.m_drivetrain, this.m_driverController.getHID()));
 
     // autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
     // SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -63,7 +65,20 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    this.driverController.start().onTrue(new InstantCommand(drivetrain::zeroHeading, drivetrain));
+    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
+    this.m_driverController.povUp().toggleOnTrue(Commands.startEnd(
+        // command start
+        () -> this.m_drivetrain.swerveDrive(
+            1,
+            0,
+            0,
+            !this.m_driverController.getHID().getBButtonPressed(),
+            new Translation2d(),
+            true),
+        // command end
+        () -> this.m_drivetrain.stopModules(),
+        // required subsystem
+        this.m_drivetrain));
   }
 
   /**
@@ -78,10 +93,10 @@ public class RobotContainer {
   // }
 
   public void registerNamedCommands() {
-    NamedCommands.registerCommand("Stop Modules", new InstantCommand(() -> drivetrain.stopModules()));
+    NamedCommands.registerCommand("Stop Modules", new InstantCommand(() -> m_drivetrain.stopModules()));
   }
 
-  public Drivetrain getDrivetrain() {
-    return this.drivetrain;
+  public Drivetrain getM_drivetrain() {
+    return this.m_drivetrain;
   }
 }
