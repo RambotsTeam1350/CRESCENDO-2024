@@ -33,7 +33,7 @@ public class RobotContainer {
 
   private final CommandXboxController m_driverController;
 
-  // private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> m_autoChooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -41,13 +41,14 @@ public class RobotContainer {
   public RobotContainer() {
     this.m_drivetrain = new Drivetrain();
     this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
-    registerNamedCommands();
-    configureBindings();
 
     m_drivetrain.setDefaultCommand(new SwerveDrive(this.m_drivetrain, this.m_driverController.getHID()));
 
-    // autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
-    // SmartDashboard.putData("Auto Chooser", autoChooser);
+    this.m_autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
+    SmartDashboard.putData("Auto Chooser", m_autoChooser);
+
+    registerNamedCommands();
+    configureBindings();
   }
 
   /**
@@ -86,17 +87,17 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // drivetrain.resetAllEncoders();
-  // drivetrain.setHeading(0);
-  // return autoChooser.getSelected();
-  // }
+  public Command getAutonomousCommand() {
+    this.m_drivetrain.resetAllEncoders();
+    this.m_drivetrain.setHeading(0);
+    return m_autoChooser.getSelected();
+  }
 
   public void registerNamedCommands() {
     NamedCommands.registerCommand("Stop Modules", new InstantCommand(() -> m_drivetrain.stopModules()));
   }
 
-  public Drivetrain getM_drivetrain() {
+  public Drivetrain getDrivetrain() {
     return this.m_drivetrain;
   }
 }

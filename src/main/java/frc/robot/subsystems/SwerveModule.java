@@ -19,6 +19,8 @@ import frc.lib.drivers.ProblemChildCANSparkMAX;
 import frc.robot.Constants.Swerve;
 
 public class SwerveModule extends SubsystemBase {
+  private final String kPosition;
+
   private ProblemChildCANSparkMAX m_driveMotor;
   private ProblemChildCANSparkMAX m_angleMotor;
 
@@ -34,8 +36,10 @@ public class SwerveModule extends SubsystemBase {
   private Rotation2d m_lastAngle;
 
   /** Creates a new SwerveModule. */
-  public SwerveModule(int driveMotorId, int turnMotorId, boolean driveMotorReversed, boolean turnMotorReversed,
+  public SwerveModule(String position, int driveMotorId, int turnMotorId, boolean driveMotorReversed,
+      boolean turnMotorReversed,
       int absoluteEncoderId, double absoluteEncoderOffset, boolean absoluteEncoderReversed) {
+    this.kPosition = position;
     this.kAbsoluteEncoderOffset = absoluteEncoderOffset;
     this.kAbsoluteEncoderReversed = absoluteEncoderReversed;
 
@@ -52,8 +56,9 @@ public class SwerveModule extends SubsystemBase {
     this.m_turnPIDController = new PIDController(Swerve.KP_TURNING, 0, 0);
     this.m_turnPIDController.enableContinuousInput(-Math.PI, Math.PI);
 
-    resetEncoders();
     this.m_lastAngle = getState().angle;
+
+    resetEncoders();
   }
 
   @Override
@@ -112,7 +117,7 @@ public class SwerveModule extends SubsystemBase {
 
     this.setAngle(desiredState);
     this.setSpeed(desiredState);
-    SmartDashboard.putString("Swerve [" + m_driveMotor.getDeviceId() + "] State", getState().toString());
+    SmartDashboard.putString("Swerve [" + kPosition + "] State", getState().toString());
   }
 
   public void setSpeed(SwerveModuleState desiredState) {

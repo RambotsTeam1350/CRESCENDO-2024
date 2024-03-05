@@ -5,8 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-// import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-// import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 /**
@@ -20,10 +21,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  */
 public class Robot extends TimedRobot {
   private final RobotContainer m_robotContainer = new RobotContainer();
-  // private static final String kDefaultAuto = "Default";
-  // private static final String kCustomAuto = "My Auto";
-  // private String m_autoSelected;
-  // private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  private Command m_autonomousCommand;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -32,9 +30,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
-    // m_chooser.addOption("My Auto", kCustomAuto);
-    // SmartDashboard.putData("Auto choices", m_chooser);
   }
 
   /**
@@ -71,23 +66,16 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    // m_autoSelected = m_chooser.getSelected();
-    // // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
-    // System.out.println("Auto selected: " + m_autoSelected);
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+    }
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    // switch (m_autoSelected) {
-    // case kCustomAuto:
-    // // Put custom auto code here
-    // break;
-    // case kDefaultAuto:
-    // default:
-    // // Put default auto code here
-    // break;
-    // }
   }
 
   /** This function is called once when teleop is enabled. */
@@ -103,7 +91,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    this.m_robotContainer.getM_drivetrain().setAllIdleMode(true);
+    this.m_robotContainer.getDrivetrain().setAllIdleMode(true);
   }
 
   /** This function is called periodically when disabled. */

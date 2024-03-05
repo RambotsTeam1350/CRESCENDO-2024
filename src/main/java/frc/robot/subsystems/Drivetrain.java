@@ -48,6 +48,7 @@ public class Drivetrain extends SubsystemBase {
     }).start();
 
     m_frontLeft = new SwerveModule(
+        "Front Left",
         Swerve.FL.DRIVE_MOTOR_ID,
         Swerve.FL.ANGLE_MOTOR_ID,
         false,
@@ -57,6 +58,7 @@ public class Drivetrain extends SubsystemBase {
         false);
 
     m_frontRight = new SwerveModule(
+        "Front Right",
         Swerve.FR.DRIVE_MOTOR_ID,
         Swerve.FR.ANGLE_MOTOR_ID,
         false,
@@ -66,6 +68,7 @@ public class Drivetrain extends SubsystemBase {
         false);
 
     m_backLeft = new SwerveModule(
+        "Back Left",
         Swerve.BL.DRIVE_MOTOR_ID,
         Swerve.BL.ANGLE_MOTOR_ID,
         false,
@@ -75,6 +78,7 @@ public class Drivetrain extends SubsystemBase {
         false);
 
     m_backRight = new SwerveModule(
+        "Back Right",
         Swerve.BR.DRIVE_MOTOR_ID,
         Swerve.BR.ANGLE_MOTOR_ID,
         false,
