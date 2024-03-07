@@ -35,30 +35,30 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 12;
       public static final int CANCODER_ID = 1;
-      public static final double CANCODER_ALIGNMENT_OFFSET = 0.059;
+      public static final double CANCODER_ALIGNMENT_OFFSET = 0.059570;
     }
 
     public static final class FR {
       public static final int DRIVE_MOTOR_ID = 21;
       public static final int ANGLE_MOTOR_ID = 22;
       public static final int CANCODER_ID = 2;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.396;
-    }
-
-    public static final class BL {
-      public static final int DRIVE_MOTOR_ID = 31;
-      public static final int ANGLE_MOTOR_ID = 32;
-      public static final int CANCODER_ID = 3;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.329;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.392334;
     }
 
     // apparently SPARKMAX ids over 40 cause issues so i just subtracted 6 from the
     // ids they would have been (41, 42)
-    public static final class BR {
+    public static final class BL {
       public static final int DRIVE_MOTOR_ID = 35;
       public static final int ANGLE_MOTOR_ID = 36;
+      public static final int CANCODER_ID = 3;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.328857;
+    }
+
+    public static final class BR {
+      public static final int DRIVE_MOTOR_ID = 31;
+      public static final int ANGLE_MOTOR_ID = 32;
       public static final int CANCODER_ID = 4;
-      public static final double CANCODER_ALIGNMENT_OFFSET = 0.286;
+      public static final double CANCODER_ALIGNMENT_OFFSET = 0.295166;
     }
 
     public static final int PIGEON_ID = 10;
@@ -67,7 +67,7 @@ public final class Constants {
     // gear ratios:
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
     public static final double DRIVE_MOTOR_GEAR_RATIO = 6.75;
-    public static final double ANGLE_MOTOR_GEAR_RATIO = 150.0 / 7;
+    public static final double ANGLE_MOTOR_GEAR_RATIO = 150.0 / 7.0;
     public static final double DRIVE_MOTOR_PCONVERSION = WHEEL_DIAMETER * Math.PI / DRIVE_MOTOR_GEAR_RATIO;
     public static final double ANGLE_MOTOR_PCONVERSION = 2 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
