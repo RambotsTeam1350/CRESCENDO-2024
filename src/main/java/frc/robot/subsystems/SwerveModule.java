@@ -41,9 +41,11 @@ public class SwerveModule extends SubsystemBase {
 
     this.m_angleAbsoluteEncoder = new CANcoder(absoluteEncoderId);
 
-    this.m_driveMotor = new ProblemChildCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast, 45,
+    this.m_driveMotor = new ProblemChildCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast,
+        Swerve.DRIVE_MOTOR_SMART_LIMIT,
         driveMotorReversed);
-    this.m_angleMotor = new ProblemChildCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast, 25,
+    this.m_angleMotor = new ProblemChildCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast,
+        Swerve.ANGLE_MOTOR_SMART_LIMIT,
         turnMotorReversed);
 
     this.m_driveEncoder = m_driveMotor.getEncoder();

@@ -68,10 +68,16 @@ public final class Constants {
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
     public static final double DRIVE_MOTOR_GEAR_RATIO = 6.75;
     public static final double ANGLE_MOTOR_GEAR_RATIO = 150.0 / 7.0;
+
     public static final double DRIVE_MOTOR_PCONVERSION = WHEEL_DIAMETER * Math.PI / DRIVE_MOTOR_GEAR_RATIO;
     public static final double ANGLE_MOTOR_PCONVERSION = 2 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
+
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
+
+    public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
+    public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
+
     public static final double KP_TURNING = 0.5; // TODO: tune
 
     public static final double DRIVETRAIN_MAX_SPEED = 4.0;
