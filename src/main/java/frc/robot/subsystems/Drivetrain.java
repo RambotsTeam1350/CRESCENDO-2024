@@ -50,7 +50,7 @@ public class Drivetrain extends SubsystemBase {
     m_frontLeft = new SwerveModule(
         Swerve.FL.DRIVE_MOTOR_ID,
         Swerve.FL.ANGLE_MOTOR_ID,
-        false,
+        true,
         true,
         Swerve.FL.CANCODER_ID,
         Swerve.FL.CANCODER_ALIGNMENT_OFFSET,
@@ -59,7 +59,7 @@ public class Drivetrain extends SubsystemBase {
     m_frontRight = new SwerveModule(
         Swerve.FR.DRIVE_MOTOR_ID,
         Swerve.FR.ANGLE_MOTOR_ID,
-        false,
+        true,
         true,
         Swerve.FR.CANCODER_ID,
         Swerve.FR.CANCODER_ALIGNMENT_OFFSET,
@@ -68,7 +68,7 @@ public class Drivetrain extends SubsystemBase {
     m_backLeft = new SwerveModule(
         Swerve.BL.DRIVE_MOTOR_ID,
         Swerve.BL.ANGLE_MOTOR_ID,
-        false,
+        true,
         true,
         Swerve.BL.CANCODER_ID,
         Swerve.BL.CANCODER_ALIGNMENT_OFFSET,
@@ -77,7 +77,7 @@ public class Drivetrain extends SubsystemBase {
     m_backRight = new SwerveModule(
         Swerve.BR.DRIVE_MOTOR_ID,
         Swerve.BR.ANGLE_MOTOR_ID,
-        false,
+        true,
         true,
         Swerve.BR.CANCODER_ID,
         Swerve.BR.CANCODER_ALIGNMENT_OFFSET,
