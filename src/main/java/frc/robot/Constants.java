@@ -11,6 +11,7 @@ import com.pathplanner.lib.util.ReplanningConfig;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.I2C;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -25,6 +26,8 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+
   public static class Controllers {
     public static final int DRIVER_PORT = 0;
     public static final int OPERATOR_PORT = 1;
@@ -78,9 +81,11 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
-    public static final double KP_TURNING = 0.5; // TODO: tune
+    // public static final double KP_TURNING = 0.5 * 12.0; // TODO: tune
+    public static final double KP_TURNING = 6.0;
 
-    public static final double DRIVETRAIN_MAX_SPEED = 4.0;
+    public static final double DRIVETRAIN_MAX_SPEED = 1.0;
+    // public static final double DRIVETRAIN_MAX_SPEED = 4.5;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
     // Swerve Kinematics

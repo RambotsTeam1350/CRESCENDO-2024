@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -31,6 +33,8 @@ public class RobotContainer {
 
   private final CommandXboxController driverController;
 
+  private final ColorSensor m_colorSensor;
+
   // private final SendableChooser<Command> autoChooser;
 
   /**
@@ -38,11 +42,13 @@ public class RobotContainer {
    */
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
+    this.m_colorSensor = new ColorSensor(Constants.COLOR_SENSOR_PORT);
     this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
-    registerNamedCommands();
-    configureBindings();
 
-    drivetrain.setDefaultCommand(new SwerveDrive(this.drivetrain, this.driverController.getHID()));
+    this.registerNamedCommands();
+    this.configureBindings();
+
+    this.drivetrain.setDefaultCommand(new SwerveDrive(this.drivetrain, this.driverController.getHID()));
 
     // autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
     // SmartDashboard.putData("Auto Chooser", autoChooser);

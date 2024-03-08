@@ -10,9 +10,11 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.ProblemChildCANSparkMAX;
@@ -25,13 +27,21 @@ public class SwerveModule extends SubsystemBase {
   private RelativeEncoder m_driveEncoder;
   private RelativeEncoder m_angleEncoder;
 
-  private PIDController m_turnPIDController;
+  private PIDController m_drivePIDController;
+
+  private SimpleMotorFeedforward m_driveFeedforward;
+  private SimpleMotorFeedforward m_angleFeedforward;
+
+  private PIDController m_anglePIDController;
   private CANcoder m_angleAbsoluteEncoder;
 
   private boolean kAbsoluteEncoderReversed;
   private double kAbsoluteEncoderOffset;
 
   private Rotation2d m_lastAngle;
+
+  final int steerId;
+  final int driveId;
 
   /** Creates a new SwerveModule. */
   public SwerveModule(int driveMotorId, int turnMotorId, boolean driveMotorReversed, boolean turnMotorReversed,
@@ -51,16 +61,26 @@ public class SwerveModule extends SubsystemBase {
     this.m_driveEncoder = m_driveMotor.getEncoder();
     this.m_angleEncoder = m_angleMotor.getEncoder();
 
-    this.m_turnPIDController = new PIDController(Swerve.KP_TURNING, 0, 0);
-    this.m_turnPIDController.enableContinuousInput(-Math.PI, Math.PI);
+    this.m_drivePIDController = new PIDController(0, 0, 0);
+
+    this.m_driveFeedforward = new SimpleMotorFeedforward(0.118, 2.617);
+    this.m_angleFeedforward = new SimpleMotorFeedforward(0.132, 0);
+
+    this.m_anglePIDController = new PIDController(Swerve.KP_TURNING, 0, 0);
+    this.m_anglePIDController.enableContinuousInput(-Math.PI, Math.PI);
 
     resetEncoders();
     this.m_lastAngle = getState().angle;
+
+    this.driveId = driveMotorId;
+    this.steerId = turnMotorId;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber(driveId + "DriveVelo", getDriveMotorVelocity());
+    SmartDashboard.putNumber(steerId + "SteerPosition", getTurnMotorPosition() % 2 * Math.PI);
   }
 
   public void setBrake(boolean brake) {
@@ -118,7 +138,15 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setSpeed(SwerveModuleState desiredState) {
-    this.m_driveMotor.set(desiredState.speedMetersPerSecond / Swerve.DRIVETRAIN_MAX_SPEED);
+    double voltage = this.m_drivePIDController.calculate(this.getDriveMotorVelocity(),
+        desiredState.speedMetersPerSecond);
+    if (desiredState.speedMetersPerSecond == 0) {
+      this.m_driveMotor.setVoltage(0);
+      return;
+    }
+    voltage += this.m_driveFeedforward.calculate(desiredState.speedMetersPerSecond);
+    SmartDashboard.putNumber(driveId + "DriveVoltage", voltage);
+    this.m_driveMotor.setVoltage(voltage);
   }
 
   public void setAngle(SwerveModuleState desiredState) {
@@ -126,8 +154,11 @@ public class SwerveModule extends SubsystemBase {
         ? m_lastAngle
         : desiredState.angle; // Prevent rotating module if speed is less then 1%. Prevents Jittering.
 
-    this.m_angleMotor
-        .set(this.m_turnPIDController.calculate(this.getTurnMotorPosition(), desiredState.angle.getRadians()));
+    SmartDashboard.putNumber(steerId + "SteerSetpoint", desiredState.angle.getRadians());
+
+    double voltage = this.m_anglePIDController.calculate(this.getTurnMotorPosition(), desiredState.angle.getRadians());
+    voltage += this.m_angleFeedforward.calculate(0);
+    this.m_angleMotor.setVoltage(voltage);
     this.m_lastAngle = angle;
   }
 
