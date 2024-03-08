@@ -84,7 +84,7 @@ public class RobotContainer {
   // }
 
   public void registerNamedCommands() {
-    NamedCommands.registerCommand("Stop Modules", new InstantCommand(() -> drivetrain.stopModules()));
+    NamedCommands.registerCommand("Stop Modules", new InstantCommand(drivetrain::stopModules));
   }
 
   public Drivetrain getDrivetrain() {
