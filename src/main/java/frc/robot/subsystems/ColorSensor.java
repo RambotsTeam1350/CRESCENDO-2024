@@ -38,7 +38,7 @@ public class ColorSensor extends SubsystemBase {
 
         this.noteDetected = this.m_colorMatch.color == kNoteColor;
 
-        SmartDashboard.putBoolean("Note Detected", this.getNoteDetected());
+        SmartDashboard.putBoolean("Note Detected", this.isNoteDetected());
         // SmartDashboard.putNumber("IR", this.m_colorSensor.getIR());
         // SmartDashboard.putNumber("Red", this.m_detectedColor.red * 255.0);
         // SmartDashboard.putNumber("Blue", this.m_detectedColor.blue * 255.0);
@@ -46,7 +46,7 @@ public class ColorSensor extends SubsystemBase {
         // SmartDashboard.putNumber("Proximity", this.m_colorSensor.getProximity());
     }
 
-    public boolean getNoteDetected() {
+    public boolean isNoteDetected() {
         return this.noteDetected;
     }
 }
