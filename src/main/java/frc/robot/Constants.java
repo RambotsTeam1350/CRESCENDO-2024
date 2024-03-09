@@ -12,6 +12,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
+import frc.lib.structs.FFConfig;
+import frc.lib.structs.PIDConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -81,11 +83,14 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
-    // public static final double KP_TURNING = 0.5 * 12.0; // TODO: tune
-    public static final double KP_TURNING = 6.0;
+    public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.1 * 12.0); // TODO: not tuned at all
+    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.5 * 12.0); // multiply by 12.0 because
+                                                                                      // voltage control is used
 
-    public static final double DRIVETRAIN_MAX_SPEED = 1.0;
-    // public static final double DRIVETRAIN_MAX_SPEED = 4.5;
+    public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
+    public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
+
+    public static final double DRIVETRAIN_MAX_SPEED = 4.5;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
     // Swerve Kinematics

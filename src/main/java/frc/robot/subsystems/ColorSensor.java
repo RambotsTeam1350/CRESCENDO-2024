@@ -41,7 +41,7 @@ public class ColorSensor extends SubsystemBase {
         SmartDashboard.putNumber("Proximity", this.m_colorSensor.getProximity());
     }
 
-    public ColorSensorV3 getColorSensor() {
-        return this.m_colorSensor;
+    public boolean noteDetected() {
+        return this.noteDetected;
     }
 }
