@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.structs.FFConfig;
 import frc.lib.structs.PIDConfig;
 
@@ -28,7 +29,10 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+  public static final class Colors {
+    public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+    public static final Color NOTE_COLOR = new Color(108, 40, 105);
+  }
 
   public static class Controllers {
     public static final int DRIVER_PORT = 0;

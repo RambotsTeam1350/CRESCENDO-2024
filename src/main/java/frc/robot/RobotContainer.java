@@ -42,7 +42,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     this.drivetrain = new Drivetrain();
-    this.m_colorSensor = new ColorSensor(Constants.COLOR_SENSOR_PORT);
+    this.m_colorSensor = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
     this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
 
     this.registerNamedCommands();
