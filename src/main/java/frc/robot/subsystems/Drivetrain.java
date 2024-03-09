@@ -113,7 +113,7 @@ public class Drivetrain extends SubsystemBase {
     SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-m_gyro.getRate() / 180)) + "pi rad/s");
   }
 
-  public void swerveDrive(double frontSpeed, double sideSpeed, double turnSpeed,
+  public void controllerDrive(double frontSpeed, double sideSpeed, double turnSpeed,
       boolean fieldOriented, Translation2d centerOfRotation, boolean deadband) { // Drive with rotational speed control
                                                                                  // w/ joystick
     if (deadband) {

@@ -29,29 +29,30 @@ import frc.robot.subsystems.Drivetrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Drivetrain drivetrain;
+  private final Drivetrain m_drivetrain;
 
-  private final CommandXboxController driverController;
+  private final CommandXboxController m_driverController;
 
   private final ColorSensor m_colorSensor;
 
-  // private final SendableChooser<Command> autoChooser;
+  private final SendableChooser<Command> m_autoChooser;
 
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    this.drivetrain = new Drivetrain();
+    this.m_drivetrain = new Drivetrain();
     this.m_colorSensor = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
-    this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
+    this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
 
-    this.registerNamedCommands();
+    this.registerNamedCommands(); // do not move (https://pathplanner.dev/pplib-named-commands.html)
+
+    this.m_drivetrain.setDefaultCommand(new SwerveDrive(this.m_drivetrain, this.m_driverController.getHID()));
+
     this.configureBindings();
 
-    this.drivetrain.setDefaultCommand(new SwerveDrive(this.drivetrain, this.driverController.getHID()));
-
-    // autoChooser = AutoBuilder.buildAutoChooser("Two Meters");
-    // SmartDashboard.putData("Auto Chooser", autoChooser);
+    m_autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", m_autoChooser);
   }
 
   /**
@@ -69,7 +70,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    this.driverController.start().onTrue(new InstantCommand(drivetrain::zeroHeading, drivetrain));
+    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
   }
 
   /**
@@ -77,17 +78,17 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  // public Command getAutonomousCommand() {
-  // drivetrain.resetAllEncoders();
-  // drivetrain.setHeading(0);
-  // return autoChooser.getSelected();
-  // }
+  public Command getAutonomousCommand() {
+    this.m_drivetrain.resetAllEncoders();
+    this.m_drivetrain.zeroHeading();
+    return this.m_autoChooser.getSelected();
+  }
 
   public void registerNamedCommands() {
-    NamedCommands.registerCommand("Stop Modules", new InstantCommand(drivetrain::stopModules));
+    NamedCommands.registerCommand("Stop Modules", new InstantCommand(m_drivetrain::stopModules));
   }
 
   public Drivetrain getDrivetrain() {
-    return this.drivetrain;
+    return this.m_drivetrain;
   }
 }
