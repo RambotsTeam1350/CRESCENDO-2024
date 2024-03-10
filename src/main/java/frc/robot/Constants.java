@@ -30,9 +30,19 @@ import frc.lib.structs.PIDConfig;
 public final class Constants {
   public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
 
-  public static class Controllers {
+  public static final class Controllers {
     public static final int DRIVER_PORT = 0;
     public static final int OPERATOR_PORT = 1;
+  }
+
+  public static final class Intake {
+    public static final int MOTOR_1_ID = 1;
+    public static final int MOTOR_2_ID = 2;
+  }
+
+  public static final class Shooter {
+    public static final int SPEED_MOTOR_ID = 3;
+    public static final int ROTATION_MOTOR_ID = 4;
   }
 
   public static final class Swerve {
