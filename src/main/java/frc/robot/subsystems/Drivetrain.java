@@ -19,6 +19,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
@@ -36,6 +37,7 @@ public class Drivetrain extends SubsystemBase {
   private Pigeon2 m_gyro;
 
   private SwerveDrivePoseEstimator m_poseEstimator;
+  private Field2d m_field;
 
   /** Creates a new SwerveDrivetrain. */
   public Drivetrain() {
@@ -95,6 +97,9 @@ public class Drivetrain extends SubsystemBase {
         getModulePositions(),
         new Pose2d());
 
+    this.m_field = new Field2d();
+    SmartDashboard.putData(this.m_field);
+
     AutoBuilder.configureHolonomic(
         this::getPose,
         this::resetPose,
@@ -108,6 +113,7 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     m_poseEstimator.update(getHeadingRotation2d(), getModulePositions());
+    this.m_field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());
     SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-m_gyro.getRate() / 180)) + "pi rad/s");
