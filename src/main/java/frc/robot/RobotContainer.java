@@ -6,10 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.path.PathPlannerPath;
-import com.revrobotics.ColorSensorV3;
 
-import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -35,6 +32,7 @@ public class RobotContainer {
 
   private final CommandXboxController m_driverController;
 
+  @SuppressWarnings("unused")
   private final ColorSensor m_colorSensor;
 
   private final SendableChooser<Command> m_autoChooser;
@@ -82,15 +80,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     this.m_drivetrain.resetAllEncoders();
-    this.m_drivetrain.zeroHeading();
-    this.m_drivetrain.resetPose(new Pose2d());
-    return AutoBuilder.followPath(PathPlannerPath.fromPathFile("Test Path"));
-    // return this.m_autoChooser.getSelected();
-  }
-
-  public Command getPathFollowerCommand(String pathName) {
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Test Path");
-    return AutoBuilder.followPath(path);
+    return this.m_autoChooser.getSelected();
   }
 
   public void registerNamedCommands() {

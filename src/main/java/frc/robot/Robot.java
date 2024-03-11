@@ -68,9 +68,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
+    // there is a small delay between the heading being zeroed and the gyro actually
+    // reading zero, so do it in init instead of getAutonomousCommand()
+    this.m_robotContainer.getDrivetrain().zeroHeading();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    // schedule the autonomous command (example)
+    // schedule the autonomous command
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
