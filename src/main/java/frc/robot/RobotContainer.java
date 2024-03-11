@@ -9,6 +9,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.revrobotics.ColorSensorV3;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -82,6 +83,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     this.m_drivetrain.resetAllEncoders();
     this.m_drivetrain.zeroHeading();
+    this.m_drivetrain.resetPose(new Pose2d());
     return AutoBuilder.followPath(PathPlannerPath.fromPathFile("Test Path"));
     // return this.m_autoChooser.getSelected();
   }

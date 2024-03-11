@@ -115,7 +115,7 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.0005;
+    public static final double AUTO_kP_TRANSLATION = 0.1;
     public static final double AUTO_kP_ROTATION = 0.00001;
 
     public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 3.0;

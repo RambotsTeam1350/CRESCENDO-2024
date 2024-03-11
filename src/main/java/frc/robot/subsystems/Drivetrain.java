@@ -116,6 +116,8 @@ public class Drivetrain extends SubsystemBase {
     this.m_field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());
+    SmartDashboard.putNumber("Robot X", getPose().getX());
+    SmartDashboard.putNumber("Robot Y", getPose().getY());
     SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-m_gyro.getRate() / 180)) + "pi rad/s");
   }
 
