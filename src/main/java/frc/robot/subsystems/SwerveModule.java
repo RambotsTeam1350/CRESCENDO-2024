@@ -136,7 +136,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setAngle(SwerveModuleState desiredState) {
-    if (desiredState.angle.getRadians() == 0) { // unsure if this is necessary
+    if (desiredState.angle.getRadians() == this.m_lastAngle.getRadians()) { // unsure if this is necessary
       this.m_angleMotor.setVoltage(0);
       return;
     }

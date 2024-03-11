@@ -29,7 +29,7 @@ public class SwerveDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.m_drivetrain.swerveDrive(
+    this.m_drivetrain.controllerDrive(
         -this.m_controller.getLeftY(),
         -this.m_controller.getLeftX(),
         -this.m_controller.getRightX(),
