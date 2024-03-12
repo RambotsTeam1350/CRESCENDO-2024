@@ -12,6 +12,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.structs.FFConfig;
 import frc.lib.structs.PIDConfig;
 
@@ -28,7 +29,10 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+  public static final class Colors {
+    public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+    public static final Color NOTE_COLOR = new Color(108, 40, 105);
+  }
 
   public static final class Controllers {
     public static final int DRIVER_PORT = 0;
@@ -121,19 +125,19 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.4;
-    public static final double AUTO_kP_ROTATION = 2.4;
+    public static final double AUTO_kP_TRANSLATION = 0.1;
+    public static final double AUTO_kP_ROTATION = 0.00001;
+
+    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 3.0;
+    public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
+    public static final double AUTO_DRIVE_MAX_ACCELERATION = 3;
+    public static final double AUTO_DRIVE_MAX_ANGULAR_ACCELERATION = Math.PI;
 
     public static final HolonomicPathFollowerConfig AUTO_CONFIG = new HolonomicPathFollowerConfig(
         new PIDConstants(AUTO_kP_TRANSLATION, 0.0, 0.0),
         new PIDConstants(AUTO_kP_ROTATION, 0.0, 0.0),
-        DRIVETRAIN_MAX_SPEED, // Max module speed, in m/s
+        AUTO_DRIVE_MAX_SPEED, // Max module speed, in m/s
         DRIVE_BASE_RADIUS,
         new ReplanningConfig());
-
-    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 1.5;
-    public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
-    public static final double AUTO_DRIVE_MAX_ACCELERATION = 3;
-    public static final double AUTO_DRIVE_MAX_ANGULAR_ACCELERATION = Math.PI;
   }
 }
