@@ -48,16 +48,17 @@ public final class Constants {
   }
 
   public static final class Shooter {
-    public static final int SPEED_MOTOR_ID = 3;
-    public static final int ROTATION_MOTOR_ID = 4;
+    public static final int SPEED_MOTOR_1_ID = 3;
+    public static final int SPEED_MOTOR_2_ID = 4;
+    public static final int ROTATION_MOTOR_ID = 5;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
     public static final double GEAR_RATIO = 1.0 / 48.0;
     public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
-    public static final int LEFT_MOTOR_ID = 5;
-    public static final int RIGHT_MOTOR_ID = 6;
+    public static final int LEFT_MOTOR_ID = 6;
+    public static final int RIGHT_MOTOR_ID = 7;
   }
 
   public static final class Swerve {
