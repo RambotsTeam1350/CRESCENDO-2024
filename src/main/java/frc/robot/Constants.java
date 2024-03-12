@@ -14,7 +14,7 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import frc.lib.structs.FFConfig;
-import frc.lib.structs.PIDConfig;
+import frc.lib.structs.PIDFConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -42,11 +42,15 @@ public final class Constants {
   public static final class Intake {
     public static final int MOTOR_1_ID = 1;
     public static final int MOTOR_2_ID = 2;
+    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 8;
+    public static final double GEAR_RATIO = 1.0;
   }
 
   public static final class Shooter {
     public static final int SPEED_MOTOR_ID = 3;
     public static final int ROTATION_MOTOR_ID = 4;
+    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
+    public static final double GEAR_RATIO = 1.0 / 48.0;
   }
 
   public static final class Swerve {
@@ -97,9 +101,9 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
-    public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.1 * 12.0); // TODO: not tuned at all
-    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.5 * 12.0); // multiply by 12.0 because
-                                                                                      // voltage control is used
+    public static final PIDFConfig DRIVE_MOTOR_PID_CONFIG = new PIDFConfig(0.1 * 12.0); // TODO: not tuned at all
+    public static final PIDFConfig ANGLE_MOTOR_PID_CONFIG = new PIDFConfig(0.5 * 12.0); // multiply by 12.0 because
+    // voltage control is used
 
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);

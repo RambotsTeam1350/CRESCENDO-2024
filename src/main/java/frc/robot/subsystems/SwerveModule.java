@@ -16,14 +16,14 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.lib.drivers.ProblemChildCANSparkMAX;
-import frc.lib.drivers.ProblemChildPIDController;
-import frc.lib.drivers.ProblemChildSimpleMotorFeedforward;
+import frc.lib.drivers.swerve.SwerveCANSparkMAX;
+import frc.lib.drivers.swerve.SwervePIDController;
+import frc.lib.drivers.swerve.SwerveSimpleMotorFeedforward;
 import frc.robot.Constants.Swerve;
 
 public class SwerveModule extends SubsystemBase {
-  private ProblemChildCANSparkMAX m_driveMotor;
-  private ProblemChildCANSparkMAX m_angleMotor;
+  private SwerveCANSparkMAX m_driveMotor;
+  private SwerveCANSparkMAX m_angleMotor;
 
   private RelativeEncoder m_driveEncoder;
   private RelativeEncoder m_angleEncoder;
@@ -49,22 +49,22 @@ public class SwerveModule extends SubsystemBase {
 
     this.m_angleAbsoluteEncoder = new CANcoder(absoluteEncoderId);
 
-    this.m_driveMotor = new ProblemChildCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast,
+    this.m_driveMotor = new SwerveCANSparkMAX(driveMotorId, MotorType.kBrushless, IdleMode.kCoast,
         Swerve.DRIVE_MOTOR_SMART_LIMIT,
         driveMotorReversed);
-    this.m_angleMotor = new ProblemChildCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast,
+    this.m_angleMotor = new SwerveCANSparkMAX(turnMotorId, MotorType.kBrushless, IdleMode.kCoast,
         Swerve.ANGLE_MOTOR_SMART_LIMIT,
         turnMotorReversed);
 
     this.m_driveEncoder = m_driveMotor.getEncoder();
     this.m_angleEncoder = m_angleMotor.getEncoder();
 
-    this.m_drivePIDController = new ProblemChildPIDController(Swerve.DRIVE_MOTOR_PID_CONFIG);
-    this.m_anglePIDController = new ProblemChildPIDController(Swerve.ANGLE_MOTOR_PID_CONFIG);
+    this.m_drivePIDController = new SwervePIDController(Swerve.DRIVE_MOTOR_PID_CONFIG);
+    this.m_anglePIDController = new SwervePIDController(Swerve.ANGLE_MOTOR_PID_CONFIG);
     this.m_anglePIDController.enableContinuousInput(-Math.PI, Math.PI);
 
-    this.m_driveFeedforward = new ProblemChildSimpleMotorFeedforward(Swerve.DRIVE_MOTOR_FF_CONFIG);
-    this.m_angleFeedforward = new ProblemChildSimpleMotorFeedforward(Swerve.ANGLE_MOTOR_FF_CONFIG);
+    this.m_driveFeedforward = new SwerveSimpleMotorFeedforward(Swerve.DRIVE_MOTOR_FF_CONFIG);
+    this.m_angleFeedforward = new SwerveSimpleMotorFeedforward(Swerve.ANGLE_MOTOR_FF_CONFIG);
 
     resetEncoders();
     this.m_lastAngle = getState().angle;
