@@ -45,6 +45,7 @@ public final class Constants {
     public static final int ROTATION_MOTOR_ID = 2;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 8;
     public static final double GEAR_RATIO = 1.0;
+    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 
   public static final class Shooter {
@@ -52,7 +53,7 @@ public final class Constants {
     public static final int SPEED_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
-    public static final double GEAR_RATIO = 1.0 / 48.0;
+    public static final double GEAR_RATIO = 1.0;
     public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 

@@ -1,8 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix6.controls.VelocityVoltage;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -13,8 +10,8 @@ import frc.lib.drivers.uppermech.PIDCANSparkFlex;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
-    private final CANSparkFlex m_speedMotor1;
-    private final CANSparkFlex m_speedMotor2;
+    private final PIDCANSparkFlex m_speedMotor1;
+    private final PIDCANSparkFlex m_speedMotor2;
     private final CANSparkMax m_rotationMotor;
 
     public Shooter() {
