@@ -55,6 +55,11 @@ public final class Constants {
     public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 
+  public static final class Climber { // left and right is based on the perspective of the intake
+    public static final int LEFT_MOTOR_ID = 5;
+    public static final int RIGHT_MOTOR_ID = 6;
+  }
+
   public static final class Swerve {
     public static final class FL {
       public static final int DRIVE_MOTOR_ID = 11;
