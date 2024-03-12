@@ -61,7 +61,7 @@ public class SwerveModule extends SubsystemBase {
 
     this.m_drivePIDController = new ProblemChildPIDController(Swerve.DRIVE_MOTOR_PID_CONFIG);
     this.m_anglePIDController = new ProblemChildPIDController(Swerve.ANGLE_MOTOR_PID_CONFIG);
-    this.m_anglePIDController.enableContinuousInput(-Math.PI, Math.PI);
+    this.m_anglePIDController.enableContinuousInput(-0.5, 0.5);
 
     this.m_driveFeedforward = new ProblemChildSimpleMotorFeedforward(Swerve.DRIVE_MOTOR_FF_CONFIG);
     this.m_angleFeedforward = new ProblemChildSimpleMotorFeedforward(Swerve.ANGLE_MOTOR_FF_CONFIG);
@@ -136,10 +136,11 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public void setAngle(SwerveModuleState desiredState) {
-    if (desiredState.angle.getRadians() == this.m_lastAngle.getRadians()) { // unsure if this is necessary
-      this.m_angleMotor.setVoltage(0);
-      return;
-    }
+    // if (desiredState.angle.getRadians() == this.m_lastAngle.getRadians()) { //
+    // unsure if this is necessary
+    // this.m_angleMotor.setVoltage(0);
+    // return;
+    // }
     Rotation2d angle = (Math.abs(desiredState.speedMetersPerSecond) <= (Swerve.DRIVETRAIN_MAX_SPEED * 0.01))
         ? m_lastAngle
         : desiredState.angle; // Prevent rotating module if speed is less then 1%. Prevents Jittering.
