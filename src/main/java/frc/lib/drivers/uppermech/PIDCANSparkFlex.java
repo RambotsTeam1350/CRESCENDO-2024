@@ -1,11 +1,11 @@
 package frc.lib.drivers.uppermech;
 
-import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkFlex;
 
 import frc.lib.structs.PIDFConfig;
 
-public class PIDCANSparkMax extends CANSparkMax {
-    public PIDCANSparkMax(int deviceId, MotorType m, IdleMode mode, int limit, boolean isInverted, double minOutput,
+public class PIDCANSparkFlex extends CANSparkFlex {
+    public PIDCANSparkFlex(int deviceId, MotorType m, IdleMode mode, int limit, boolean isInverted, double minOutput,
             double maxOutput,
             PIDFConfig pidfConfig) {
         super(deviceId, m);
