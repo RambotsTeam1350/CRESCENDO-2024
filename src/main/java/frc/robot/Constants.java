@@ -52,7 +52,7 @@ public final class Constants {
     public static final int ROTATION_MOTOR_ID = 4;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
     public static final double GEAR_RATIO = 1.0 / 48.0;
-    public static final Slot0Configs SPEED_MOTOR_CONTROL_LOOP_CONFIG = new Slot0Configs();
+    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 
   public static final class Swerve {
