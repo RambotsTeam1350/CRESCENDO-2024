@@ -93,7 +93,7 @@ public final class Constants {
     public static final double ANGLE_MOTOR_GEAR_RATIO = 150.0 / 7.0;
 
     public static final double DRIVE_MOTOR_PCONVERSION = WHEEL_DIAMETER * Math.PI / DRIVE_MOTOR_GEAR_RATIO;
-    public static final double ANGLE_MOTOR_PCONVERSION = 2 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
+    public static final double ANGLE_MOTOR_PCONVERSION = 2.0 * Math.PI / ANGLE_MOTOR_GEAR_RATIO;
 
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
@@ -101,8 +101,8 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
-    public static final PIDFConfig DRIVE_MOTOR_PID_CONFIG = new PIDFConfig(0.1 * 12.0); // TODO: not tuned at all
-    public static final PIDFConfig ANGLE_MOTOR_PID_CONFIG = new PIDFConfig(0.5 * 12.0); // multiply by 12.0 because
+    public static final PIDFConfig DRIVE_MOTOR_PID_CONFIG = new PIDFConfig(0.15 * 12.0); // TODO: not tuned at all
+    public static final PIDFConfig ANGLE_MOTOR_PID_CONFIG = new PIDFConfig(0.4 * 12.0); // multiply by 12.0 because
     // voltage control is used
 
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);

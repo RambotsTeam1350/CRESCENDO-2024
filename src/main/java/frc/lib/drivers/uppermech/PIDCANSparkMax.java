@@ -8,6 +8,7 @@ public class PIDCANSparkMax extends CANSparkMax {
     public PIDCANSparkMax(int deviceId, MotorType m, IdleMode mode, int limit, boolean isInverted,
             PIDFConfig pidfConfig) {
         super(deviceId, m);
+        this.restoreFactoryDefaults();
         this.setIdleMode(mode);
         this.setSmartCurrentLimit(limit);
         this.setInverted(isInverted);
