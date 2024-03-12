@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.configs.Slot0Configs;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -40,8 +41,8 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final int MOTOR_1_ID = 1;
-    public static final int MOTOR_2_ID = 2;
+    public static final int INTAKE_MOTOR_ID = 1;
+    public static final int ROTATION_MOTOR_ID = 2;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 8;
     public static final double GEAR_RATIO = 1.0;
   }
@@ -51,6 +52,7 @@ public final class Constants {
     public static final int ROTATION_MOTOR_ID = 4;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
     public static final double GEAR_RATIO = 1.0 / 48.0;
+    public static final Slot0Configs SPEED_MOTOR_CONTROL_LOOP_CONFIG = new Slot0Configs();
   }
 
   public static final class Swerve {
