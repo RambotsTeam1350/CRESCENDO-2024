@@ -4,9 +4,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Climber;
 
 public class Climb extends Command {
-    // TODO: trapezoidal motion profile to lower the climber down slowly so our
-    // robot doesn't break (THIS WILL PROBABLY NOT BE EASY I HAVE TO DO
-    // RESEARCH - MYER)
     private final Climber m_climber;
 
     public Climb(Climber climber) {
@@ -16,7 +13,7 @@ public class Climb extends Command {
 
     @Override
     public void initialize() {
-        this.m_climber.setVoltageSetpoint(0);
+        this.m_climber.setVoltageSetpoint(12);
     }
 
     @Override
@@ -26,5 +23,6 @@ public class Climb extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        this.m_climber.setVoltageSetpoint(0);
     }
 }
