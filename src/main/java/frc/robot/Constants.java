@@ -44,6 +44,9 @@ public final class Constants {
     public static final int INTAKE_MOTOR_ID = 1;
     public static final int ROTATION_MOTOR_ID = 2;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 8;
+    public static final int TOP_LIMIT_SWITCH_DIO_PORT = 0;
+    public static final int UP_DEGREES = 0;
+    public static final int DOWN_DEGREES = 180;
     public static final double GEAR_RATIO = 1.0;
     public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
@@ -54,12 +57,14 @@ public final class Constants {
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
     public static final double GEAR_RATIO = 1.0;
-    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
+    public static final int MAX_RPM = 6784;
+    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.000006, 0, 0, 0.000175);
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
     public static final int LEFT_MOTOR_ID = 6;
     public static final int RIGHT_MOTOR_ID = 7;
+    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
   }
 
   public static final class Swerve {

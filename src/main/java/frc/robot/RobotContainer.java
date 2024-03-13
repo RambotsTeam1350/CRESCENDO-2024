@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.Intake;
+import frc.robot.commands.Shoot;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Shooter;
@@ -30,12 +33,14 @@ import frc.robot.subsystems.Shooter;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain;
+  private final Climber m_climber;
+  private final Intake m_intake;
   private final Shooter m_shooter;
-
-  private final CommandXboxController m_driverController;
-
   @SuppressWarnings("unused")
   private final ColorSensor m_colorSensor;
+
+  private final CommandXboxController m_driverController;
+  private final CommandXboxController m_operatorController;
 
   private final SendableChooser<Command> m_autoChooser;
 
@@ -44,9 +49,13 @@ public class RobotContainer {
    */
   public RobotContainer() {
     this.m_drivetrain = new Drivetrain();
+    this.m_climber = new Climber();
+    this.m_intake = new Intake();
     this.m_shooter = new Shooter();
     this.m_colorSensor = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
+
     this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
+    this.m_operatorController = new CommandXboxController(Constants.Controllers.OPERATOR_PORT);
 
     this.registerNamedCommands(); // do not move (https://pathplanner.dev/pplib-named-commands.html)
 
@@ -74,7 +83,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
-    this.m_driverController.povUp().whileTrue(new InstantCommand(() -> m_shooter.setVelocitySetpoint(10)));
+    this.m_operatorController.povUp().whileTrue(new Shoot(this.m_shooter));
   }
 
   /**
