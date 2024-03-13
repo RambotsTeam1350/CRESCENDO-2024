@@ -13,8 +13,9 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.lib.structs.CANSparkPIDFConfig;
 import frc.lib.structs.FFConfig;
-import frc.lib.structs.PIDFConfig;
+import frc.lib.structs.PIDConfig;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -47,7 +48,7 @@ public final class Constants {
     public static final int UP_DEGREES = 0;
     public static final int DOWN_DEGREES = 180;
     public static final double GEAR_RATIO = 1.0;
-    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
+    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.000175, -1, 1);
   }
 
   public static final class Shooter {
@@ -57,13 +58,13 @@ public final class Constants {
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
     public static final double GEAR_RATIO = 1.0;
     public static final int MAX_RPM = 6784;
-    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.000006, 0, 0, 0.000175);
+    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
     public static final int LEFT_MOTOR_ID = 6;
     public static final int RIGHT_MOTOR_ID = 7;
-    public static final PIDFConfig SPARK_PIDF_CONFIG = new PIDFConfig(0.002, 0, 0, 0.000175);
+    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.000175, -1, 1);
   }
 
   public static final class Swerve {
@@ -114,8 +115,8 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
-    public static final PIDFConfig DRIVE_MOTOR_PID_CONFIG = new PIDFConfig(0.15 * 12.0); // TODO: not tuned at all
-    public static final PIDFConfig ANGLE_MOTOR_PID_CONFIG = new PIDFConfig(0.4 * 12.0); // multiply by 12.0 because
+    public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.15 * 12.0); // TODO: not tuned at all
+    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0); // multiply by 12.0 because
     // voltage control is used
 
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);

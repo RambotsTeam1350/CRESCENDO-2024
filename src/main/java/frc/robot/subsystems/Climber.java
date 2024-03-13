@@ -15,9 +15,9 @@ public class Climber extends SubsystemBase {
 
     public Climber() {
         this.m_leftMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, -1, 1, Constants.Climber.SPARK_PIDF_CONFIG);
+                false, Constants.Climber.SPARK_PIDF_CONFIG);
         this.m_rightMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, -1, 1, Constants.Climber.SPARK_PIDF_CONFIG);
+                false, Constants.Climber.SPARK_PIDF_CONFIG);
     }
 
     public void setVoltageSetpoint(double voltage) {

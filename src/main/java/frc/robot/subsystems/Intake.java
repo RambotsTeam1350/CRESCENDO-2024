@@ -18,11 +18,11 @@ public class Intake extends SubsystemBase {
 
     public Intake() {
         this.m_intakeMotor = new PIDCANSparkMax(Constants.Intake.INTAKE_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, -1, 1, Constants.Intake.SPARK_PIDF_CONFIG);
+                false, Constants.Intake.SPARK_PIDF_CONFIG);
         this.m_intakeMotor.getEncoder().setPositionConversionFactor(180); // idk if this will work
+
         this.m_rotationMotor = new PIDCANSparkMax(Constants.Intake.INTAKE_MOTOR_ID, MotorType.kBrushless,
-                IdleMode.kBrake,
-                false, -1, 1, Constants.Intake.SPARK_PIDF_CONFIG);
+                IdleMode.kBrake, false, Constants.Intake.SPARK_PIDF_CONFIG);
         this.m_intakeMotor.getEncoder().setPositionConversionFactor(180); // idk if this will work
 
         this.m_topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);

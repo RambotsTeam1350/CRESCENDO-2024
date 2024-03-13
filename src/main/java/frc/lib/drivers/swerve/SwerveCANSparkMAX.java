@@ -6,23 +6,23 @@ package frc.lib.drivers.swerve;
 
 import com.revrobotics.CANSparkMax;
 
-/** Add your docs here. */
 public class SwerveCANSparkMAX extends CANSparkMax {
     /**
      * Creates a new CANSparkMax with the necessary configurations.
      * 
-     * @param deviceId   The device ID.
-     * @param m          The motor type (Brushed/Brushless).
-     * @param mode       The idle mode (kBrake/kCoast).
-     * @param limit      The current limit.
-     * @param isInverted The invert type of the motor.
+     * @param deviceId          The device ID.
+     * @param motorType         The motor type (Brushed/Brushless).
+     * @param idleMode          The idle mode (kBrake/kCoast).
+     * @param smartCurrentLimit The current limit.
+     * @param isInverted        The invert type of the motor.
      */
-    public SwerveCANSparkMAX(int deviceId, MotorType m, IdleMode mode, int limit, boolean isInverted) {
-        super(deviceId, m);
+    public SwerveCANSparkMAX(int deviceId, MotorType motorType, IdleMode idleMode, int smartCurrentLimit,
+            boolean isInverted) {
+        super(deviceId, motorType);
         this.restoreFactoryDefaults();
-        this.setSmartCurrentLimit(limit);
+        this.setSmartCurrentLimit(smartCurrentLimit);
         this.setInverted(isInverted);
-        this.setIdleMode(mode);
+        this.setIdleMode(idleMode);
         this.burnFlash();
     }
 }
