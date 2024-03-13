@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.swerve;
 
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.RelativeEncoder;
@@ -19,7 +19,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.swerve.SwerveCANSparkMAX;
 import frc.lib.drivers.swerve.SwervePIDController;
 import frc.lib.drivers.swerve.SwerveSimpleMotorFeedforward;
-import frc.robot.Constants.Swerve;
+import frc.robot.constants.Constants.Swerve;
 
 public class SwerveModule extends SubsystemBase {
   private SwerveCANSparkMAX m_driveMotor;

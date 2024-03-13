@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.uppermech.PIDCANSparkMax;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 public class Climber extends SubsystemBase {
     private final CANSparkMax m_leftMotor;

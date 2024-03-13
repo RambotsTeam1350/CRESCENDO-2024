@@ -1,7 +1,7 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Intake;
 
 public class IntakeDown extends Command {

@@ -7,7 +7,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.uppermech.PIDCANSparkFlex;
-import frc.robot.Constants;
+import frc.robot.constants.Constants;
 
 public class Shooter extends SubsystemBase {
     private final PIDCANSparkFlex m_speedMotor1;
