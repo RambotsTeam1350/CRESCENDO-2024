@@ -18,7 +18,7 @@ public class Climber extends SubsystemBase {
         // ground.
         this.m_leftMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
                 false, Constants.Climber.SPARK_PIDF_CONFIG);
-        this.m_rightMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
+        this.m_rightMotor = new PIDCANSparkMax(Constants.Climber.RIGHT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
                 false, Constants.Climber.SPARK_PIDF_CONFIG);
     }
 
