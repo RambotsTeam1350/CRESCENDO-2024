@@ -13,7 +13,7 @@ public class ClimbUp extends Command {
 
     @Override
     public void initialize() {
-        this.m_climber.setVoltageSetpoint(6);
+        this.m_climber.setVoltageSetpoint(8);
     }
 
     @Override

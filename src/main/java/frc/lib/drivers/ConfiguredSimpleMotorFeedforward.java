@@ -1,4 +1,4 @@
-package frc.lib.drivers.swerve;
+package frc.lib.drivers;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import frc.lib.structs.FFConfig;
@@ -11,8 +11,8 @@ import frc.lib.structs.FFConfig;
  *               {@link SimpleMotorFeedforward}
  *               with.
  */
-public class SwerveSimpleMotorFeedforward extends SimpleMotorFeedforward {
-    public SwerveSimpleMotorFeedforward(FFConfig config) {
+public class ConfiguredSimpleMotorFeedforward extends SimpleMotorFeedforward {
+    public ConfiguredSimpleMotorFeedforward(FFConfig config) {
         super(config.kS, config.kV, config.kA);
     }
 }

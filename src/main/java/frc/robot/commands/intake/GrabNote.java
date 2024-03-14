@@ -16,7 +16,7 @@ public class GrabNote extends Command {
 
     @Override
     public void initialize() {
-        this.m_intake.setIntakeVelocitySetpoint(10); // 10 RPM for testing purposes
+        this.m_intake.setPowerMotorVelocitySetpoint(10); // 10 RPM for testing purposes
     }
 
     @Override
@@ -26,7 +26,6 @@ public class GrabNote extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        // this.m_intake.setIntakeVelocitySetpoint(0);
-        this.m_intake.stopIntakeMotor(); // in case pid doesn't stop it (BIG PROBLEM IF TRUE!)
+        this.m_intake.stopPowerMotor();
     }
 }

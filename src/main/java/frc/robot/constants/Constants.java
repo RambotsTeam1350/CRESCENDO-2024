@@ -41,15 +41,19 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final int INTAKE_MOTOR_ID = 1;
+    public static final int POWER_MOTOR_ID = 1;
     public static final int ROTATION_MOTOR_ID = 2;
     public static final int THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
-    public static final int UP_DEGREES = 0;
-    public static final int DOWN_DEGREES = 180;
+    public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
+    public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
+    // public static final int UP_DEGREES = 0;
+    // public static final int DOWN_DEGREES = 180;
     public static final double GEAR_RATIO = 480.0 / 1.0;
     public static final double ROTATION_MOTOR_PCONVERSION = 180 / GEAR_RATIO;
+    public static final int POWER_MOTOR_MAX_RPM = 5676;
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.0175, 0, 1);
+    public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0, 0); // TODO: FIND AND SET VALUES TOMORROW
   }
 
   public static final class Shooter {
@@ -60,11 +64,14 @@ public final class Constants {
     public static final double GEAR_RATIO = 1.0;
     public static final int MAX_RPM = 6784;
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
+    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0, 0);
+    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0, 0); // TODO: FIND AND SET VALUES TOMORROW
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
     public static final int LEFT_MOTOR_ID = 6;
     public static final int RIGHT_MOTOR_ID = 7;
+    public static final int MAX_RPM = 5676;
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
   }
 

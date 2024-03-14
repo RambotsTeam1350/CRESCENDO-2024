@@ -16,9 +16,9 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drivers.ConfiguredPIDController;
+import frc.lib.drivers.ConfiguredSimpleMotorFeedforward;
 import frc.lib.drivers.swerve.SwerveCANSparkMAX;
-import frc.lib.drivers.swerve.SwervePIDController;
-import frc.lib.drivers.swerve.SwerveSimpleMotorFeedforward;
 import frc.robot.constants.Constants.Swerve;
 
 public class SwerveModule extends SubsystemBase {
@@ -59,12 +59,12 @@ public class SwerveModule extends SubsystemBase {
     this.m_driveEncoder = m_driveMotor.getEncoder();
     this.m_angleEncoder = m_angleMotor.getEncoder();
 
-    this.m_drivePIDController = new SwervePIDController(Swerve.DRIVE_MOTOR_PID_CONFIG);
-    this.m_anglePIDController = new SwervePIDController(Swerve.ANGLE_MOTOR_PID_CONFIG);
+    this.m_drivePIDController = new ConfiguredPIDController(Swerve.DRIVE_MOTOR_PID_CONFIG);
+    this.m_anglePIDController = new ConfiguredPIDController(Swerve.ANGLE_MOTOR_PID_CONFIG);
     this.m_anglePIDController.enableContinuousInput(-Math.PI, Math.PI);
 
-    this.m_driveFeedforward = new SwerveSimpleMotorFeedforward(Swerve.DRIVE_MOTOR_FF_CONFIG);
-    this.m_angleFeedforward = new SwerveSimpleMotorFeedforward(Swerve.ANGLE_MOTOR_FF_CONFIG);
+    this.m_driveFeedforward = new ConfiguredSimpleMotorFeedforward(Swerve.DRIVE_MOTOR_FF_CONFIG);
+    this.m_angleFeedforward = new ConfiguredSimpleMotorFeedforward(Swerve.ANGLE_MOTOR_FF_CONFIG);
 
     resetEncoders();
     this.m_lastAngle = getState().angle;

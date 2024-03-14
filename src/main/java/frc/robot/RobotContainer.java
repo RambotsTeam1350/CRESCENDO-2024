@@ -17,7 +17,6 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
-import frc.robot.commands.intake.Home;
 import frc.robot.commands.intake.IntakeDown;
 import frc.robot.commands.intake.IntakeUp;
 import frc.robot.constants.Constants;
@@ -88,15 +87,20 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
-    // this.m_operatorController.povLeft().whileTrue(new Shoot(this.m_shooter));
-    // this.m_operatorController.povUp().whileTrue(new IntakeUp(this.m_intake));
-    // this.m_operatorController.povDown().whileTrue(new IntakeDown(this.m_intake));
+    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, this.m_drivetrain));
     this.m_operatorController.povUp().whileTrue(new ClimbUp(this.m_climber));
     this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
-    this.m_operatorController.a().whileTrue(new Home(this.m_intake));
+    this.m_operatorController.povLeft().whileTrue(new IntakeUp(this.m_intake));
+    this.m_operatorController.povRight().whileTrue(new IntakeDown(this.m_intake));
+    this.m_operatorController.a().whileTrue(new Shoot(this.m_shooter, this.m_intake));
     this.m_operatorController.b().whileTrue(new IntakeDown(this.m_intake));
     this.m_operatorController.x().whileTrue(new IntakeUp(this.m_intake));
+
+    // FOR TESTING TOMORROW
+    this.m_operatorController.leftBumper()
+        .whileTrue(new InstantCommand(() -> this.m_shooter.setVoltage(12), this.m_shooter));
+    this.m_operatorController.rightBumper()
+        .whileTrue(new InstantCommand(() -> this.m_intake.setPowerMotorVoltage(12), this.m_intake));
   }
 
   /**
