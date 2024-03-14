@@ -19,7 +19,7 @@ public class RotateIntakeToAngle extends Command {
 
     @Override
     public void initialize() {
-        this.m_intake.setRotationMotorVoltageSetpoint(12 * this.kDirection);
+        this.m_intake.setRotationMotorVoltageSetpoint(6 * this.kDirection);
         // this.m_intake.setRotationAngleSetpoint(Constants.Intake.DOWN_DEGREES); //
         // lower intake
     }

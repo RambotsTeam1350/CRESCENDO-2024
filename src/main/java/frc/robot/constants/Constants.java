@@ -49,8 +49,8 @@ public final class Constants {
     public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
     // public static final int UP_DEGREES = 0;
     // public static final int DOWN_DEGREES = 180;
-    public static final double GEAR_RATIO = 480.0 / 1.0;
-    public static final double ROTATION_MOTOR_PCONVERSION = 180 / GEAR_RATIO;
+    public static final double POWER_MOTOR_IN_DIRECTION = 1.0;
+    public static final double POWER_MOTOR_OUT_DIRECTION = -1.0;
     public static final int POWER_MOTOR_MAX_RPM = 5676;
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);

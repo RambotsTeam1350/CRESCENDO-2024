@@ -96,7 +96,7 @@ public class RobotContainer {
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
-    this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter, this.m_intake));
+    this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
     this.m_operatorController.b().whileTrue(new FeedNote(this.m_intake));
     this.m_operatorController.x().whileTrue(new GrabNote(this.m_intake, this.m_colorSensor));
   }
@@ -119,7 +119,8 @@ public class RobotContainer {
         new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     NamedCommands.registerCommand("Grab Note",
         new GrabNote(this.m_intake, this.m_colorSensor));
-
+    NamedCommands.registerCommand("Run Shooter", new RunShooter(m_shooter));
+    NamedCommands.registerCommand("Feed Note", new FeedNote(this.m_intake));
   }
 
   public Drivetrain getDrivetrain() {
