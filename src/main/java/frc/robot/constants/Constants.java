@@ -32,7 +32,7 @@ import frc.lib.structs.PIDConfig;
 public final class Constants {
   public static final class Colors {
     public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-    public static final Color NOTE_COLOR = new Color(108, 40, 105);
+    public static final Color NOTE_COLOR = new Color(132, 28, 94);
   }
 
   public static final class Controllers {
@@ -56,7 +56,8 @@ public final class Constants {
         0, -1, 1);
     public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.0175, -1, 1);
-    public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0, 0); // TODO: FIND AND SET VALUES TOMORROW
+    public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 5740.0 / 12.0);
+    // 5740
   }
 
   public static final class Shooter {
@@ -67,8 +68,8 @@ public final class Constants {
     public static final double GEAR_RATIO = 1.0;
     public static final int MAX_RPM = 6784;
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
-    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0, 0);
-    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0, 0); // TODO: FIND AND SET VALUES TOMORROW
+    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 6470.0 / 12.0);
+    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 6510.0 / 12.0);
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake

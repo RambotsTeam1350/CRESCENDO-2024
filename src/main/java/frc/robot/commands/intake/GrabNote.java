@@ -16,7 +16,7 @@ public class GrabNote extends Command {
 
     @Override
     public void initialize() {
-        this.m_intake.setPowerMotorVelocitySetpoint(10); // 10 RPM for testing purposes
+        this.m_intake.setPowerMotorVelocitySetpointFF(10);
     }
 
     @Override

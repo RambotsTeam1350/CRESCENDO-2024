@@ -10,15 +10,17 @@ import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Shoot;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeToAngle;
+import frc.robot.commands.shooter.FeedNote;
+import frc.robot.commands.shooter.RunShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
@@ -94,13 +96,9 @@ public class RobotContainer {
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
-    this.m_operatorController.a().whileTrue(new Shoot(this.m_shooter, this.m_intake));
-
-    // FOR TESTING TOMORROW
-    this.m_operatorController.leftBumper()
-        .whileTrue(new InstantCommand(() -> this.m_shooter.setVoltage(12), this.m_shooter));
-    this.m_operatorController.rightBumper()
-        .whileTrue(new InstantCommand(() -> this.m_intake.setPowerMotorVoltage(12), this.m_intake));
+    this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter, this.m_intake));
+    this.m_operatorController.b().whileTrue(new FeedNote(this.m_intake));
+    this.m_operatorController.x().whileTrue(new GrabNote(this.m_intake, this.m_colorSensor));
   }
 
   /**
