@@ -14,14 +14,14 @@ public class IntakeDown extends Command {
 
     @Override
     public void initialize() {
-        this.m_intake.setRotationAngleSetpoint(Constants.Intake.DOWN_DEGREES); // lower intake
+        this.m_intake.setRotationVoltageSetpoint(-6);
+        // this.m_intake.setRotationAngleSetpoint(Constants.Intake.DOWN_DEGREES); //
+        // lower intake
     }
 
     @Override
     public boolean isFinished() {
-        // there's no limit switch for the lowering so just pray that the setpoint works
-        // 🙏🙏🙏🙏
-        return false;
+        return this.m_intake.getRotationAbsoluteEncoder() >= 0.905;
     }
 
     @Override

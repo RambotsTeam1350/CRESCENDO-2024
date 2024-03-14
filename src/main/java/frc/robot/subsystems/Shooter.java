@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.uppermech.PIDCANSparkFlex;
 import frc.robot.constants.Constants;
@@ -15,15 +16,21 @@ public class Shooter extends SubsystemBase {
     private final CANSparkMax m_rotationMotor;
 
     public Shooter() {
+        // opposite direction spin to shoot
         this.m_speedMotor1 = new PIDCANSparkFlex(Constants.Shooter.SPEED_MOTOR_1_ID, MotorType.kBrushless,
                 IdleMode.kBrake, false, Constants.Shooter.SPARK_PIDF_CONFIG);
         this.m_speedMotor2 = new PIDCANSparkFlex(Constants.Shooter.SPEED_MOTOR_2_ID, MotorType.kBrushless,
-                IdleMode.kBrake, false, Constants.Shooter.SPARK_PIDF_CONFIG);
+                IdleMode.kBrake, true, Constants.Shooter.SPARK_PIDF_CONFIG);
         this.m_rotationMotor = new CANSparkMax(Constants.Shooter.ROTATION_MOTOR_ID, MotorType.kBrushless);
     }
 
+    @Override
+    public void periodic() {
+        SmartDashboard.putNumber("Shooter Velocity", this.m_speedMotor1.getEncoder().getVelocity());
+    }
+
     public void setMaxVelocitySetpoint() {
-        this.setVelocitySetpoint(Constants.Shooter.MAX_RPM / 1000); // lets NOT set max speed on the first try
+        this.setVelocitySetpoint(Constants.Shooter.MAX_RPM); // lets NOT set max speed on the first try
     }
 
     public void setVelocitySetpoint(double velocity) { // RPM

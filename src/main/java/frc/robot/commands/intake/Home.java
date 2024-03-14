@@ -1,13 +1,12 @@
 package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.Intake;
 
-public class IntakeUp extends Command {
+public class Home extends Command {
     private final Intake m_intake;
 
-    public IntakeUp(Intake intake) {
+    public Home(Intake intake) {
         this.m_intake = intake;
         addRequirements(this.m_intake);
     }
@@ -15,17 +14,17 @@ public class IntakeUp extends Command {
     @Override
     public void initialize() {
         this.m_intake.setRotationVoltageSetpoint(6);
-        // this.m_intake.setRotationAngleSetpoint(Constants.Intake.UP_DEGREES); // lower
-        // intake
     }
 
     @Override
     public boolean isFinished() {
         return this.m_intake.getRotationAbsoluteEncoder() <= 0.323;
+        // return false;
     }
 
     @Override
     public void end(boolean interrupted) {
         this.m_intake.stopRotationMotor();
+        this.m_intake.resetRotationMotorEncoder();
     }
 }

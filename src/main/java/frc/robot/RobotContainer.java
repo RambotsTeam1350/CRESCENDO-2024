@@ -15,11 +15,16 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.commands.climber.ClimbDown;
+import frc.robot.commands.climber.ClimbUp;
+import frc.robot.commands.intake.Home;
+import frc.robot.commands.intake.IntakeDown;
+import frc.robot.commands.intake.IntakeUp;
 import frc.robot.constants.Constants;
-import frc.robot.constants.Constants.Intake;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.swerve.Drivetrain;
 
 /**
@@ -84,7 +89,14 @@ public class RobotContainer {
    */
   private void configureBindings() {
     this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
-    this.m_operatorController.povUp().whileTrue(new Shoot(this.m_shooter));
+    // this.m_operatorController.povLeft().whileTrue(new Shoot(this.m_shooter));
+    // this.m_operatorController.povUp().whileTrue(new IntakeUp(this.m_intake));
+    // this.m_operatorController.povDown().whileTrue(new IntakeDown(this.m_intake));
+    this.m_operatorController.povUp().whileTrue(new ClimbUp(this.m_climber));
+    this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
+    this.m_operatorController.a().whileTrue(new Home(this.m_intake));
+    this.m_operatorController.b().whileTrue(new IntakeDown(this.m_intake));
+    this.m_operatorController.x().whileTrue(new IntakeUp(this.m_intake));
   }
 
   /**
