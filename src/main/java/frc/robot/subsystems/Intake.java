@@ -24,7 +24,7 @@ public class Intake extends SubsystemBase {
 
     public Intake() {
         this.m_powerMotor = new PIDCANSparkMax(Constants.Intake.POWER_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, Constants.Intake.SPARK_PIDF_CONFIG);
+                false, Constants.Intake.POWER_MOTOR_SPARK_PIDF_CONFIG);
         // this.m_intakeMotor.getEncoder().setPositionConversionFactor(Constants.Intake.ROTATION_MOTOR_PCONVERSION);
         // // idk
         // if
@@ -33,7 +33,7 @@ public class Intake extends SubsystemBase {
         // work
 
         this.m_rotationMotor = new PIDCANSparkMax(Constants.Intake.ROTATION_MOTOR_ID, MotorType.kBrushless,
-                IdleMode.kBrake, false, Constants.Intake.SPARK_PIDF_CONFIG);
+                IdleMode.kBrake, false, Constants.Intake.ROTATION_MOTOR_SPARK_PIDF_CONFIG);
         // this.m_rotationMotor.getEncoder().setPositionConversionFactor(Constants.Intake.ROTATION_MOTOR_PCONVERSION);
         // // idk
         // if

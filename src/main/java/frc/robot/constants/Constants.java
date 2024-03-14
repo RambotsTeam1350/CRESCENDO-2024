@@ -52,7 +52,10 @@ public final class Constants {
     public static final double GEAR_RATIO = 480.0 / 1.0;
     public static final double ROTATION_MOTOR_PCONVERSION = 180 / GEAR_RATIO;
     public static final int POWER_MOTOR_MAX_RPM = 5676;
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.0175, 0, 1);
+    public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0, -1, 1);
+    public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0.0175, -1, 1);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0, 0); // TODO: FIND AND SET VALUES TOMORROW
   }
 

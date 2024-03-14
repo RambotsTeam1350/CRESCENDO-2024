@@ -17,8 +17,8 @@ import frc.robot.commands.Shoot;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
-import frc.robot.commands.intake.IntakeDown;
-import frc.robot.commands.intake.IntakeUp;
+import frc.robot.commands.intake.GrabNote;
+import frc.robot.commands.intake.IntakeRotateToAngle;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
@@ -90,11 +90,11 @@ public class RobotContainer {
     this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, this.m_drivetrain));
     this.m_operatorController.povUp().whileTrue(new ClimbUp(this.m_climber));
     this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
-    this.m_operatorController.povLeft().whileTrue(new IntakeUp(this.m_intake));
-    this.m_operatorController.povRight().whileTrue(new IntakeDown(this.m_intake));
+    this.m_operatorController.povLeft()
+        .whileTrue(new IntakeRotateToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    this.m_operatorController.povRight()
+        .whileTrue(new IntakeRotateToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.a().whileTrue(new Shoot(this.m_shooter, this.m_intake));
-    this.m_operatorController.b().whileTrue(new IntakeDown(this.m_intake));
-    this.m_operatorController.x().whileTrue(new IntakeUp(this.m_intake));
 
     // FOR TESTING TOMORROW
     this.m_operatorController.leftBumper()
@@ -115,6 +115,13 @@ public class RobotContainer {
 
   public void registerNamedCommands() {
     NamedCommands.registerCommand("Stop Modules", new InstantCommand(m_drivetrain::stopModules));
+    NamedCommands.registerCommand("Intake Up",
+        new IntakeRotateToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    NamedCommands.registerCommand("Intake Down",
+        new IntakeRotateToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+    NamedCommands.registerCommand("Grab Note",
+        new GrabNote(this.m_intake, this.m_colorSensor));
+
   }
 
   public Drivetrain getDrivetrain() {
