@@ -3,13 +3,13 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Intake;
 
-public class IntakeRotateToAngle extends Command {
+public class RotateIntakeToAngle extends Command {
     private final double kPosition;
     private final int kDirection;
 
     private final Intake m_intake;
 
-    public IntakeRotateToAngle(Intake intake, double position) {
+    public RotateIntakeToAngle(Intake intake, double position) {
         this.kPosition = position;
         this.m_intake = intake;
 
