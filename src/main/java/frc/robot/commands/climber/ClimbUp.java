@@ -1,6 +1,7 @@
 package frc.robot.commands.climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 
 public class ClimbUp extends Command {
@@ -13,7 +14,7 @@ public class ClimbUp extends Command {
 
     @Override
     public void initialize() {
-        this.m_climber.setVoltageSetpoint(12);
+        this.m_climber.setVoltageSetpoint(14 * Constants.Climber.DOWN_DIRECTION);
     }
 
     @Override

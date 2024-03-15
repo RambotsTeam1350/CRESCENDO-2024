@@ -53,10 +53,6 @@ public class Intake extends SubsystemBase {
         SmartDashboard.putNumber("Intake Power Motor Velocity", this.m_powerMotor.getEncoder().getVelocity());
     }
 
-    public void resetRotationMotorRelativeEncoder() {
-        this.m_rotationMotor.getEncoder().setPosition(0);
-    }
-
     public void setPowerMotorVelocitySetpoint(double velocity) {
         this.m_powerMotor.getPIDController().setReference(this.m_powerFeedForward.calculate(velocity),
                 ControlType.kVoltage);
@@ -70,7 +66,7 @@ public class Intake extends SubsystemBase {
         this.m_rotationMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
     }
 
-    public double getRotationAbsoluteEncoder() {
+    public double getRotationAbsolutePosition() {
         return this.m_throughBoreEncoder.getAbsolutePosition();
     }
 

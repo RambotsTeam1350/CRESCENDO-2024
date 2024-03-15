@@ -52,7 +52,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void setMaxVelocitySetpoint() {
-        this.setSpeedMotorsVelocitySetpoint(Constants.Shooter.MAX_RPM);
+        this.setSpeedMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 
     public void setSpeedMotorsVelocitySetpoint(double velocity) { // RPM
