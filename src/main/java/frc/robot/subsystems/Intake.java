@@ -48,9 +48,12 @@ public class Intake extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Intake Relative Angle", this.m_rotationMotor.getEncoder().getPosition());
+        // SmartDashboard.putNumber("Intake Relative Angle",
+        // this.m_rotationMotor.getEncoder().getPosition());
         SmartDashboard.putNumber("Intake Through Bore Angle", this.m_throughBoreEncoder.getAbsolutePosition());
-        SmartDashboard.putNumber("Intake Power Motor Velocity", this.m_powerMotor.getEncoder().getVelocity());
+        // SmartDashboard.putNumber("Intake Power Motor Velocity",
+        // this.m_powerMotor.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Intake Rotation Speed", this.m_rotationMotor.getEncoder().getVelocity());
     }
 
     public void setPowerMotorVelocitySetpoint(double velocity) {
