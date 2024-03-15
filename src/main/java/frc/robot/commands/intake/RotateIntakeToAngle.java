@@ -31,7 +31,6 @@ public class RotateIntakeToAngle extends Command {
     @Override
     public void execute() {
         // once it gets close enough to position, slow down to hone in on position
-        System.out.println(Math.abs(this.m_intake.getRotationAbsoluteEncoder() - kPosition));
         if (Math.abs(this.m_intake.getRotationAbsoluteEncoder() - kPosition) <= 0.05 && !this.slowed) {
             this.m_intake.setRotationMotorVoltageSetpoint(6 * this.kDirection);
             this.slowed = true;

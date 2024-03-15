@@ -34,6 +34,7 @@ public class SwerveDrive extends Command {
         -this.m_controller.getLeftX(),
         -this.m_controller.getRightX(),
         !this.m_controller.getRawButton(XboxController.Button.kB.value),
+        this.m_controller.getRawButton(XboxController.Button.kA.value),
         new Translation2d(),
         true);
   }

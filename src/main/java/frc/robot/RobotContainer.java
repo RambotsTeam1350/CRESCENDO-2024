@@ -6,6 +6,7 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -19,6 +20,7 @@ import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.intake.FeedNote;
+import frc.robot.commands.intake.ForceSlowGrabNote;
 import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected;
 import frc.robot.commands.intake.RotateIntakeToAngle;
@@ -103,11 +105,13 @@ public class RobotContainer {
     // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
         .whileTrue(new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
-            .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE)
-                .alongWith(new RunShooter(this.m_shooter)))); // .andThen(Commands.waitSeconds(1))
+            .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE))); // .alongWith(new
+                                                                                                           // RunShooter(this.m_shooter))
     this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
-    this.m_operatorController.b().toggleOnTrue(new FeedNote(this.m_intake));
-    this.m_operatorController.x().onTrue(new GrabNote(this.m_intake, this.m_colorSensor));
+    this.m_operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.m_intake));
+    this.m_operatorController.rightBumper().whileTrue(new FeedNote(this.m_intake));
+    this.m_operatorController.x()
+        .onTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
   }
 
   /**
@@ -117,7 +121,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     this.m_drivetrain.resetAllEncoders();
-    return this.m_autoChooser.getSelected();
+    return new PathPlannerAuto("Test Auto");
+    // return this.m_autoChooser.getSelected();
   }
 
   public void registerNamedCommands() {

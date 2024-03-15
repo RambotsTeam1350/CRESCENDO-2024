@@ -87,21 +87,21 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 12;
       public static final int CANCODER_ID = 1;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.130371;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.125488;
     }
 
     public static final class FR {
       public static final int DRIVE_MOTOR_ID = 21;
       public static final int ANGLE_MOTOR_ID = 22;
       public static final int CANCODER_ID = 2;
-      public static final double CANCODER_ALIGNMENT_OFFSET = 0.340332;
+      public static final double CANCODER_ALIGNMENT_OFFSET = 0.346924;
     }
 
     public static final class BL {
       public static final int DRIVE_MOTOR_ID = 31;
       public static final int ANGLE_MOTOR_ID = 32;
       public static final int CANCODER_ID = 3;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.005615;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.007812;
     }
 
     // apparently SPARKMAX ids over 40 cause issues so i just subtracted 6 from the
@@ -110,7 +110,7 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 35;
       public static final int ANGLE_MOTOR_ID = 36;
       public static final int CANCODER_ID = 4;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.429199;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.427734;
     }
 
     public static final int PIGEON_ID = 10;
@@ -137,12 +137,12 @@ public final class Constants {
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
 
-    public static final double DRIVETRAIN_MAX_SPEED = 4.5 * 0.5;
+    public static final double DRIVETRAIN_MAX_SPEED = 4.5 * 1.0;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
     // Swerve Kinematics
-    public static final double TRACK_WIDTH = Units.inchesToMeters(25.5);
-    public static final double WHEEL_BASE = Units.inchesToMeters(25.5);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(20);
+    public static final double WHEEL_BASE = Units.inchesToMeters(20);
     public static final double DRIVE_BASE_RADIUS = Math.sqrt(Math.pow(TRACK_WIDTH, 2) + Math.pow(WHEEL_BASE, 2)) / 2.0;
 
     public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
@@ -152,16 +152,16 @@ public final class Constants {
         new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
     // Teleop constraints
-    public static final double TELE_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 1.0;
-    public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 1.75;
-    public static final double TELE_DRIVE_MAX_ACCELERATION = 3;
+    public static final double TELE_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED * 1.0;
+    public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
+    public static final double TELE_DRIVE_MAX_ACCELERATION = 3 * 0.5;
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.1;
-    public static final double AUTO_kP_ROTATION = 0.00001;
+    public static final double AUTO_kP_TRANSLATION = 0.5;
+    public static final double AUTO_kP_ROTATION = 0.1;
 
-    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 3.0;
+    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ACCELERATION = 3;
     public static final double AUTO_DRIVE_MAX_ANGULAR_ACCELERATION = Math.PI;

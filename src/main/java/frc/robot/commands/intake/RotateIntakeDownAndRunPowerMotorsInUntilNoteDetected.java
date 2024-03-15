@@ -19,7 +19,7 @@ public class RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected extends Comman
     @Override
     public void initialize() {
         this.m_intake.setRotationMotorVoltageSetpoint(9 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
-        this.m_intake.setPowerMotorVelocitySetpoint(4500 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.m_intake.setPowerMotorVelocitySetpoint(2400 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override

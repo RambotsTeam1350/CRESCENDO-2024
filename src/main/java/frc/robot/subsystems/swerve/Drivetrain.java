@@ -122,8 +122,15 @@ public class Drivetrain extends SubsystemBase {
   }
 
   public void controllerDrive(double frontSpeed, double sideSpeed, double turnSpeed,
-      boolean fieldOriented, Translation2d centerOfRotation, boolean deadband) { // Drive with rotational speed control
-                                                                                 // w/ joystick
+      boolean fieldOriented, boolean halfSpeed, Translation2d centerOfRotation, boolean deadband) { // Drive with
+                                                                                                    // rotational speed
+                                                                                                    // control
+    // w/ joystick
+    if (halfSpeed) {
+      frontSpeed *= 0.5;
+      sideSpeed *= 0.5;
+      turnSpeed *= 0.5;
+    }
     if (deadband) {
       frontSpeed = Math.abs(frontSpeed) > 0.1 ? frontSpeed : 0;
       sideSpeed = Math.abs(sideSpeed) > 0.1 ? sideSpeed : 0;
