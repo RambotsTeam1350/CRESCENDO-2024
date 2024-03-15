@@ -58,7 +58,7 @@ public class Shooter extends SubsystemBase {
     public void setSpeedMotorsVelocitySetpoint(double velocity) { // RPM
         this.speedMotor1.getPIDController().setReference(this.speedMotor1FeedForward.calculate(velocity),
                 ControlType.kVoltage);
-        this.speedMotor2.getPIDController().setReference(this.speedMotor1FeedForward.calculate(velocity),
+        this.speedMotor2.getPIDController().setReference(this.speedMotor2FeedForward.calculate(velocity),
                 ControlType.kVoltage);
     }
 
