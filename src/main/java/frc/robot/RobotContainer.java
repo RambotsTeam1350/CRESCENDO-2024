@@ -12,12 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.intake.GrabNote;
+import frc.robot.commands.intake.RotateIntakeDownAndRunMotorsInUntilNoteGrabbed;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.FeedNote;
 import frc.robot.commands.shooter.RunShooter;
@@ -94,11 +96,17 @@ public class RobotContainer {
     this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
     this.m_operatorController.povLeft()
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    // this.m_operatorController.povRight()
+    // .whileTrue(new RotateIntakeToAngle(this.m_intake,
+    // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
-        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+        .whileTrue(new RotateIntakeDownAndRunMotorsInUntilNoteGrabbed(this.m_intake, this.m_colorSensor));
     this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
     this.m_operatorController.b().whileTrue(new FeedNote(this.m_intake));
     this.m_operatorController.x().whileTrue(new GrabNote(this.m_intake, this.m_colorSensor));
+    // this.m_operatorController.y()
+    // .whileTrue(new RotateIntakeToAngle(this.m_intake,
+    // Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
   }
 
   /**

@@ -46,11 +46,6 @@ public class Intake extends SubsystemBase {
         this.m_powerFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.POWER_MOTOR_FF_CONFIG);
     }
 
-    // FOR TESTING PURPOSE
-    public void setPowerMotorVoltage(double voltage) {
-        this.m_powerMotor.setVoltage(voltage);
-    }
-
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Intake Relative Angle", this.m_rotationMotor.getEncoder().getPosition());

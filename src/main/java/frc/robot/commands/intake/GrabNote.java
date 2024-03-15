@@ -17,7 +17,7 @@ public class GrabNote extends Command {
 
     @Override
     public void initialize() {
-        this.m_intake.setPowerMotorVelocitySetpointFF(10 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.m_intake.setPowerMotorVelocity(5 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override
