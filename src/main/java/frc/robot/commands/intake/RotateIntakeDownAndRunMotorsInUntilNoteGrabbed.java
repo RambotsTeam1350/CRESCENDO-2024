@@ -20,7 +20,7 @@ public class RotateIntakeDownAndRunMotorsInUntilNoteGrabbed extends Command {
     @Override
     public void initialize() {
         this.m_intake.setRotationMotorVoltageSetpoint(9 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
-        this.m_intake.setPowerMotorVelocity(400 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.m_intake.setPowerMotorVelocitySetpointFF(4000 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override

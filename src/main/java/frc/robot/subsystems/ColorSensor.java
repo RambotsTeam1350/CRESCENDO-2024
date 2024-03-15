@@ -39,7 +39,13 @@ public class ColorSensor extends SubsystemBase {
         this.m_detectedColor = this.m_colorSensor.getColor();
         this.m_colorMatch = this.m_colorMatcher.matchClosestColor(this.m_detectedColor);
 
-        this.noteDetected = this.m_colorMatch.color == kNoteColor || this.m_colorSensor.getProximity() > 35;
+        // this.noteDetected = this.m_colorMatch.color == kNoteColor ||
+        // this.m_colorSensor.getProximity() > 35;
+        this.noteDetected = this.m_colorSensor.getProximity() > 35;
+
+        System.out.println(this.m_colorMatch.color.red * 255.0);
+        System.out.println(this.m_colorMatch.color.blue * 255.0);
+        System.out.println(this.m_colorMatch.color.green * 255.0);
 
         SmartDashboard.putBoolean("Note Detected", this.noteDetected);
         SmartDashboard.putNumber("IR", this.m_colorSensor.getIR());

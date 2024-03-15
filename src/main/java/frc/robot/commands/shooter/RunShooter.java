@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class RunShooter extends Command {
@@ -13,7 +14,7 @@ public class RunShooter extends Command {
 
     @Override
     public void initialize() {
-        this.m_shooter.setVelocitySetpointFF(4000);
+        this.m_shooter.setVelocitySetpointFF(Constants.Shooter.MAX_RPM);
     }
 
     @Override

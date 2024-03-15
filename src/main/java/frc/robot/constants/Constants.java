@@ -137,7 +137,7 @@ public final class Constants {
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
 
-    public static final double DRIVETRAIN_MAX_SPEED = 4.5;
+    public static final double DRIVETRAIN_MAX_SPEED = 4.5 * 0.5;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
     // Swerve Kinematics
