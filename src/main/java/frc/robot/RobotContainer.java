@@ -18,10 +18,10 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
+import frc.robot.commands.intake.FeedNote;
 import frc.robot.commands.intake.GrabNote;
-import frc.robot.commands.intake.RotateIntakeDownAndRunMotorsInUntilNoteGrabbed;
+import frc.robot.commands.intake.RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected;
 import frc.robot.commands.intake.RotateIntakeToAngle;
-import frc.robot.commands.shooter.FeedNote;
 import frc.robot.commands.shooter.RunShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
@@ -96,17 +96,18 @@ public class RobotContainer {
     this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
     this.m_operatorController.povLeft()
         .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    this.m_operatorController.y()
+        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
     // this.m_operatorController.povRight()
     // .whileTrue(new RotateIntakeToAngle(this.m_intake,
     // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
-        .whileTrue(new RotateIntakeDownAndRunMotorsInUntilNoteGrabbed(this.m_intake, this.m_colorSensor));
+        .whileTrue(new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
+            .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE)
+                .alongWith(new RunShooter(this.m_shooter)))); // .andThen(Commands.waitSeconds(1))
     this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
-    this.m_operatorController.b().whileTrue(new FeedNote(this.m_intake));
-    this.m_operatorController.x().whileTrue(new GrabNote(this.m_intake, this.m_colorSensor));
-    // this.m_operatorController.y()
-    // .whileTrue(new RotateIntakeToAngle(this.m_intake,
-    // Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
+    this.m_operatorController.b().toggleOnTrue(new FeedNote(this.m_intake));
+    this.m_operatorController.x().onTrue(new GrabNote(this.m_intake, this.m_colorSensor));
   }
 
   /**

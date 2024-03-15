@@ -57,15 +57,7 @@ public class Intake extends SubsystemBase {
         this.m_rotationMotor.getEncoder().setPosition(0);
     }
 
-    public void setPowerMotorVelocity(double velocity) {
-        this.m_powerMotor.setVoltage(this.m_powerFeedForward.calculate(velocity));
-    }
-
     public void setPowerMotorVelocitySetpoint(double velocity) {
-        this.m_powerMotor.getPIDController().setReference(velocity, ControlType.kVelocity);
-    }
-
-    public void setPowerMotorVelocitySetpointFF(double velocity) {
         this.m_powerMotor.getPIDController().setReference(this.m_powerFeedForward.calculate(velocity),
                 ControlType.kVoltage);
     }

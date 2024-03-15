@@ -14,7 +14,7 @@ public class RunShooter extends Command {
 
     @Override
     public void initialize() {
-        this.m_shooter.setVelocitySetpointFF(Constants.Shooter.MAX_RPM);
+        this.m_shooter.setSpeedMotorsVelocitySetpoint(Constants.Shooter.MAX_RPM);
     }
 
     @Override
