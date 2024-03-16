@@ -30,6 +30,12 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class MotorFreeSpeeds {
+    public static final double NEO_VORTEX = 6784.0;
+    public static final double NEO_BRUSHLESS = 5676.0;
+    public static final double NEO_550 = 11000.0;
+  }
+
   public static final class Colors {
     public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
     public static final Color NOTE_COLOR = new Color(132, 28, 94);
@@ -43,7 +49,7 @@ public final class Constants {
   public static final class Intake {
     public static final int POWER_MOTOR_ID = 1;
     public static final int ROTATION_MOTOR_ID = 2;
-    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 0;
+    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
     public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
@@ -57,7 +63,7 @@ public final class Constants {
     public static final double POWER_MOTOR_IN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
 
-    public static final int POWER_MOTOR_MAX_RPM = 5676;
+    public static final double POWER_MOTOR_MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);
@@ -72,9 +78,9 @@ public final class Constants {
     public static final int SPEED_MOTOR_1_ID = 3;
     public static final int SPEED_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
-    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
+    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
-    public static final int SPEED_MOTORS_MAX_RPM = 6784;
+    public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
     public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
@@ -88,7 +94,7 @@ public final class Constants {
     public static final double UP_DIRECTION = -1.0;
     public static final double DOWN_DIRECTION = 1.0;
 
-    public static final int MAX_RPM = 5676;
+    public static final double MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
 
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
   }

@@ -5,20 +5,20 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Shooter;
 
 public class RunShooter extends Command {
-    private Shooter m_shooter;
+    private Shooter shooter;
 
     public RunShooter(Shooter shooter) {
-        this.m_shooter = shooter;
-        addRequirements(this.m_shooter);
+        this.shooter = shooter;
+        addRequirements(this.shooter);
     }
 
     @Override
     public void initialize() {
-        this.m_shooter.setSpeedMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+        this.shooter.setSpeedMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 
     @Override
     public void end(boolean isFinished) {
-        this.m_shooter.stopSpeedMotors();
+        this.shooter.stopSpeedMotors();
     }
 }

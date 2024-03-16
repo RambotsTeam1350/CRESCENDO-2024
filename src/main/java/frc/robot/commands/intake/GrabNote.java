@@ -6,28 +6,28 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Intake;
 
 public class GrabNote extends Command {
-    private final Intake m_intake;
-    private final ColorSensor m_colorSensor;
+    private final Intake intake;
+    private final ColorSensor colorSensor;
 
     // CURRENTLY UNUSED
     public GrabNote(Intake intake, ColorSensor colorSensor) {
-        this.m_intake = intake;
-        this.m_colorSensor = colorSensor;
-        addRequirements(this.m_intake, this.m_colorSensor);
+        this.intake = intake;
+        this.colorSensor = colorSensor;
+        addRequirements(this.intake, this.colorSensor);
     }
 
     @Override
     public void initialize() {
-        this.m_intake.setPowerMotorVelocitySetpoint(4500 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.intake.setPowerMotorVelocitySetpoint(4500 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override
     public boolean isFinished() {
-        return this.m_colorSensor.isNoteDetected();
+        return this.colorSensor.isNoteDetected();
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.m_intake.stopPowerMotor();
+        this.intake.stopPowerMotor();
     }
 }

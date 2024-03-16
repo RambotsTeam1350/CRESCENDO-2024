@@ -5,16 +5,16 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 
 public class ClimbUp extends Command {
-    private final Climber m_climber;
+    private final Climber climber;
 
     public ClimbUp(Climber climber) {
-        this.m_climber = climber;
-        addRequirements(this.m_climber);
+        this.climber = climber;
+        addRequirements(this.climber);
     }
 
     @Override
     public void initialize() {
-        this.m_climber.setVoltageSetpoint(16 * Constants.Climber.DOWN_DIRECTION);
+        this.climber.setVoltageSetpoint(16 * Constants.Climber.DOWN_DIRECTION);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class ClimbUp extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        this.m_climber.setVoltageSetpoint(0);
+        this.climber.setVoltageSetpoint(0);
     }
 }

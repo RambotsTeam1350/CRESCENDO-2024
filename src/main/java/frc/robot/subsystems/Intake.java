@@ -14,16 +14,17 @@ import frc.lib.drivers.uppermech.PIDCANSparkMax;
 import frc.robot.constants.Constants;
 
 public class Intake extends SubsystemBase {
-    private final PIDCANSparkMax m_powerMotor;
-    private final CANSparkMax m_rotationMotor;
+    private final PIDCANSparkMax powerMotor;
+    private final CANSparkMax rotationMotor;
 
-    private final DutyCycleEncoder m_throughBoreEncoder;
-    private final DigitalInput m_topLimitSwitch;
+    private final DutyCycleEncoder throughBoreEncoder;
+    private final DigitalInput topLimitSwitch;
 
-    private final ConfiguredSimpleMotorFeedforward m_powerFeedForward;
+    private final ConfiguredSimpleMotorFeedforward powerFeedForward;
+    private final ConfiguredSimpleMotorFeedforward rotationFeedForward;
 
     public Intake() {
-        this.m_powerMotor = new PIDCANSparkMax(Constants.Intake.POWER_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
+        this.powerMotor = new PIDCANSparkMax(Constants.Intake.POWER_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
                 false, Constants.Intake.POWER_MOTOR_SPARK_PIDF_CONFIG);
         // this.m_intakeMotor.getEncoder().setPositionConversionFactor(Constants.Intake.ROTATION_MOTOR_PCONVERSION);
         // // idk
@@ -32,7 +33,7 @@ public class Intake extends SubsystemBase {
         // will
         // work
 
-        this.m_rotationMotor = new PIDCANSparkMax(Constants.Intake.ROTATION_MOTOR_ID, MotorType.kBrushless,
+        this.rotationMotor = new PIDCANSparkMax(Constants.Intake.ROTATION_MOTOR_ID, MotorType.kBrushless,
                 IdleMode.kBrake, false, Constants.Intake.ROTATION_MOTOR_SPARK_PIDF_CONFIG);
         // this.m_rotationMotor.getEncoder().setPositionConversionFactor(Constants.Intake.ROTATION_MOTOR_PCONVERSION);
         // // idk
@@ -40,48 +41,54 @@ public class Intake extends SubsystemBase {
         // this
         // will
         // work
-        this.m_throughBoreEncoder = new DutyCycleEncoder(Constants.Intake.THROUGH_BORE_ENCODER_DIO_PORT);
-        this.m_topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
+        this.throughBoreEncoder = new DutyCycleEncoder(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_DIO_PORT);
+        this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
 
-        this.m_powerFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.POWER_MOTOR_FF_CONFIG);
+        this.rotationFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
+        this.powerFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.POWER_MOTOR_FF_CONFIG);
     }
 
     @Override
     public void periodic() {
         // SmartDashboard.putNumber("Intake Relative Angle",
         // this.m_rotationMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("Intake Through Bore Angle", this.m_throughBoreEncoder.getAbsolutePosition());
+        SmartDashboard.putNumber("Intake Through Bore Angle", this.throughBoreEncoder.getAbsolutePosition());
         // SmartDashboard.putNumber("Intake Power Motor Velocity",
         // this.m_powerMotor.getEncoder().getVelocity());
-        SmartDashboard.putNumber("Intake Rotation Speed", this.m_rotationMotor.getEncoder().getVelocity());
+        SmartDashboard.putNumber("Intake Rotation Speed", this.rotationMotor.getEncoder().getVelocity());
     }
 
     public void setPowerMotorVelocitySetpoint(double velocity) {
-        this.m_powerMotor.getPIDController().setReference(this.m_powerFeedForward.calculate(velocity),
+        this.powerMotor.getPIDController().setReference(this.powerFeedForward.calculate(velocity),
                 ControlType.kVoltage);
     }
 
     public void setRotationMotorAngleSetpoint(double angle) {
-        this.m_rotationMotor.getPIDController().setReference(angle, ControlType.kPosition);
+        this.rotationMotor.getPIDController().setReference(angle, ControlType.kPosition);
+    }
+
+    public void setRotationMotorVelocitySetpoint(double velocity) {
+        this.rotationMotor.getPIDController().setReference(this.rotationFeedForward.calculate(velocity),
+                ControlType.kVoltage);
     }
 
     public void setRotationMotorVoltageSetpoint(double voltage) {
-        this.m_rotationMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
+        this.rotationMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
     }
 
     public double getRotationAbsolutePosition() {
-        return this.m_throughBoreEncoder.getAbsolutePosition();
+        return this.throughBoreEncoder.getAbsolutePosition();
     }
 
     public void stopPowerMotor() {
-        this.m_powerMotor.stopMotor();
+        this.powerMotor.stopMotor();
     }
 
     public void stopRotationMotor() {
-        this.m_rotationMotor.stopMotor();
+        this.rotationMotor.stopMotor();
     }
 
-    public boolean isUpLimitSwitch() {
-        return !this.m_topLimitSwitch.get();
-    }
+    // public boolean isUpLimitSwitch() {
+    // return !this.m_topLimitSwitch.get();
+    // }
 }

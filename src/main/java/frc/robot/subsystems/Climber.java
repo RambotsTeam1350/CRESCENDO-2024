@@ -10,20 +10,20 @@ import frc.lib.drivers.uppermech.PIDCANSparkMax;
 import frc.robot.constants.Constants;
 
 public class Climber extends SubsystemBase {
-    private final CANSparkMax m_leftMotor;
-    private final CANSparkMax m_rightMotor;
+    private final CANSparkMax leftMotor;
+    private final CANSparkMax rightMotor;
 
     public Climber() {
         // it is IMPERATIVE that these are in brake mode, or the robot will fall to the
         // ground.
-        this.m_leftMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
+        this.leftMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
                 false, Constants.Climber.SPARK_PIDF_CONFIG);
-        this.m_rightMotor = new PIDCANSparkMax(Constants.Climber.RIGHT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
+        this.rightMotor = new PIDCANSparkMax(Constants.Climber.RIGHT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
                 false, Constants.Climber.SPARK_PIDF_CONFIG);
     }
 
     public void setVoltageSetpoint(double voltage) {
-        this.m_leftMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
-        this.m_rightMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
+        this.leftMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
+        this.rightMotor.getPIDController().setReference(voltage, ControlType.kVoltage);
     }
 }

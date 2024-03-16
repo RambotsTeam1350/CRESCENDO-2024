@@ -30,9 +30,15 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final class MotorFreeSpeeds {
+    public static final double NEO_VORTEX = 6784.0;
+    public static final double NEO_BRUSHLESS = 5676.0;
+    public static final double NEO_550 = 11000.0;
+  }
+
   public static final class Colors {
     public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-    public static final Color NOTE_COLOR = new Color(108, 40, 105);
+    public static final Color NOTE_COLOR = new Color(132, 28, 94);
   }
 
   public static final class Controllers {
@@ -41,30 +47,56 @@ public final class Constants {
   }
 
   public static final class Intake {
-    public static final int INTAKE_MOTOR_ID = 1;
+    public static final int POWER_MOTOR_ID = 1;
     public static final int ROTATION_MOTOR_ID = 2;
-    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 8;
-    public static final int TOP_LIMIT_SWITCH_DIO_PORT = 0;
-    public static final int UP_DEGREES = 0;
-    public static final int DOWN_DEGREES = 180;
-    public static final double GEAR_RATIO = 1.0;
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.000175, -1, 1);
+    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
+    public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
+
+    public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
+    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.614;
+    public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
+
+    // public static final int UP_DEGREES = 0;
+    // public static final int DOWN_DEGREES = 180;
+    public static final double ROTATION_MOTOR_UP_DIRECTION = 1.0;
+    public static final double ROTATION_MOTOR_DOWN_DIRECTION = -1.0;
+    public static final double POWER_MOTOR_IN_DIRECTION = -1.0;
+    public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
+
+    public static final double POWER_MOTOR_MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
+
+    public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0, -1, 1);
+    public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0.0175, -1, 1);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0);
+    public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
+    // 5740
   }
 
   public static final class Shooter {
     public static final int SPEED_MOTOR_1_ID = 3;
     public static final int SPEED_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
-    public static final int THROUGH_BORE_ENCODER_DIO_PORT = 9;
-    public static final double GEAR_RATIO = 1.0;
-    public static final int MAX_RPM = 6784;
+    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
+
+    public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
+
     public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
+    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
+    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
     public static final int LEFT_MOTOR_ID = 6;
     public static final int RIGHT_MOTOR_ID = 7;
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.000175, -1, 1);
+
+    public static final double UP_DIRECTION = -1.0;
+    public static final double DOWN_DIRECTION = 1.0;
+
+    public static final double MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
+
+    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
   }
 
   public static final class Swerve {
@@ -72,21 +104,21 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 12;
       public static final int CANCODER_ID = 1;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.130371;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.125488;
     }
 
     public static final class FR {
       public static final int DRIVE_MOTOR_ID = 21;
       public static final int ANGLE_MOTOR_ID = 22;
       public static final int CANCODER_ID = 2;
-      public static final double CANCODER_ALIGNMENT_OFFSET = 0.340332;
+      public static final double CANCODER_ALIGNMENT_OFFSET = 0.346924;
     }
 
     public static final class BL {
       public static final int DRIVE_MOTOR_ID = 31;
       public static final int ANGLE_MOTOR_ID = 32;
       public static final int CANCODER_ID = 3;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.005615;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.007812;
     }
 
     // apparently SPARKMAX ids over 40 cause issues so i just subtracted 6 from the
@@ -95,7 +127,7 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 35;
       public static final int ANGLE_MOTOR_ID = 36;
       public static final int CANCODER_ID = 4;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.429199;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.427734;
     }
 
     public static final int PIGEON_ID = 10;
@@ -122,12 +154,12 @@ public final class Constants {
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
 
-    public static final double DRIVETRAIN_MAX_SPEED = 4.5;
+    public static final double DRIVETRAIN_MAX_SPEED = 4.5 * 1.0;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
 
     // Swerve Kinematics
-    public static final double TRACK_WIDTH = Units.inchesToMeters(25.5);
-    public static final double WHEEL_BASE = Units.inchesToMeters(25.5);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(20);
+    public static final double WHEEL_BASE = Units.inchesToMeters(20);
     public static final double DRIVE_BASE_RADIUS = Math.sqrt(Math.pow(TRACK_WIDTH, 2) + Math.pow(WHEEL_BASE, 2)) / 2.0;
 
     public static final SwerveDriveKinematics DRIVE_KINEMATICS = new SwerveDriveKinematics(
@@ -137,16 +169,16 @@ public final class Constants {
         new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0));
 
     // Teleop constraints
-    public static final double TELE_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 1.0;
-    public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 1.75;
-    public static final double TELE_DRIVE_MAX_ACCELERATION = 3;
+    public static final double TELE_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED * 1.0;
+    public static final double TELE_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
+    public static final double TELE_DRIVE_MAX_ACCELERATION = 3 * 0.5;
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.1;
-    public static final double AUTO_kP_ROTATION = 0.00001;
+    public static final double AUTO_kP_TRANSLATION = 0.5;
+    public static final double AUTO_kP_ROTATION = 0.1;
 
-    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 3.0;
+    public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ACCELERATION = 3;
     public static final double AUTO_DRIVE_MAX_ANGULAR_ACCELERATION = Math.PI;

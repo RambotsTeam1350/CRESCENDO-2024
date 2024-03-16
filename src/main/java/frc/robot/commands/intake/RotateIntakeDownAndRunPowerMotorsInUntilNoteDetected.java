@@ -6,42 +6,44 @@ import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Intake;
 
 public class RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected extends Command {
-    private final Intake m_intake;
-    private final ColorSensor m_colorSensor;
+    private final Intake intake;
+    private final ColorSensor colorSensor;
 
     private boolean rotationMotorSlowed = false;
 
     public RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(Intake intake, ColorSensor colorSensor) {
-        this.m_intake = intake;
-        this.m_colorSensor = colorSensor;
+        this.intake = intake;
+        this.colorSensor = colorSensor;
     }
 
     @Override
     public void initialize() {
-        this.m_intake.setRotationMotorVoltageSetpoint(12 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
-        this.m_intake.setPowerMotorVelocitySetpoint(2400 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.intake.setRotationMotorVoltageSetpoint(12 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
+        this.intake.setPowerMotorVelocitySetpoint(
+                Constants.Intake.POWER_MOTOR_MAX_RPM * 0.42 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override
     public void execute() {
-        if (Math.abs(this.m_intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.02
+        if (Math.abs(
+                this.intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.015
                 && !this.rotationMotorSlowed) {
-            this.m_intake.setRotationMotorVoltageSetpoint(6 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
+            this.intake.setRotationMotorVoltageSetpoint(6 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
             this.rotationMotorSlowed = true;
         } else if (Math.abs(
-                this.m_intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.005) {
-            this.m_intake.stopRotationMotor();
+                this.intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.005) {
+            this.intake.stopRotationMotor();
         }
     }
 
     @Override
     public boolean isFinished() {
-        return this.m_colorSensor.isNoteDetected();
+        return this.colorSensor.isNoteDetected();
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.m_intake.stopRotationMotor();
-        this.m_intake.stopPowerMotor();
+        this.intake.stopRotationMotor();
+        this.intake.stopPowerMotor();
     }
 }

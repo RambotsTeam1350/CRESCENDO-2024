@@ -25,19 +25,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants.Swerve;
 
 public class Drivetrain extends SubsystemBase {
-  private SwerveModule m_frontLeft;
-  private SwerveModule m_frontRight;
-  private SwerveModule m_backLeft;
-  private SwerveModule m_backRight;
+  private SwerveModule frontLeft;
+  private SwerveModule frontRight;
+  private SwerveModule backLeft;
+  private SwerveModule backRight;
 
-  private SlewRateLimiter m_frontLimiter;
-  private SlewRateLimiter m_sideLimiter;
-  private SlewRateLimiter m_turnLimiter;
+  private SlewRateLimiter frontLimiter;
+  private SlewRateLimiter sideLimiter;
+  private SlewRateLimiter turnLimiter;
 
-  private Pigeon2 m_gyro;
+  private Pigeon2 gyro;
 
-  private SwerveDrivePoseEstimator m_poseEstimator;
-  private Field2d m_field;
+  private SwerveDrivePoseEstimator poseEstimator;
+  private Field2d field;
 
   /** Creates a new SwerveDrivetrain. */
   public Drivetrain() {
@@ -49,7 +49,7 @@ public class Drivetrain extends SubsystemBase {
       }
     }).start();
 
-    m_frontLeft = new SwerveModule(
+    this.frontLeft = new SwerveModule(
         Swerve.FL.DRIVE_MOTOR_ID,
         Swerve.FL.ANGLE_MOTOR_ID,
         true,
@@ -58,7 +58,7 @@ public class Drivetrain extends SubsystemBase {
         Swerve.FL.CANCODER_ALIGNMENT_OFFSET,
         false);
 
-    m_frontRight = new SwerveModule(
+    this.frontRight = new SwerveModule(
         Swerve.FR.DRIVE_MOTOR_ID,
         Swerve.FR.ANGLE_MOTOR_ID,
         true,
@@ -67,7 +67,7 @@ public class Drivetrain extends SubsystemBase {
         Swerve.FR.CANCODER_ALIGNMENT_OFFSET,
         false);
 
-    m_backLeft = new SwerveModule(
+    this.backLeft = new SwerveModule(
         Swerve.BL.DRIVE_MOTOR_ID,
         Swerve.BL.ANGLE_MOTOR_ID,
         true,
@@ -76,7 +76,7 @@ public class Drivetrain extends SubsystemBase {
         Swerve.BL.CANCODER_ALIGNMENT_OFFSET,
         false);
 
-    m_backRight = new SwerveModule(
+    this.backRight = new SwerveModule(
         Swerve.BR.DRIVE_MOTOR_ID,
         Swerve.BR.ANGLE_MOTOR_ID,
         true,
@@ -85,20 +85,20 @@ public class Drivetrain extends SubsystemBase {
         Swerve.BR.CANCODER_ALIGNMENT_OFFSET,
         false);
 
-    m_frontLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ACCELERATION);
-    m_sideLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ACCELERATION);
-    m_turnLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ANGULAR_ACCELERATION);
+    this.frontLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ACCELERATION);
+    this.sideLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ACCELERATION);
+    this.turnLimiter = new SlewRateLimiter(Swerve.TELE_DRIVE_MAX_ANGULAR_ACCELERATION);
 
-    m_gyro = new Pigeon2(Swerve.PIGEON_ID);
+    this.gyro = new Pigeon2(Swerve.PIGEON_ID);
 
-    m_poseEstimator = new SwerveDrivePoseEstimator(
+    this.poseEstimator = new SwerveDrivePoseEstimator(
         Swerve.DRIVE_KINEMATICS,
         getHeadingRotation2d(),
         getModulePositions(),
         new Pose2d());
 
-    this.m_field = new Field2d();
-    SmartDashboard.putData(this.m_field);
+    this.field = new Field2d();
+    SmartDashboard.putData(this.field);
 
     AutoBuilder.configureHolonomic(
         this::getPose,
@@ -112,13 +112,13 @@ public class Drivetrain extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_poseEstimator.update(getHeadingRotation2d(), getModulePositions());
-    this.m_field.setRobotPose(getPose());
+    this.poseEstimator.update(getHeadingRotation2d(), getModulePositions());
+    this.field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());
     SmartDashboard.putNumber("Robot X", getPose().getX());
     SmartDashboard.putNumber("Robot Y", getPose().getY());
-    SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-m_gyro.getRate() / 180)) + "pi rad/s");
+    SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-gyro.getRate() / 180)) + "pi rad/s");
   }
 
   public void controllerDrive(double frontSpeed, double sideSpeed, double turnSpeed,
@@ -137,9 +137,9 @@ public class Drivetrain extends SubsystemBase {
       turnSpeed = Math.abs(turnSpeed) > 0.1 ? turnSpeed : 0;
     }
 
-    frontSpeed = m_frontLimiter.calculate(frontSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;
-    sideSpeed = m_sideLimiter.calculate(sideSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;
-    turnSpeed = m_turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    frontSpeed = frontLimiter.calculate(frontSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;
+    sideSpeed = sideLimiter.calculate(sideSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
 
     ChassisSpeeds chassisSpeeds;
     if (fieldOriented) {
@@ -150,36 +150,36 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds, centerOfRotation);
 
-    setModuleStates(moduleStates);
+    this.setModuleStates(moduleStates);
   }
 
   public void setAllIdleMode(boolean brake) {
     if (brake) {
-      m_frontLeft.setBrake(true);
-      m_frontRight.setBrake(true);
-      m_backLeft.setBrake(true);
-      m_backRight.setBrake(true);
+      this.frontLeft.setBrake(true);
+      this.frontRight.setBrake(true);
+      this.backLeft.setBrake(true);
+      this.backRight.setBrake(true);
     } else {
-      m_frontLeft.setBrake(false);
-      m_frontRight.setBrake(false);
-      m_backLeft.setBrake(false);
-      m_backRight.setBrake(false);
+      this.frontLeft.setBrake(false);
+      this.frontRight.setBrake(false);
+      this.backLeft.setBrake(false);
+      this.backRight.setBrake(false);
     }
   }
 
   public void resetAllEncoders() {
-    m_frontLeft.resetEncoders();
-    m_frontRight.resetEncoders();
-    m_backLeft.resetEncoders();
-    m_backRight.resetEncoders();
+    this.frontLeft.resetEncoders();
+    this.frontRight.resetEncoders();
+    this.backLeft.resetEncoders();
+    this.backRight.resetEncoders();
   }
 
   public Pose2d getPose() {
-    return m_poseEstimator.getEstimatedPosition();
+    return this.poseEstimator.getEstimatedPosition();
   }
 
   public void resetPose(Pose2d pose) {
-    m_poseEstimator.resetPosition(getHeadingRotation2d(), getModulePositions(), pose);
+    this.poseEstimator.resetPosition(getHeadingRotation2d(), getModulePositions(), pose);
   }
 
   public ChassisSpeeds getRobotRelativeSpeeds() {
@@ -189,55 +189,55 @@ public class Drivetrain extends SubsystemBase {
   public void driveRobotRelative(ChassisSpeeds chassisSpeeds) {
     chassisSpeeds = ChassisSpeeds.discretize(chassisSpeeds, 0.02);
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
-    setModuleStates(moduleStates);
+    this.setModuleStates(moduleStates);
   }
 
   public void zeroHeading() {
-    m_gyro.setYaw(0);
+    this.gyro.setYaw(0);
   }
 
   public void setHeading(double heading) {
-    m_gyro.setYaw(heading);
+    this.gyro.setYaw(heading);
   }
 
   public double getHeading() {
-    return Math.IEEEremainder(-m_gyro.getAngle(), 360); // clamp heading between -180 and 180
+    return Math.IEEEremainder(-this.gyro.getAngle(), 360); // clamp heading between -180 and 180
   }
 
   public Rotation2d getHeadingRotation2d() {
-    return Rotation2d.fromDegrees(getHeading());
+    return Rotation2d.fromDegrees(this.getHeading());
   }
 
   public void stopModules() {
-    m_frontLeft.stop();
-    m_backLeft.stop();
-    m_frontRight.stop();
-    m_backRight.stop();
+    this.frontLeft.stop();
+    this.backLeft.stop();
+    this.frontRight.stop();
+    this.backRight.stop();
   }
 
   public void setModuleStates(SwerveModuleState[] moduleStates) {
     SwerveDriveKinematics.desaturateWheelSpeeds(moduleStates, Swerve.DRIVETRAIN_MAX_SPEED);
-    m_frontLeft.setDesiredState(moduleStates[0]);
-    m_frontRight.setDesiredState(moduleStates[1]);
-    m_backLeft.setDesiredState(moduleStates[2]);
-    m_backRight.setDesiredState(moduleStates[3]);
+    this.frontLeft.setDesiredState(moduleStates[0]);
+    this.frontRight.setDesiredState(moduleStates[1]);
+    this.backLeft.setDesiredState(moduleStates[2]);
+    this.backRight.setDesiredState(moduleStates[3]);
   }
 
   public SwerveModuleState[] getModuleStates() {
     SwerveModuleState[] states = new SwerveModuleState[4];
-    states[0] = m_frontLeft.getState();
-    states[1] = m_frontRight.getState();
-    states[2] = m_backLeft.getState();
-    states[3] = m_backRight.getState();
+    states[0] = this.frontLeft.getState();
+    states[1] = this.frontRight.getState();
+    states[2] = this.backLeft.getState();
+    states[3] = this.backRight.getState();
     return states;
   }
 
   public SwerveModulePosition[] getModulePositions() {
     SwerveModulePosition[] positions = new SwerveModulePosition[4];
-    positions[0] = m_frontLeft.getPosition();
-    positions[1] = m_frontRight.getPosition();
-    positions[2] = m_backLeft.getPosition();
-    positions[3] = m_backRight.getPosition();
+    positions[0] = this.frontLeft.getPosition();
+    positions[1] = this.frontRight.getPosition();
+    positions[2] = this.backLeft.getPosition();
+    positions[3] = this.backRight.getPosition();
     return positions;
   }
 

@@ -47,7 +47,6 @@ public class RobotContainer {
   private final Climber m_climber;
   private final Intake m_intake;
   private final Shooter m_shooter;
-  @SuppressWarnings("unused")
   private final ColorSensor m_colorSensor;
 
   private final CommandXboxController m_driverController;
@@ -74,7 +73,7 @@ public class RobotContainer {
 
     this.configureBindings();
 
-    m_autoChooser = AutoBuilder.buildAutoChooser();
+    m_autoChooser = AutoBuilder.buildAutoChooser("Test Auto");
     SmartDashboard.putData("Auto Chooser", m_autoChooser);
   }
 
@@ -121,8 +120,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     this.m_drivetrain.resetAllEncoders();
-    return new PathPlannerAuto("Test Auto");
-    // return this.m_autoChooser.getSelected();
+    // return new PathPlannerAuto("Test Auto");
+    return this.m_autoChooser.getSelected();
   }
 
   public void registerNamedCommands() {
