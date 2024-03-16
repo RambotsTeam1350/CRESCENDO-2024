@@ -63,6 +63,7 @@ public final class Constants {
         0, -1, 1);
     public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.0175, -1, 1);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
     // 5740
   }
