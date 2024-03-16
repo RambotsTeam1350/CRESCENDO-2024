@@ -6,16 +6,31 @@ package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.SwerveDrive;
+import frc.robot.commands.climber.ClimbDown;
+import frc.robot.commands.climber.ClimbUp;
+import frc.robot.commands.intake.FeedNote;
+import frc.robot.commands.intake.ForceSlowGrabNote;
+import frc.robot.commands.intake.GrabNote;
+import frc.robot.commands.intake.RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected;
+import frc.robot.commands.intake.RotateIntakeToAngle;
+import frc.robot.commands.shooter.RunShooter;
+import frc.robot.constants.Constants;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.swerve.Drivetrain;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -29,11 +44,13 @@ import frc.robot.subsystems.Drivetrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain m_drivetrain;
+  private final Climber m_climber;
+  private final Intake m_intake;
+  private final Shooter m_shooter;
+  private final ColorSensor m_colorSensor;
 
   private final CommandXboxController m_driverController;
-
-  @SuppressWarnings("unused")
-  private final ColorSensor m_colorSensor;
+  private final CommandXboxController m_operatorController;
 
   private final SendableChooser<Command> m_autoChooser;
 
@@ -42,8 +59,13 @@ public class RobotContainer {
    */
   public RobotContainer() {
     this.m_drivetrain = new Drivetrain();
+    this.m_climber = new Climber();
+    this.m_intake = new Intake();
+    this.m_shooter = new Shooter();
     this.m_colorSensor = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
+
     this.m_driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
+    this.m_operatorController = new CommandXboxController(Constants.Controllers.OPERATOR_PORT);
 
     this.registerNamedCommands(); // do not move (https://pathplanner.dev/pplib-named-commands.html)
 
@@ -51,7 +73,7 @@ public class RobotContainer {
 
     this.configureBindings();
 
-    m_autoChooser = AutoBuilder.buildAutoChooser();
+    m_autoChooser = AutoBuilder.buildAutoChooser("Test Auto");
     SmartDashboard.putData("Auto Chooser", m_autoChooser);
   }
 
@@ -70,7 +92,25 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, m_drivetrain));
+    this.m_driverController.start().onTrue(new InstantCommand(m_drivetrain::zeroHeading, this.m_drivetrain));
+    this.m_operatorController.povUp().whileTrue(new ClimbUp(this.m_climber));
+    this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
+    this.m_operatorController.povLeft()
+        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    this.m_operatorController.y()
+        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
+    // this.m_operatorController.povRight()
+    // .whileTrue(new RotateIntakeToAngle(this.m_intake,
+    // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+    this.m_operatorController.povRight()
+        .whileTrue(new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
+            .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE))); // .alongWith(new
+                                                                                                           // RunShooter(this.m_shooter))
+    this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
+    this.m_operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.m_intake));
+    this.m_operatorController.rightBumper().whileTrue(new FeedNote(this.m_intake));
+    this.m_operatorController.x()
+        .onTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
   }
 
   /**
@@ -80,11 +120,20 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     this.m_drivetrain.resetAllEncoders();
+    // return new PathPlannerAuto("Test Auto");
     return this.m_autoChooser.getSelected();
   }
 
   public void registerNamedCommands() {
     NamedCommands.registerCommand("Stop Modules", new InstantCommand(m_drivetrain::stopModules));
+    NamedCommands.registerCommand("Intake Up",
+        new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+    NamedCommands.registerCommand("Intake Down",
+        new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+    NamedCommands.registerCommand("Grab Note",
+        new GrabNote(this.m_intake, this.m_colorSensor));
+    NamedCommands.registerCommand("Run Shooter", new RunShooter(m_shooter));
+    NamedCommands.registerCommand("Feed Note", new FeedNote(this.m_intake));
   }
 
   public Drivetrain getDrivetrain() {

@@ -7,18 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.swerve.Drivetrain;
 
 public class SwerveDrive extends Command {
-  private final Drivetrain m_drivetrain;
-  private final XboxController m_controller;
+  private final Drivetrain drivetrain;
+  private final XboxController controller;
 
   /** Creates a new SwerveDrive. */
   public SwerveDrive(Drivetrain drivetrain, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.m_drivetrain = drivetrain;
-    this.m_controller = controller;
-    addRequirements(this.m_drivetrain);
+    this.drivetrain = drivetrain;
+    this.controller = controller;
+    addRequirements(this.drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -29,11 +29,12 @@ public class SwerveDrive extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.m_drivetrain.controllerDrive(
-        -this.m_controller.getLeftY(),
-        -this.m_controller.getLeftX(),
-        -this.m_controller.getRightX(),
-        !this.m_controller.getRawButton(XboxController.Button.kB.value),
+    this.drivetrain.controllerDrive(
+        -this.controller.getLeftY(),
+        -this.controller.getLeftX(),
+        -this.controller.getRightX(),
+        !this.controller.getRawButton(XboxController.Button.kB.value),
+        this.controller.getRawButton(XboxController.Button.kA.value),
         new Translation2d(),
         true);
   }
@@ -41,7 +42,7 @@ public class SwerveDrive extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.m_drivetrain.stopModules();
+    this.drivetrain.stopModules();
   }
 
   // Returns true when the command should end.
