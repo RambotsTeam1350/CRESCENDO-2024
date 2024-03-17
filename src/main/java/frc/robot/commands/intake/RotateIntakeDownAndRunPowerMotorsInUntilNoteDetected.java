@@ -18,7 +18,7 @@ public class RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected extends Comman
 
     @Override
     public void initialize() {
-        this.intake.setRotationMotorVoltageSetpoint(12 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
+        this.intake.setRotationMotorVelocitySetpoint(5676 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
         this.intake.setPowerMotorVelocitySetpoint(
                 Constants.Intake.POWER_MOTOR_MAX_RPM * 0.42 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
@@ -28,7 +28,7 @@ public class RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected extends Comman
         if (Math.abs(
                 this.intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.015
                 && !this.rotationMotorSlowed) {
-            this.intake.setRotationMotorVoltageSetpoint(6 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
+            this.intake.setRotationMotorVelocitySetpoint(2000 * Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION);
             this.rotationMotorSlowed = true;
         } else if (Math.abs(
                 this.intake.getRotationAbsolutePosition() - Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE) <= 0.005) {

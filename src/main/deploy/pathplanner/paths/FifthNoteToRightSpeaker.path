@@ -1,0 +1,74 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.855056987842458,
+        "y": 0.9615147535530213
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.646970846736725,
+        "y": 0.5026099848118064
+      },
+      "isLocked": false,
+      "linkedName": "Front of Fifth Note"
+    },
+    {
+      "anchor": {
+        "x": 5.0287863486108515,
+        "y": 1.0999146044432282
+      },
+      "prevControl": {
+        "x": 6.565753113759999,
+        "y": 0.801262294627518
+      },
+      "nextControl": {
+        "x": 3.6988004604756415,
+        "y": 1.3583478812846663
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 0.7238225656575535,
+        "y": 4.450647836521938
+      },
+      "prevControl": {
+        "x": 0.6145595254810742,
+        "y": 1.6826508187177858
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Right Speaker"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.3,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -57.99461679191656,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": -28.810793742973118,
+    "velocity": 0
+  },
+  "useDefaultConstraints": false
+}
