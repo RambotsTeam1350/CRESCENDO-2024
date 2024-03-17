@@ -76,7 +76,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // there is a small delay between the heading being zeroed and the gyro actually
     // reading zero, so do it in init instead of getAutonomousCommand()
-    this.m_robotContainer.getDrivetrain().zeroHeading();
+    this.m_robotContainer.getDrivetrainSubsystem().zeroHeading();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command
@@ -101,8 +101,8 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    this.m_robotContainer.getDrivetrain().resetAllEncoders();
-    this.m_robotContainer.getDrivetrain().setAllIdleMode(true);
+    this.m_robotContainer.getDrivetrainSubsystem().resetAllEncoders();
+    this.m_robotContainer.getDrivetrainSubsystem().setAllIdleMode(true);
   }
 
   /** This function is called periodically during operator control. */
@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
-    this.m_robotContainer.getDrivetrain().setAllIdleMode(true);
+    this.m_robotContainer.getDrivetrainSubsystem().setAllIdleMode(true);
   }
 
   /** This function is called periodically when disabled. */

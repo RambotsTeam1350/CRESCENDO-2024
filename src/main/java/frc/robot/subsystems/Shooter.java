@@ -33,12 +33,6 @@ public class Shooter extends SubsystemBase {
         this.speedMotor2FeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Shooter.SPEED_MOTOR_2_FF_CONFIG);
     }
 
-    // FOR TESTING PURPOSE
-    public void setVoltage(double voltage) {
-        this.speedMotor1.setVoltage(voltage);
-        this.speedMotor2.setVoltage(voltage);
-    }
-
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Velocity",

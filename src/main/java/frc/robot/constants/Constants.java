@@ -96,7 +96,8 @@ public final class Constants {
 
     public static final double MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
 
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
+    public static final CANSparkPIDFConfig LEFT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
+    public static final CANSparkPIDFConfig RIGHT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0005, -1, 1);
   }
 
   public static final class Swerve {

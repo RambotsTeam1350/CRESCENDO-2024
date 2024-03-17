@@ -4,10 +4,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Shooter;
 
-public class RunShooter extends Command {
+public class RunStopShooter extends Command {
     private Shooter shooter;
 
-    public RunShooter(Shooter shooter) {
+    public RunStopShooter(Shooter shooter) {
         this.shooter = shooter;
         addRequirements(this.shooter);
     }
@@ -15,5 +15,10 @@ public class RunShooter extends Command {
     @Override
     public void initialize() {
         this.shooter.setSpeedMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        this.shooter.stopSpeedMotors();
     }
 }

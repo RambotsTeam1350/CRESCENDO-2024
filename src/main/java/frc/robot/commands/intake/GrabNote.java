@@ -3,22 +3,22 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.IntakePower;
 
 public class GrabNote extends Command {
-    private final Intake intake;
+    private final IntakePower intakePower;
     private final ColorSensor colorSensor;
 
-    // CURRENTLY UNUSED
-    public GrabNote(Intake intake, ColorSensor colorSensor) {
-        this.intake = intake;
+    public GrabNote(IntakePower intakePower, ColorSensor colorSensor) {
+        this.intakePower = intakePower;
         this.colorSensor = colorSensor;
-        addRequirements(this.intake, this.colorSensor);
+        addRequirements(this.intakePower, this.colorSensor);
     }
 
     @Override
     public void initialize() {
-        this.intake.setPowerMotorVelocitySetpoint(4500 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.intakePower.setMotorVelocitySetpoint(
+                Constants.Intake.POWER_MOTOR_MAX_RPM * 0.42 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override
@@ -28,6 +28,6 @@ public class GrabNote extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        this.intake.stopPowerMotor();
+        this.intakePower.stopMotor();
     }
 }
