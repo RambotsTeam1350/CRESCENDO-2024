@@ -25,7 +25,7 @@ import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.RunShooter;
-import frc.robot.commands.shooter.SpinUp;
+import frc.robot.commands.shooter.SpinUpShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
@@ -137,8 +137,8 @@ public class RobotContainer {
             .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE)));
     NamedCommands.registerCommand("Grab Note",
         new GrabNote(this.m_intake, this.m_colorSensor));
-    NamedCommands.registerCommand("Run Shooter", new SpinUp(m_shooter).withTimeout(1.5));
-    NamedCommands.registerCommand("Spool Up Shooter", new SpinUp(m_shooter).withTimeout(0.1));
+    NamedCommands.registerCommand("Run Shooter", new SpinUpShooter(m_shooter).withTimeout(1.5));
+    NamedCommands.registerCommand("Spool Up Shooter", new SpinUpShooter(m_shooter).withTimeout(0.1));
     NamedCommands.registerCommand("Stop Shooter", new InstantCommand(this.m_shooter::stopSpeedMotors));
     NamedCommands.registerCommand("Feed Note", new FeedNote(this.m_intake).withTimeout(2));
     NamedCommands.registerCommand("Stop Feed Note", new InstantCommand(this.m_intake::stopPowerMotor));

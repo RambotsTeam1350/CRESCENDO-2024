@@ -9,6 +9,7 @@ public class FeedNote extends Command {
 
     public FeedNote(Intake intake) {
         this.intake = intake;
+        addRequirements(this.intake);
     }
 
     @Override

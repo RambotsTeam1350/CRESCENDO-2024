@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7238225656575535,
-        "y": 4.450647836521938
+        "x": 1.4707856249343993,
+        "y": 1.4979395969525402
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2524795657217638,
-        "y": 3.5349870526337828
+        "x": 2.4707856249344027,
+        "y": 1.4979395969525402
       },
       "isLocked": false,
-      "linkedName": "Right Speaker"
+      "linkedName": "Right Side"
     },
     {
       "anchor": {
-        "x": 2.3554839656263162,
-        "y": 2.367365870490392
+        "x": 3.47,
+        "y": 1.4979395969525402
       },
       "prevControl": {
-        "x": 1.3554839656263162,
-        "y": 2.367365870490392
+        "x": 3.37,
+        "y": 1.4979395969525402
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,13 +39,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": false
+    "rotation": 180.0,
+    "rotateFast": true
   },
   "reversed": false,
-  "folder": "competition",
+  "folder": "testing",
   "previewStartingState": {
-    "rotation": -60.25511870305779,
+    "rotation": 0,
     "velocity": 0
   },
   "useDefaultConstraints": true
