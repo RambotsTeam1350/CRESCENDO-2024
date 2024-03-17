@@ -25,6 +25,7 @@ import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.RunShooter;
+import frc.robot.commands.shooter.SpinUp;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
@@ -96,21 +97,21 @@ public class RobotContainer {
     this.m_operatorController.povUp().whileTrue(new ClimbUp(this.m_climber));
     this.m_operatorController.povDown().whileTrue(new ClimbDown(this.m_climber));
     this.m_operatorController.povLeft()
-        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
+        .toggleOnTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.y()
-        .whileTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
+        .toggleOnTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE));
     // this.m_operatorController.povRight()
     // .whileTrue(new RotateIntakeToAngle(this.m_intake,
     // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
     this.m_operatorController.povRight()
-        .whileTrue(new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
+        .toggleOnTrue(new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
             .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE))); // .alongWith(new
                                                                                                            // RunShooter(this.m_shooter))
     this.m_operatorController.a().whileTrue(new RunShooter(this.m_shooter));
     this.m_operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.m_intake));
     this.m_operatorController.rightBumper().whileTrue(new FeedNote(this.m_intake));
     this.m_operatorController.x()
-        .onTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+        .toggleOnTrue(new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
   }
 
   /**
@@ -125,15 +126,22 @@ public class RobotContainer {
   }
 
   public void registerNamedCommands() {
+    NamedCommands.registerCommand("Zero Heading", new InstantCommand(this.m_drivetrain::zeroHeading));
     NamedCommands.registerCommand("Stop Modules", new InstantCommand(m_drivetrain::stopModules));
     NamedCommands.registerCommand("Intake Up",
         new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE));
     NamedCommands.registerCommand("Intake Down",
         new RotateIntakeToAngle(this.m_intake, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+    NamedCommands.registerCommand("Intake Note",
+        new RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(this.m_intake, this.m_colorSensor)
+            .andThen(new RotateIntakeToAngle(this.m_intake, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE)));
     NamedCommands.registerCommand("Grab Note",
         new GrabNote(this.m_intake, this.m_colorSensor));
-    NamedCommands.registerCommand("Run Shooter", new RunShooter(m_shooter));
-    NamedCommands.registerCommand("Feed Note", new FeedNote(this.m_intake));
+    NamedCommands.registerCommand("Run Shooter", new SpinUp(m_shooter).withTimeout(1.5));
+    NamedCommands.registerCommand("Spool Up Shooter", new SpinUp(m_shooter).withTimeout(0.1));
+    NamedCommands.registerCommand("Stop Shooter", new InstantCommand(this.m_shooter::stopSpeedMotors));
+    NamedCommands.registerCommand("Feed Note", new FeedNote(this.m_intake).withTimeout(2));
+    NamedCommands.registerCommand("Stop Feed Note", new InstantCommand(this.m_intake::stopPowerMotor));
   }
 
   public Drivetrain getDrivetrain() {

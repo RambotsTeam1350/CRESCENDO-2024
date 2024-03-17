@@ -23,7 +23,7 @@ public class RotateIntakeToAngle extends Command {
         this.kDirection = this.intake.getRotationAbsolutePosition() > kPosition
                 ? Constants.Intake.ROTATION_MOTOR_UP_DIRECTION
                 : Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION;
-        this.intake.setRotationMotorVoltageSetpoint(12 * this.kDirection);
+        this.intake.setRotationMotorVelocitySetpoint(4000 * this.kDirection);
         // this.m_intake.setRotationAngleSetpoint(Constants.Intake.DOWN_DEGREES); //
         // lower intake
     }
@@ -32,7 +32,7 @@ public class RotateIntakeToAngle extends Command {
     public void execute() {
         // once it gets close enough to position, slow down to hone in on position
         if (Math.abs(this.intake.getRotationAbsolutePosition() - kPosition) <= 0.015 && !this.slowed) {
-            this.intake.setRotationMotorVoltageSetpoint(6 * this.kDirection);
+            this.intake.setRotationMotorVelocitySetpoint(2000 * this.kDirection);
             this.slowed = true;
         }
     }

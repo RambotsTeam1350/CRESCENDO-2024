@@ -69,7 +69,7 @@ public final class Constants {
         0, -1, 1);
     public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.0175, -1, 1);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.15, 12.0 / 5750.0);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
     // 5740
   }
@@ -175,8 +175,8 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.5;
-    public static final double AUTO_kP_ROTATION = 0.1;
+    public static final double AUTO_kP_TRANSLATION = 5;
+    public static final double AUTO_kP_ROTATION = 5;
 
     public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
