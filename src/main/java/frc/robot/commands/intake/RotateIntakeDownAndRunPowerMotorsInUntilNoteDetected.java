@@ -14,6 +14,7 @@ public class RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected extends Comman
     public RotateIntakeDownAndRunPowerMotorsInUntilNoteDetected(Intake intake, ColorSensor colorSensor) {
         this.intake = intake;
         this.colorSensor = colorSensor;
+        addRequirements(this.intake, this.colorSensor);
     }
 
     @Override

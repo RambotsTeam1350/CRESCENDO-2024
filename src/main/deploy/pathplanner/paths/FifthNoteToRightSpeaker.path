@@ -36,8 +36,8 @@
         "y": 4.450647836521938
       },
       "prevControl": {
-        "x": 0.6145595254810742,
-        "y": 1.6826508187177858
+        "x": 1.86729904765713,
+        "y": 0.8811409393838475
       },
       "nextControl": null,
       "isLocked": false,
@@ -61,11 +61,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -57.99461679191656,
+    "rotation": -60.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "competition",
   "previewStartingState": {
     "rotation": -28.810793742973118,
     "velocity": 0

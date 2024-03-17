@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.920614811948346,
-        "y": 0.9396621455177249
+        "x": 7.86,
+        "y": 0.9615147535530213
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.638615294681909,
-        "y": 0.5868515634848543
+        "x": 8.578000482733565,
+        "y": 0.6087041715201508
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Front of Fifth Note"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 1.8574716830001545
       },
       "prevControl": {
-        "x": 8.035432313393976,
-        "y": 1.7504849561606848
+        "x": 8.159367870557428,
+        "y": 1.8037873047831843
       },
       "nextControl": {
-        "x": 3.726643810580815,
-        "y": 1.9644584098396245
+        "x": 3.688323655715055,
+        "y": 1.9091387020003605
       },
       "isLocked": false,
       "linkedName": null
@@ -65,7 +65,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": null,
+  "folder": "competition",
   "previewStartingState": {
     "rotation": -28.810793742973118,
     "velocity": 0

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7529593763712814,
-      "y": 4.581763484733713
+      "x": 0.7238225656575535,
+      "y": 4.450647836521938
     },
     "rotation": -60.0
   },
@@ -88,6 +88,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "competition",
   "choreoAuto": false
 }

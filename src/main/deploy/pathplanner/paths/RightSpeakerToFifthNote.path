@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.000622267437968,
-        "y": 1.4786931437216917
+        "x": 2.216231086385301,
+        "y": 1.86572045297277
       },
       "isLocked": false,
       "linkedName": "Right Speaker"
@@ -20,8 +20,8 @@
         "y": 0.9615147535530213
       },
       "prevControl": {
-        "x": 4.540744769155909,
-        "y": 1.821050669607994
+        "x": 5.670890769330734,
+        "y": 1.8797673373522068
       },
       "nextControl": null,
       "isLocked": false,
@@ -43,10 +43,10 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.5,
-    "maxAcceleration": 3.0,
-    "maxAngularVelocity": 540.0,
-    "maxAngularAcceleration": 720.0
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 360.0
   },
   "goalEndState": {
     "velocity": 1.0,
@@ -54,10 +54,10 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "competition",
   "previewStartingState": {
     "rotation": -60.52411099675425,
     "velocity": 0
   },
-  "useDefaultConstraints": false
+  "useDefaultConstraints": true
 }
