@@ -2,19 +2,20 @@ package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.intake.IntakePower;
 
 public class ForceSlowGrabNote extends Command {
-    private final Intake intake;
+    private final IntakePower intakePowerSubsystem;
 
-    public ForceSlowGrabNote(Intake intake) {
-        this.intake = intake;
-        addRequirements(this.intake);
+    public ForceSlowGrabNote(IntakePower intakePower) {
+        this.intakePowerSubsystem = intakePower;
+        addRequirements(this.intakePowerSubsystem);
+        this.runsWhenDisabled();
     }
 
     @Override
     public void initialize() {
-        this.intake.setPowerMotorVelocitySetpoint(240 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
+        this.intakePowerSubsystem.setMotorVelocitySetpoint(240 * Constants.Intake.POWER_MOTOR_IN_DIRECTION);
     }
 
     @Override
@@ -24,6 +25,6 @@ public class ForceSlowGrabNote extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        this.intake.stopPowerMotor();
+        this.intakePowerSubsystem.stopMotor();
     }
 }

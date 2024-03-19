@@ -17,9 +17,9 @@ public class Climber extends SubsystemBase {
         // it is IMPERATIVE that these are in brake mode, or the robot will fall to the
         // ground.
         this.leftMotor = new PIDCANSparkMax(Constants.Climber.LEFT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, Constants.Climber.SPARK_PIDF_CONFIG);
+                false, Constants.Climber.LEFT_SPARK_PIDF_CONFIG);
         this.rightMotor = new PIDCANSparkMax(Constants.Climber.RIGHT_MOTOR_ID, MotorType.kBrushless, IdleMode.kBrake,
-                false, Constants.Climber.SPARK_PIDF_CONFIG);
+                false, Constants.Climber.RIGHT_SPARK_PIDF_CONFIG);
     }
 
     public void setVoltageSetpoint(double voltage) {
