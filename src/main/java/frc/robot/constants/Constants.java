@@ -52,6 +52,7 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
+    public static final double ENCODER_POSITION_OFFSET = 0.0;
     public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
     public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.525;
     public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;

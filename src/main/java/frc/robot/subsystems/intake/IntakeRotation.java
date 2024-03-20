@@ -1,6 +1,7 @@
 package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -15,6 +16,7 @@ import frc.robot.constants.Constants;
 
 public class IntakeRotation extends SubsystemBase {
     private final CANSparkMax motor;
+    private final RelativeEncoder encoder;
 
     private final DutyCycleEncoder throughBoreEncoder;
     private final DigitalInput topLimitSwitch;
@@ -25,11 +27,17 @@ public class IntakeRotation extends SubsystemBase {
         this.motor = new PIDCANSparkMax(Constants.Intake.ROTATION_MOTOR_ID, MotorType.kBrushless,
                 IdleMode.kBrake, false, Constants.Intake.ROTATION_MOTOR_SPARK_PIDF_CONFIG);
 
+        this.encoder = this.motor.getEncoder();
+        this.encoder.setPositionConversionFactor(360);
+
         this.throughBoreEncoder = new DutyCycleEncoder(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_DIO_PORT);
+        this.throughBoreEncoder.setDistancePerRotation(360);
 
         this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
 
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
+
+        this.encoder.setPosition(this.throughBoreEncoder.getAbsolutePosition());
     }
 
     @Override
@@ -43,6 +51,10 @@ public class IntakeRotation extends SubsystemBase {
     public void setMotorVelocitySetpoint(double velocity) {
         this.motor.getPIDController().setReference(this.motorFeedForward.calculate(velocity),
                 ControlType.kVoltage);
+    }
+
+    public void setMotorPositionSetpoint(double position) {
+        this.motor.getPIDController().setReference(position, ControlType.kPosition);
     }
 
     // public void setMotorVoltageSetpoint(double voltage) {
