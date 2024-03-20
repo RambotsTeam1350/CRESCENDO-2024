@@ -53,7 +53,7 @@ public final class Constants {
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
     public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
-    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.614;
+    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.525;
     public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
 
     // public static final int UP_DEGREES = 0;

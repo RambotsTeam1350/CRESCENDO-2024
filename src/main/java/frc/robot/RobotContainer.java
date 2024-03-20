@@ -125,6 +125,7 @@ public class RobotContainer {
     this.operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.intakePowerSubsystem));
     this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
     this.operatorController.x().toggleOnTrue(RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
+    this.operatorController.back().onTrue(new FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
   }
 
   /**
