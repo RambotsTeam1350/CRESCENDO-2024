@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drivers.ConfiguredPIDController;
 import frc.lib.drivers.ConfiguredSimpleMotorFeedforward;
 import frc.lib.drivers.uppermech.PIDCANSparkMax;
 import frc.robot.constants.Constants;
@@ -21,6 +22,7 @@ public class IntakeRotation extends SubsystemBase {
     private final DutyCycleEncoder throughBoreEncoder;
     private final DigitalInput topLimitSwitch;
 
+    private final ConfiguredPIDController PIDController;
     private final ConfiguredSimpleMotorFeedforward motorFeedForward;
 
     public IntakeRotation() {
@@ -28,29 +30,36 @@ public class IntakeRotation extends SubsystemBase {
                 IdleMode.kBrake, false, Constants.Intake.ROTATION_MOTOR_SPARK_PIDF_CONFIG);
 
         this.encoder = this.motor.getEncoder();
-        this.encoder.setPositionConversionFactor(360);
+        // this.encoder.setPositionConversionFactor(360);
 
         this.throughBoreEncoder = new DutyCycleEncoder(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_DIO_PORT);
-        this.throughBoreEncoder.setDistancePerRotation(360);
+        this.throughBoreEncoder.setPositionOffset(0.905);
 
         this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
 
+        this.PIDController = new ConfiguredPIDController(Constants.Intake.ROTATION_MOTOR_PID_CONFIG);
+
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
 
-        this.encoder.setPosition(this.throughBoreEncoder.getAbsolutePosition());
+        // this.encoder.setPosition(this.throughBoreEncoder.getAbsolutePosition() *
+        // 360.0);
     }
 
     @Override
     public void periodic() {
-        // SmartDashboard.putNumber("Intake Relative Angle",
-        // this.rotationMotor.getEncoder().getPosition());
-        SmartDashboard.putNumber("Intake Through Bore Angle", this.throughBoreEncoder.getAbsolutePosition());
+        SmartDashboard.putNumber("Intake Relative Angle",
+                this.encoder.getPosition() * Constants.Intake.ROTATION_POSITION_CONVERSION_FACTOR);
+        // SmartDashboard.putNumber("Intake Through Bore Angle",
+        // this.throughBoreEncoder.getAbsolutePosition());
+        SmartDashboard.putNumber("Intake Through Bore Angle", this.throughBoreEncoder.getAbsolutePosition() * 360);
+
         SmartDashboard.putNumber("Intake Rotation Speed", this.motor.getEncoder().getVelocity());
     }
 
-    public void setMotorVelocitySetpoint(double velocity) {
-        this.motor.getPIDController().setReference(this.motorFeedForward.calculate(velocity),
-                ControlType.kVoltage);
+    public void setAngle(double angle) {
+        double voltage = this.PIDController.calculate(this.getAngle(), angle);
+        voltage += this.motorFeedForward.calculate(0);
+        this.motor.setVoltage(voltage);
     }
 
     public void setMotorPositionSetpoint(double position) {
@@ -62,12 +71,16 @@ public class IntakeRotation extends SubsystemBase {
     // ControlType.kVoltage);
     // }
 
-    public double getEncoderAbsolutePosition() {
-        return this.throughBoreEncoder.getAbsolutePosition();
+    public double getAngle() {
+        return this.throughBoreEncoder.getAbsolutePosition() * 360.0;
     }
 
     public void stopMotor() {
         this.motor.stopMotor();
+    }
+
+    public boolean atSetpoint() {
+        return this.PIDController.atSetpoint();
     }
 
     // public boolean isUpLimitSwitch() {

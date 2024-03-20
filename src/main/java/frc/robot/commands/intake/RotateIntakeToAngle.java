@@ -5,46 +5,36 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.intake.IntakeRotation;
 
 public class RotateIntakeToAngle extends Command {
-    private final double kPosition;
+    private final double kAngle;
     private double kDirection;
 
-    private final IntakeRotation intake;
+    private final IntakeRotation intakeRotation;
 
     private boolean slowed = false;
 
-    public RotateIntakeToAngle(IntakeRotation intakeRotation, double position) {
-        this.kPosition = position;
-        this.intake = intakeRotation;
-        addRequirements(this.intake);
+    public RotateIntakeToAngle(IntakeRotation intakeRotation, double angle) {
+        this.kAngle = angle;
+        this.intakeRotation = intakeRotation;
+        addRequirements(this.intakeRotation);
     }
 
     @Override
     public void initialize() {
-        this.kDirection = this.intake.getEncoderAbsolutePosition() > kPosition
-                ? Constants.Intake.ROTATION_MOTOR_UP_DIRECTION
-                : Constants.Intake.ROTATION_MOTOR_DOWN_DIRECTION;
-        this.intake.setMotorVelocitySetpoint(3500 * this.kDirection);
-        // this.m_intake.setRotationAngleSetpoint(Constants.Intake.DOWN_DEGREES); //
-        // lower intake
     }
 
     @Override
     public void execute() {
-        // once it gets close enough to position, slow down to hone in on position
-        if (Math.abs(this.intake.getEncoderAbsolutePosition() - kPosition) <= 0.1 && !this.slowed) {
-            this.intake.setMotorVelocitySetpoint(250 * this.kDirection);
-            this.slowed = true;
-        }
+        this.intakeRotation.setAngle(this.kAngle);
     }
 
     @Override
     public boolean isFinished() {
-        return Math.abs(this.intake.getEncoderAbsolutePosition() - kPosition) <= 0.005;
+        return this.intakeRotation.atSetpoint();
     }
 
     @Override
     public void end(boolean interrupted) {
-        this.intake.stopMotor();
+        this.intakeRotation.stopMotor();
     }
 
     public static RotateIntakeToAngle createIntakeDownCommand(IntakeRotation intakeRotation) {
@@ -52,7 +42,7 @@ public class RotateIntakeToAngle extends Command {
     }
 
     public static RotateIntakeToAngle createIntakeUpCommand(IntakeRotation intakeRotation) {
-        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE);
+        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.UP_DEGREES);
     }
 
     public static RotateIntakeToAngle createIntakeStraightCommand(IntakeRotation intakeRotation) {

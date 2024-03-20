@@ -54,6 +54,7 @@ public final class Constants {
 
     public static final double ENCODER_POSITION_OFFSET = 0.0;
     public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
+    public static final double UP_DEGREES = 114;
     public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.525;
     public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
 
@@ -65,11 +66,14 @@ public final class Constants {
     public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
 
     public static final double POWER_MOTOR_MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
+    public static final double ROTATION_MOTOR_GEAR_RATIO = 60.0 / 1.0;
+    public static final double ROTATION_POSITION_CONVERSION_FACTOR = 360.0 / ROTATION_MOTOR_GEAR_RATIO;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);
     public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
-        0.0175, -1, 1);
+        0, -1, 1);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.1 * 12.0, 0, 0);
     public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.15, 12.0 / 5750.0);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
     // 5740
