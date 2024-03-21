@@ -2,18 +2,18 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.shooter.ShooterPower;
 
 public class RunShooter extends Command {
-    private Shooter shooter;
+    private ShooterPower shooterPower;
 
-    public RunShooter(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(this.shooter);
+    public RunShooter(ShooterPower shooter) {
+        this.shooterPower = shooter;
+        addRequirements(this.shooterPower);
     }
 
     @Override
     public void initialize() {
-        this.shooter.setSpeedMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+        this.shooterPower.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 }

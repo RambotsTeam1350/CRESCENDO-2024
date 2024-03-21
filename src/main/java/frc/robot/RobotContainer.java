@@ -31,9 +31,10 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.LED;
-import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
+import frc.robot.subsystems.shooter.ShooterPower;
+import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.subsystems.vision.TargetVision;
 
@@ -49,10 +50,15 @@ import frc.robot.subsystems.vision.TargetVision;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Drivetrain drivetrainSubsystem;
+
   private final Climber climberSubsystem;
+
   private final IntakeRotation intakeRotationSubsystem;
   private final IntakePower intakePowerSubsystem;
-  private final Shooter shooterSubsystem;
+
+  private final ShooterRotation shooterRotationSubsystem;
+  private final ShooterPower shooterPowerSubsystem;
+
   private final ColorSensor colorSensorSubsystem;
   private final LED led;
   private final TargetVision photoncamera;
@@ -70,7 +76,8 @@ public class RobotContainer {
     this.climberSubsystem = new Climber();
     this.intakeRotationSubsystem = new IntakeRotation();
     this.intakePowerSubsystem = new IntakePower();
-    this.shooterSubsystem = new Shooter();
+    this.shooterRotationSubsystem = new ShooterRotation();
+    this.shooterPowerSubsystem = new ShooterPower();
     this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
     this.led = new LED();
     this.photoncamera = new TargetVision();
@@ -127,10 +134,11 @@ public class RobotContainer {
     this.operatorController.povRight()
         .toggleOnTrue(
             new IntakeNote(this.intakeRotationSubsystem, this.intakePowerSubsystem, this.colorSensorSubsystem));
-    this.operatorController.a().whileTrue(new RunStopShooter(this.shooterSubsystem));
+    this.operatorController.a().whileTrue(new RunStopShooter(this.shooterPowerSubsystem));
     this.operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.intakePowerSubsystem));
     this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
     this.operatorController.x().toggleOnTrue(RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
+    this.operatorController.back().onTrue(new FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
   }
 
   /**
@@ -154,9 +162,9 @@ public class RobotContainer {
         new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem));
     NamedCommands.registerCommand("Grab Note",
         new GrabNote(this.intakePowerSubsystem, this.colorSensorSubsystem));
-    NamedCommands.registerCommand("Run Shooter", new RunShooter(shooterSubsystem).withTimeout(1.5));
-    NamedCommands.registerCommand("Spool Up Shooter", new RunShooter(shooterSubsystem).withTimeout(0.1));
-    NamedCommands.registerCommand("Stop Shooter", new StopShooter(this.shooterSubsystem));
+    NamedCommands.registerCommand("Run Shooter", new RunShooter(shooterPowerSubsystem).withTimeout(1.5));
+    NamedCommands.registerCommand("Spool Up Shooter", new RunShooter(shooterPowerSubsystem).withTimeout(0.1));
+    NamedCommands.registerCommand("Stop Shooter", new StopShooter(this.shooterPowerSubsystem));
     NamedCommands.registerCommand("Feed Note", new FeedNote(this.intakePowerSubsystem).withTimeout(2));
     NamedCommands.registerCommand("Stop Feed Note", new InstantCommand(this.intakePowerSubsystem::stopMotor));
   }

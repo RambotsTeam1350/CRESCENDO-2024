@@ -55,14 +55,13 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
-    public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
-    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.614;
-    public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
+    // the intake treats 0 degrees as the intake being up inside the robot, and
+    // moving out from the robot is + degrees
+    public static final double UP_DEGREES = 0;
+    public static final double STRAIGHT_DEGREES = 90;
+    public static final double DOWN_DEGREES = 213;
 
-    // public static final int UP_DEGREES = 0;
-    // public static final int DOWN_DEGREES = 180;
-    public static final double ROTATION_MOTOR_UP_DIRECTION = 1.0;
-    public static final double ROTATION_MOTOR_DOWN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_IN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
 
@@ -70,24 +69,30 @@ public final class Constants {
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);
-    public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
-        0.0175, -1, 1);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.15, 12.0 / 5750.0);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.08 * 12.0, 0, 0); // we tuned this
+    // slightly fudged kS value, but i had to account for there sometimes being
+    // gravity
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
-    // 5740
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2);
   }
 
   public static final class Shooter {
-    public static final int SPEED_MOTOR_1_ID = 3;
-    public static final int SPEED_MOTOR_2_ID = 4;
+    public static final int POWER_MOTOR_1_ID = 3;
+    public static final int POWER_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.0;
+
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
-    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
-    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0.000175, 0, 1);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.0001 * 12.0, 0, 0); // TODO: tune
+
+    public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
+    public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2); // TODO: find value
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -100,7 +105,7 @@ public final class Constants {
     public static final double MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
 
     public static final CANSparkPIDFConfig LEFT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
-    public static final CANSparkPIDFConfig RIGHT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0005, -1, 1);
+    public static final CANSparkPIDFConfig RIGHT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0006, -1, 1);
   }
 
   public static final class Swerve {
@@ -151,9 +156,9 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
+    // multiply by 12.0 because voltage control is used
     public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.15 * 12.0); // TODO: not tuned at all
-    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0); // multiply by 12.0 because
-    // voltage control is used
+    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0);
 
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
