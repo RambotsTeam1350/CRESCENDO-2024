@@ -4,6 +4,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -48,6 +49,8 @@ public class IntakeRotation extends SubsystemBase {
      * @param angle the desired angle in degrees
      */
     public void setAngle(double angle) {
+        // to prevent Accidents(TM)
+        angle = MathUtil.clamp(angle, Constants.Intake.MAXIMUM_DEGREES_UP, Constants.Intake.MAXIMUM_DEGREES_DOWN);
         double voltage = this.PIDController.calculate(this.getAngle(), angle);
         // 0 velocity because we do not care about the velocity of the rotation motor,
         // we just want to get it to a specific angle

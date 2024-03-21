@@ -44,6 +44,9 @@ public class ShooterRotation extends SubsystemBase {
      * @param angle the desired angle in degrees
      */
     // public void setAngle(double angle) {
+    // // to prevent Accidents(TM)
+    // angle = MathUtil.clamp(angle, Constants.Shooter.MAXIMUM_DEGREES_UP,
+    // Constants.Shooter.MAXIMUM_DEGREES_DOWN);
     // double voltage = this.PIDController.calculate(this.getAngle(), angle);
     // // 0 velocity because we do not care about the velocity of the rotation
     // motor,

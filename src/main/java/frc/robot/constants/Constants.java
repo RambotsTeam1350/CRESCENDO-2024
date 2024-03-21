@@ -55,9 +55,11 @@ public final class Constants {
     public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
     // the intake treats 0 degrees as the intake being up inside the robot, and
     // moving out from the robot is + degrees
-    public static final double UP_DEGREES = 0;
-    public static final double STRAIGHT_DEGREES = 90;
-    public static final double DOWN_DEGREES = 213;
+    public static final double UP_DEGREES = 0.0;
+    public static final double STRAIGHT_DEGREES = 90.0;
+    public static final double DOWN_DEGREES = 213.0;
+    public static final double MAXIMUM_DEGREES_UP = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 
     public static final double POWER_MOTOR_IN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
@@ -80,6 +82,9 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
     public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.0;
+
+    public static final double MAXIMUM_DEGREES_UP = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
