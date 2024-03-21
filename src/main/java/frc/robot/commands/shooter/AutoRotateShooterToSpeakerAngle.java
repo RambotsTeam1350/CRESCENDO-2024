@@ -18,6 +18,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private final Camera camera;
   private final LED led;
 
+  private final double kTargetHeightMeters = Units.inchesToMeters(105);
+
   private double angle;
 
   public AutoRotateShooterToSpeakerAngle(IntakeRotation intakeRotation, Camera camera, LED led) {
@@ -38,7 +40,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   public void execute() {
     double positionX = PhotonUtils.calculateDistanceToTargetMeters(
         Constants.Vision.CAMERA_HEIGHT_METERS,
-        Constants.Vision.TARGET_HEIGHT_METERS,
+        this.kTargetHeightMeters,
         Constants.Vision.CAMERA_PITCH_RADIANS,
         Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
 
@@ -62,10 +64,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   }
 
   private boolean isInRange(double positionX) {
-    if ((this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER)
-        && (positionX <= Constants.Shooter.VISION_MAX_DISTANCE))
-      return true;
-
-    return false;
+    return (this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER)
+        && (positionX <= Constants.Shooter.VISION_MAX_DISTANCE);
   }
 }

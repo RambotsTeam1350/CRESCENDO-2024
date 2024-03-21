@@ -204,7 +204,6 @@ public final class Constants {
     public static final int PIPELINE = 0;
 
     public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28);
-    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(105);
     public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(29.7); // 29.5
 
     public static final class FiducialIDs {
