@@ -52,6 +52,8 @@ public class RobotContainer {
   private final IntakePower intakePowerSubsystem;
   private final Shooter shooterSubsystem;
   private final ColorSensor colorSensorSubsystem;
+  private final LED led;
+  private final TargetVision photoncamera;
 
   private final CommandXboxController driverController;
   private final CommandXboxController operatorController;
@@ -68,6 +70,8 @@ public class RobotContainer {
     this.intakePowerSubsystem = new IntakePower();
     this.shooterSubsystem = new Shooter();
     this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
+    this.led = new LED();
+    this.photoncamera = new TargetVision();
 
     this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
     this.operatorController = new CommandXboxController(Constants.Controllers.OPERATOR_PORT);

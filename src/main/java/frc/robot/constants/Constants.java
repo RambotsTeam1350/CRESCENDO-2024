@@ -30,6 +30,9 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  public static final String targetCamera = "photonvision";
+  public static final int pipeline = 0;
+
   public static final class MotorFreeSpeeds {
     public static final double NEO_VORTEX = 6784.0;
     public static final double NEO_BRUSHLESS = 5676.0;
