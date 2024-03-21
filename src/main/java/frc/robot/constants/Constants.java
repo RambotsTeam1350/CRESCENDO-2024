@@ -30,9 +30,6 @@ import frc.lib.structs.PIDConfig;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static final String targetCamera = "photonvision";
-  public static final int pipeline = 0;
-
   public static final class MotorFreeSpeeds {
     public static final double NEO_VORTEX = 6784.0;
     public static final double NEO_BRUSHLESS = 5676.0;
@@ -93,6 +90,8 @@ public final class Constants {
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
     public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2); // TODO: find value
+
+    public static final double VISION_MAX_DISTANCE = 1.7; // meters
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -198,5 +197,18 @@ public final class Constants {
         AUTO_DRIVE_MAX_SPEED, // Max module speed, in m/s
         DRIVE_BASE_RADIUS,
         new ReplanningConfig());
+  }
+
+  public static final class Vision {
+    public static final String TARGET_CAMERA = "photonvision";
+    public static final int PIPELINE = 0;
+
+    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28);
+    public static final double TARGET_HEIGHT_METERS = Units.inchesToMeters(105);
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(29.7); // 29.5
+
+    public static final class FiducialIDs {
+      public static final int SPEAKER = 4;
+    }
   }
 }

@@ -7,8 +7,8 @@ import frc.robot.subsystems.shooter.ShooterPower;
 public class RunShooter extends Command {
     private ShooterPower shooterPower;
 
-    public RunShooter(ShooterPower shooter) {
-        this.shooterPower = shooter;
+    public RunShooter(ShooterPower shooterPower) {
+        this.shooterPower = shooterPower;
         addRequirements(this.shooterPower);
     }
 
