@@ -5,11 +5,11 @@ import com.revrobotics.CANSparkMax;
 import frc.lib.structs.CANSparkPIDFConfig;
 
 public class PIDCANSparkMax extends CANSparkMax {
-    public PIDCANSparkMax(int deviceId, MotorType m, IdleMode mode, boolean isInverted,
+    public PIDCANSparkMax(int deviceId, MotorType motorType, IdleMode idleMode, boolean isInverted,
             CANSparkPIDFConfig sparkPidfConfig) {
-        super(deviceId, m);
+        super(deviceId, motorType);
         this.restoreFactoryDefaults();
-        this.setIdleMode(mode);
+        this.setIdleMode(idleMode);
         this.setInverted(isInverted);
         this.getPIDController().setOutputRange(sparkPidfConfig.kMinOutput, sparkPidfConfig.kMaxOutput);
         this.getPIDController().setP(sparkPidfConfig.kP);

@@ -6,11 +6,8 @@ import frc.robot.subsystems.intake.IntakeRotation;
 
 public class RotateIntakeToAngle extends Command {
     private final double kAngle;
-    private double kDirection;
 
     private final IntakeRotation intakeRotation;
-
-    private boolean slowed = false;
 
     public RotateIntakeToAngle(IntakeRotation intakeRotation, double angle) {
         this.kAngle = angle;
@@ -20,9 +17,12 @@ public class RotateIntakeToAngle extends Command {
 
     @Override
     public void initialize() {
-        if (Math.abs(this.intakeRotation.getAngle() - this.kAngle) <= 5) {
-            this.end(false);
-        }
+        // uncomment if things go haywire when you try to set to a position it's already
+        // at/very close to
+
+        // if (Math.abs(this.intakeRotation.getAngle() - this.kAngle) <= 5) {
+        // this.end(false);
+        // }
     }
 
     @Override
