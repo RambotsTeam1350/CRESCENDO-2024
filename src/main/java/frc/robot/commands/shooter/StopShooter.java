@@ -1,18 +1,18 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.shooter.ShooterPower;
 
 public class StopShooter extends Command {
-    private Shooter shooter;
+    private ShooterPower shooterPower;
 
-    public StopShooter(Shooter shooter) {
-        this.shooter = shooter;
-        addRequirements(this.shooter);
+    public StopShooter(ShooterPower shooter) {
+        this.shooterPower = shooter;
+        addRequirements(this.shooterPower);
     }
 
     @Override
     public void initialize() {
-        this.shooter.stopSpeedMotors();
+        this.shooterPower.stopSpeedMotors();
     }
 }

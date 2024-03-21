@@ -69,21 +69,27 @@ public final class Constants {
     public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.08 * 12.0, 0, 0); // we tuned this
     // slightly fudged kS value, but i had to account for there sometimes being
     // gravity
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2);
   }
 
   public static final class Shooter {
-    public static final int SPEED_MOTOR_1_ID = 3;
-    public static final int SPEED_MOTOR_2_ID = 4;
+    public static final int POWER_MOTOR_1_ID = 3;
+    public static final int POWER_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.0;
+
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
-    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
-    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0.000175, 0, 1);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.0001 * 12.0, 0, 0); // TODO: tune
+
+    public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
+    public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2); // TODO: find value
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
