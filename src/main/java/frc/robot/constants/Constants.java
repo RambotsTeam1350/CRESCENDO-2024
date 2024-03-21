@@ -52,11 +52,10 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
-    public static final double ENCODER_POSITION_OFFSET = 0.0;
-    public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
-    public static final double UP_DEGREES = 114;
-    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.525;
-    public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
+    public static final double ENCODER_POSITION_OFFSET = 0.323;
+    public static final double UP_DEGREES = 0;
+    public static final double STRAIGHT_DEGREES = 90;
+    public static final double DOWN_DEGREES = 213;
 
     // public static final int UP_DEGREES = 0;
     // public static final int DOWN_DEGREES = 180;
@@ -73,8 +72,8 @@ public final class Constants {
         0, -1, 1);
     public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.1 * 12.0, 0, 0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.15, 12.0 / 5750.0);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.08 * 12.0, 0, 0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2);
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
     // 5740
   }

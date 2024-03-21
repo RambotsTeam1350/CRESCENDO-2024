@@ -20,6 +20,9 @@ public class RotateIntakeToAngle extends Command {
 
     @Override
     public void initialize() {
+        if (Math.abs(this.intakeRotation.getAngle() - this.kAngle) <= 5) {
+            this.end(false);
+        }
     }
 
     @Override
@@ -38,7 +41,7 @@ public class RotateIntakeToAngle extends Command {
     }
 
     public static RotateIntakeToAngle createIntakeDownCommand(IntakeRotation intakeRotation) {
-        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE);
+        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.DOWN_DEGREES);
     }
 
     public static RotateIntakeToAngle createIntakeUpCommand(IntakeRotation intakeRotation) {
@@ -46,6 +49,6 @@ public class RotateIntakeToAngle extends Command {
     }
 
     public static RotateIntakeToAngle createIntakeStraightCommand(IntakeRotation intakeRotation) {
-        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.STRAIGHT_ABSOLUTE_ENCODER_VALUE);
+        return new RotateIntakeToAngle(intakeRotation, Constants.Intake.STRAIGHT_DEGREES);
     }
 }
