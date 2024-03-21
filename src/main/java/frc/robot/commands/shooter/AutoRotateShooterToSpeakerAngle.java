@@ -65,6 +65,6 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
 
   private boolean isInRange(double positionX) {
     return (this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER)
-        && (positionX <= Constants.Shooter.VISION_MAX_DISTANCE);
+        && (positionX <= Constants.Vision.MaxDistances.SHOOTER);
   }
 }
