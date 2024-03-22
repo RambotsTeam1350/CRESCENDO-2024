@@ -5,6 +5,9 @@
 package frc.robot.subsystems.swerve;
 
 import java.text.DecimalFormat;
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -23,8 +26,11 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants.Swerve;
+import frc.robot.subsystems.vision.Camera;
 
 public class Drivetrain extends SubsystemBase {
+  private final Camera cameraSubsystem;
+
   private SwerveModule frontLeft;
   private SwerveModule frontRight;
   private SwerveModule backLeft;
@@ -37,10 +43,13 @@ public class Drivetrain extends SubsystemBase {
   private Pigeon2 gyro;
 
   private SwerveDrivePoseEstimator poseEstimator;
+
   private Field2d field;
 
   /** Creates a new SwerveDrivetrain. */
-  public Drivetrain() {
+  public Drivetrain(Camera cameraSubsystem) {
+    this.cameraSubsystem = cameraSubsystem;
+
     new Thread(() -> {
       try {
         Thread.sleep(1000);
@@ -113,6 +122,9 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     this.poseEstimator.update(getHeadingRotation2d(), getModulePositions());
+    Optional<EstimatedRobotPose> visionEstimatedRobotPose = this.cameraSubsystem.getEstimatedRobotPose();
+    this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
+        visionEstimatedRobotPose.get().timestampSeconds);
     this.field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());

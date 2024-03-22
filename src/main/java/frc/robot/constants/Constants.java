@@ -8,7 +8,10 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
@@ -205,6 +208,9 @@ public final class Constants {
   public static final class Vision {
     public static final String TARGET_CAMERA = "photonvision";
     public static final int PIPELINE = 0;
+    public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
+        new Rotation3d(0, 0, 0)); // Cam mounted facing forward, half a meter forward of center, half a meter up
+                                  // from center. TODO: not right
 
     public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28);
     public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(29.7); // 29.5

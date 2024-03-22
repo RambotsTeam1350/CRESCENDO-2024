@@ -36,6 +36,7 @@ import frc.robot.subsystems.intake.IntakeRotation;
 import frc.robot.subsystems.shooter.ShooterPower;
 import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.swerve.Drivetrain;
+import frc.robot.subsystems.vision.Camera;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -48,6 +49,8 @@ import frc.robot.subsystems.swerve.Drivetrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final Camera cameraSubsystem;
+
   private final Drivetrain drivetrainSubsystem;
 
   private final Climber climberSubsystem;
@@ -59,6 +62,7 @@ public class RobotContainer {
   private final ShooterPower shooterPowerSubsystem;
 
   private final ColorSensor colorSensorSubsystem;
+
   private final LED ledSubsystem;
 
   private final CommandXboxController driverController;
@@ -70,13 +74,20 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    this.drivetrainSubsystem = new Drivetrain();
+    this.cameraSubsystem = new Camera();
+
+    this.drivetrainSubsystem = new Drivetrain(this.cameraSubsystem);
+
     this.climberSubsystem = new Climber();
+
     this.intakeRotationSubsystem = new IntakeRotation();
     this.intakePowerSubsystem = new IntakePower();
+
     this.shooterRotationSubsystem = new ShooterRotation();
     this.shooterPowerSubsystem = new ShooterPower();
+
     this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
+
     this.ledSubsystem = new LED();
 
     this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
