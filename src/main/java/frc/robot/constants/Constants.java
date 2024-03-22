@@ -220,7 +220,8 @@ public final class Constants {
     }
 
     public static final class FiducialIDs {
-      public static final int SPEAKER = 4;
+      public static final int SPEAKER_BLUE = 7;
+      public static final int SPEAKER_RED = 4;
     }
   }
 }
