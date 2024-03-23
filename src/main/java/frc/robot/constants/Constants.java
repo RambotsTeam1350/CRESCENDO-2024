@@ -206,14 +206,17 @@ public final class Constants {
   }
 
   public static final class Vision {
-    public static final String TARGET_CAMERA = "photonvision";
+    public static final String TARGET_CAMERA = "limelight";
     public static final int PIPELINE = 0;
-    public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(new Translation3d(0.5, 0.0, 0.5),
-        new Rotation3d(0, 0, 0)); // Cam mounted facing forward, half a meter forward of center, half a meter up
-                                  // from center. TODO: not right
-
     public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28);
-    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(29.7); // 29.5
+    // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
+    public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
+        new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
+        new Rotation3d(0, 0, 0));
+
+    // public static final double CAMERA_PITCH_RADIANS =
+    // Units.degreesToRadians(29.7); // 29.5
+    public static final double CAMERA_PITCH_RADIANS = 0; // 29.5
 
     public static final class MaxDistances {
       public static final double SHOOTER = 1.7; // meters
