@@ -26,6 +26,8 @@ import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.RunStopShooter;
 import frc.robot.commands.shooter.StopShooter;
+import frc.robot.commands.shooter.AutoRotateShooterToSpeakerAngle;
+import frc.robot.commands.shooter.RotateShooterToAngle;
 import frc.robot.commands.shooter.RunShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
@@ -147,6 +149,8 @@ public class RobotContainer {
     this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
     this.operatorController.x().toggleOnTrue(RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
     this.operatorController.back().onTrue(new FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
+    this.operatorController.b().toggleOnTrue(
+        new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
   }
 
   /**

@@ -55,7 +55,6 @@ public class IntakeRotation extends SubsystemBase {
         // 0 velocity because we do not care about the velocity of the rotation motor,
         // we just want to get it to a specific angle
         voltage += this.motorFeedForward.calculate(0);
-        System.out.println(voltage);
         this.motor.setVoltage(voltage);
     }
 

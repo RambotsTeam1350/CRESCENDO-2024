@@ -11,6 +11,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
@@ -42,6 +43,8 @@ public class Camera extends SubsystemBase {
         } else {
             this.hasTarget = false;
         }
+
+        SmartDashboard.putBoolean("Has Target", this.hasTarget());
     }
 
     public PhotonPipelineResult getLatestResult() {

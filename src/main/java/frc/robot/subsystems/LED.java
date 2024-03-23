@@ -5,8 +5,8 @@ import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(9);
-  private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(9);
+  private final AddressableLED led = new AddressableLED(8);
+  private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(41);
   private int rainbowFirstPixelHue;
 
   public LED() {
@@ -17,7 +17,7 @@ public class LED extends SubsystemBase {
 
   @Override
   public void periodic() {
-    
+
   }
 
   public void setLEDs() {

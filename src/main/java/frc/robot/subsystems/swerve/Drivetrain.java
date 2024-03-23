@@ -123,8 +123,10 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     this.poseEstimator.update(getHeadingRotation2d(), getModulePositions());
     Optional<EstimatedRobotPose> visionEstimatedRobotPose = this.cameraSubsystem.getEstimatedRobotPose();
-    this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
-        visionEstimatedRobotPose.get().timestampSeconds);
+    if (visionEstimatedRobotPose.isPresent()) {
+      this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
+          visionEstimatedRobotPose.get().timestampSeconds);
+    }
     this.field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());

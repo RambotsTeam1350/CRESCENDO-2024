@@ -10,11 +10,11 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.LED;
-import frc.robot.subsystems.intake.IntakeRotation;
+import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.vision.Camera;
 
 public class AutoRotateShooterToSpeakerAngle extends Command {
-  private final IntakeRotation intakeRotation;
+  private final ShooterRotation shooterRotation;
   private final Camera camera;
   private final LED led;
 
@@ -22,17 +22,17 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
 
   private double angle;
 
-  public AutoRotateShooterToSpeakerAngle(IntakeRotation intakeRotation, Camera camera, LED led) {
-    this.intakeRotation = intakeRotation;
+  public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED led) {
+    this.shooterRotation = shooterRotation;
     this.camera = camera;
     this.led = led;
-    addRequirements(this.intakeRotation, this.camera, this.led);
+    addRequirements(this.shooterRotation, this.camera, this.led);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    System.out.println("SHOOTER COMMAND");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -43,10 +43,13 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
         this.kTargetHeightMeters,
         Constants.Vision.CAMERA_PITCH_RADIANS,
         Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
+    System.out.println("POSITION X: " + positionX);
 
     if (this.camera.hasTarget() && this.isInRange(positionX)) {
-      this.angle = Math.atan((1.5) / positionX);
-      this.intakeRotation.setAngle(angle);
+      this.angle = Math.atan((Units.radiansToDegrees(1.5)) / positionX);
+      System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
+      // angle = 0.0;
+      // this.shooterRotation.setAngle(angle);
       this.led.setLEDs();
     }
 
@@ -55,17 +58,18 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    this.shooterRotation.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return this.shooterRotation.atSetpoint();
   }
 
   private boolean isInRange(double positionX) {
     return (this.camera.getTargetFiducialID() == (Constants.Vision.FiducialIDs.SPEAKER_RED)
-            || this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER_BLUE)
+        || this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER_BLUE)
         && (positionX <= Constants.Vision.MaxDistances.SHOOTER);
   }
 }

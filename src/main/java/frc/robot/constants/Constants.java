@@ -84,20 +84,22 @@ public final class Constants {
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.0;
+    // ask Katemaya about the gears (Vivic counted these)
+    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2487;
 
     public static final double MAXIMUM_DEGREES_UP = 0.0;
-    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN = 38.64;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.0001 * 12.0, 0, 0); // TODO: tune
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.005 * 12.0, 0, 0); // TODO: tune
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2); // TODO: find value
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13); // TODO: find value
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -208,7 +210,7 @@ public final class Constants {
   public static final class Vision {
     public static final String TARGET_CAMERA = "limelight";
     public static final int PIPELINE = 0;
-    public static final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(28);
+    public static final double CAMERA_HEIGHT_METERS = 280.0 / 100.0;
     // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
     public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
         new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
