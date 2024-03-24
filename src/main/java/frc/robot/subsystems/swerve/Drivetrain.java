@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drivers.ConfiguredPIDController;
 import frc.robot.constants.Constants.Swerve;
 import frc.robot.subsystems.vision.Camera;
 
@@ -41,6 +42,7 @@ public class Drivetrain extends SubsystemBase {
   private SlewRateLimiter turnLimiter;
 
   private Pigeon2 gyro;
+  private ConfiguredPIDController headingPIDController = new ConfiguredPIDController(Swerve.HEADING_PID_CONFIG);
 
   private SwerveDrivePoseEstimator poseEstimator;
 
@@ -164,6 +166,14 @@ public class Drivetrain extends SubsystemBase {
 
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds, centerOfRotation);
 
+    this.setModuleStates(moduleStates);
+  }
+
+  public void rotateToAngle(double angle) { // UNTESTED BE CAREFUL
+    double turnSpeed = -this.headingPIDController.calculate(this.getHeading(), angle);
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
+    SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
     this.setModuleStates(moduleStates);
   }
 
