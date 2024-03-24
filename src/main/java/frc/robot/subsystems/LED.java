@@ -3,10 +3,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(8);
-  private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(41);
+  private final AddressableLED led = new AddressableLED(Constants.LEDs.LED_DIO_PORT);
+  private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LEDs.LED_LENGTH);
   private int rainbowFirstPixelHue;
 
   public LED() {

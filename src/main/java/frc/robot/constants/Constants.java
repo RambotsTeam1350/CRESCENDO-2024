@@ -8,6 +8,8 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -88,8 +90,12 @@ public final class Constants {
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
     public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2487;
 
-    public static final double MAXIMUM_DEGREES_UP = 0.0;
-    public static final double MAXIMUM_DEGREES_DOWN = 38.64;
+    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    public static final double MAXIMUM_DEGREES_UP = 38.64;
+    // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
+    // real world (this is by design so the shooter doesn't hit the robot when it's
+    // up), we need to account for that
+    public static final double MAXIMUM_DEGREES_UP_ZERO_OFFSET = 0.0;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
@@ -101,7 +107,7 @@ public final class Constants {
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
     public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13);
 
-    public static final double HEIGHT_OFF_GROUND_METERS = Units.inchesToMeters(30.0); // TODO: find
+    public static final double HEIGHT_OFF_GROUND_METERS = 0.0; // TODO: find
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -223,10 +229,19 @@ public final class Constants {
     public static final double CAMERA_PITCH_RADIANS = 0;
     public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 0.0;
 
+    public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFields.k2024Crescendo
+        .loadAprilTagLayoutField();
+
     public static final class Measurements {
       public static final class Speaker {
-        public static final double HEIGHT_METERS = Units.inchesToMeters(105);
-        public static final double SHOOTER_TO_SPEAKER_METERS = HEIGHT_METERS - Shooter.HEIGHT_OFF_GROUND_METERS;
+        // height is Z axis
+        public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
+            .get().getZ();
+        // https://lakotarobotics.com/2024/01/2024-game-crescendo/
+        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) + Units.feetToMeters(6.5)) / 2.0);
+
+        public static final double SHOOTER_TO_GOAL_HEIGHT_METERS = GOAL_HEIGHT_METERS
+            - Shooter.HEIGHT_OFF_GROUND_METERS;
       }
     }
 
@@ -238,5 +253,10 @@ public final class Constants {
       public static final int SPEAKER_BLUE = 7;
       public static final int SPEAKER_RED = 4;
     }
+  }
+
+  public static final class LEDs {
+    public static final int LED_DIO_PORT = 8;
+    public static final int LED_LENGTH = 41;
   }
 }

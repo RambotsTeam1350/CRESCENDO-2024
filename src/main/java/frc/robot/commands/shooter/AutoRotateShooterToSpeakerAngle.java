@@ -39,7 +39,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
     if (this.camera.hasTarget()) {
       double cameraDistanceFromSpeaker = PhotonUtils.calculateDistanceToTargetMeters(
           Constants.Vision.CAMERA_HEIGHT_METERS,
-          Constants.Vision.Measurements.Speaker.HEIGHT_METERS,
+          Constants.Vision.Measurements.Speaker.APRIL_TAG_HEIGHT_METERS,
           Constants.Vision.CAMERA_PITCH_RADIANS,
           Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
       double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
@@ -47,7 +47,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
       if (this.isInRange(shooterDistanceFromSpeaker)) {
         this.angle = Units.radiansToDegrees(
-            Math.atan(Constants.Vision.Measurements.Speaker.SHOOTER_TO_SPEAKER_METERS / shooterDistanceFromSpeaker));
+            Math.atan(
+                Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
         System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
         // this.shooterRotation.setAngle(angle);
         this.led.setLEDs();
