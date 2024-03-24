@@ -18,8 +18,6 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private final Camera camera;
   private final LED led;
 
-  private final double kTargetHeightMeters = Units.inchesToMeters(105);
-
   private double angle;
 
   public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED led) {
@@ -38,21 +36,23 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double positionX = PhotonUtils.calculateDistanceToTargetMeters(
-        Constants.Vision.CAMERA_HEIGHT_METERS,
-        this.kTargetHeightMeters,
-        Constants.Vision.CAMERA_PITCH_RADIANS,
-        Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
-    System.out.println("POSITION X: " + positionX);
-
-    if (this.camera.hasTarget() && this.isInRange(positionX)) {
-      this.angle = Math.atan((Units.radiansToDegrees(1.5)) / positionX);
-      System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
-      // angle = 0.0;
-      // this.shooterRotation.setAngle(angle);
-      this.led.setLEDs();
+    if (this.camera.hasTarget()) {
+      double cameraDistanceFromSpeaker = PhotonUtils.calculateDistanceToTargetMeters(
+          Constants.Vision.CAMERA_HEIGHT_METERS,
+          Constants.Vision.Measurements.Speaker.HEIGHT_METERS,
+          Constants.Vision.CAMERA_PITCH_RADIANS,
+          Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
+      double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
+          - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
+      System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
+      if (this.isInRange(shooterDistanceFromSpeaker)) {
+        this.angle = Units.radiansToDegrees(
+            Math.atan(Constants.Vision.Measurements.Speaker.SHOOTER_TO_SPEAKER_METERS / shooterDistanceFromSpeaker));
+        System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
+        // this.shooterRotation.setAngle(angle);
+        this.led.setLEDs();
+      }
     }
-
   }
 
   // Called once the command ends or is interrupted.
@@ -70,6 +70,6 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private boolean isInRange(double positionX) {
     return (this.camera.getTargetFiducialID() == (Constants.Vision.FiducialIDs.SPEAKER_RED)
         || this.camera.getTargetFiducialID() == Constants.Vision.FiducialIDs.SPEAKER_BLUE)
-        && (positionX <= Constants.Vision.MaxDistances.SHOOTER);
+        && (positionX <= Constants.Vision.MaxDistances.SPEAKER);
   }
 }

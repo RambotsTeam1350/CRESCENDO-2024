@@ -99,7 +99,9 @@ public final class Constants {
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13); // TODO: find value
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13);
+
+    public static final double HEIGHT_OFF_GROUND_METERS = Units.inchesToMeters(30.0); // TODO: find
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -218,10 +220,18 @@ public final class Constants {
 
     // public static final double CAMERA_PITCH_RADIANS =
     // Units.degreesToRadians(29.7); // 29.5
-    public static final double CAMERA_PITCH_RADIANS = 0; // 29.5
+    public static final double CAMERA_PITCH_RADIANS = 0;
+    public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 0.0;
+
+    public static final class Measurements {
+      public static final class Speaker {
+        public static final double HEIGHT_METERS = Units.inchesToMeters(105);
+        public static final double SHOOTER_TO_SPEAKER_METERS = HEIGHT_METERS - Shooter.HEIGHT_OFF_GROUND_METERS;
+      }
+    }
 
     public static final class MaxDistances {
-      public static final double SHOOTER = 1.7; // meters
+      public static final double SPEAKER = 1.7; // meters
     }
 
     public static final class FiducialIDs {
