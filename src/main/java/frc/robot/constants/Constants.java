@@ -95,7 +95,7 @@ public final class Constants {
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_UP_ZERO_OFFSET = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 0.0;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
@@ -159,7 +159,6 @@ public final class Constants {
     public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.2, 0.0, 0.0); // TODO: tune
 
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
-    // gear ratios:
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
     public static final double DRIVE_MOTOR_GEAR_RATIO = 6.75;
     public static final double ANGLE_MOTOR_GEAR_RATIO = 150.0 / 7.0;
@@ -220,7 +219,7 @@ public final class Constants {
   public static final class Vision {
     public static final String TARGET_CAMERA = "limelight";
     public static final int PIPELINE = 0;
-    public static final double CAMERA_HEIGHT_METERS = 280.0 / 100.0;
+    public static final double CAMERA_HEIGHT_METERS = 280.0 / 1000.0;
     // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
     public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
         new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
@@ -236,6 +235,7 @@ public final class Constants {
 
     public static final class Measurements {
       public static final class Speaker {
+        // https://github.com/wpilibsuite/allwpilib/blob/main/apriltag/src/main/native/resources/edu/wpi/first/apriltag/2024-crescendo.json
         // height is Z axis
         public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
             .get().getZ();

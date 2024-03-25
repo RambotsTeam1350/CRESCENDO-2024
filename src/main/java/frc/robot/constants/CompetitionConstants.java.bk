@@ -8,7 +8,12 @@ import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
+import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
@@ -52,14 +57,15 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
-    public static final double UP_ABSOLUTE_ENCODER_VALUE = 0.323;
-    public static final double STRAIGHT_ABSOLUTE_ENCODER_VALUE = 0.614;
-    public static final double DOWN_ABSOLUTE_ENCODER_VALUE = 0.905;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
+    // the intake treats 0 degrees as the intake being up inside the robot, and
+    // moving out from the robot is + degrees
+    public static final double UP_DEGREES = 0.0;
+    public static final double STRAIGHT_DEGREES = 90.0;
+    public static final double DOWN_DEGREES = 213.0;
+    public static final double MAXIMUM_DEGREES_UP = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 
-    // public static final int UP_DEGREES = 0;
-    // public static final int DOWN_DEGREES = 180;
-    public static final double ROTATION_MOTOR_UP_DIRECTION = 1.0;
-    public static final double ROTATION_MOTOR_DOWN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_IN_DIRECTION = -1.0;
     public static final double POWER_MOTOR_OUT_DIRECTION = 1.0;
 
@@ -67,24 +73,41 @@ public final class Constants {
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0, -1, 1);
-    public static final CANSparkPIDFConfig ROTATION_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
-        0.0175, -1, 1);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.08 * 12.0, 0, 0); // we tuned this
+    // slightly fudged kS value, but i had to account for there sometimes being
+    // gravity
     public static final FFConfig POWER_MOTOR_FF_CONFIG = new FFConfig(0.132, 12.0 / 5740.0);
-    // 5740
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.2);
   }
 
   public static final class Shooter {
-    public static final int SPEED_MOTOR_1_ID = 3;
-    public static final int SPEED_MOTOR_2_ID = 4;
+    public static final int POWER_MOTOR_1_ID = 3;
+    public static final int POWER_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
 
+    // ask Katemaya about the gears (Vivic counted these)
+    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2487;
+
+    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    public static final double MAXIMUM_DEGREES_UP = 38.64;
+    // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
+    // real world (this is by design so the shooter doesn't hit the robot when it's
+    // up), we need to account for that
+    public static final double MAXIMUM_DEGREES_UP_ZERO_OFFSET = 0.0;
+
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0, 0.000175, 0, 1);
-    public static final FFConfig SPEED_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
-    public static final FFConfig SPEED_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
+        0.000175, 0, 1);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.005 * 12.0, 0, 0); // TODO: tune
+
+    public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
+    public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13);
+
+    public static final double HEIGHT_OFF_GROUND_METERS = 0.0; // TODO: find
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -96,7 +119,8 @@ public final class Constants {
 
     public static final double MAX_RPM = MotorFreeSpeeds.NEO_BRUSHLESS;
 
-    public static final CANSparkPIDFConfig SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
+    public static final CANSparkPIDFConfig LEFT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0003, -1, 1);
+    public static final CANSparkPIDFConfig RIGHT_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.002, 0, 0, 0.0006, -1, 1);
   }
 
   public static final class Swerve {
@@ -132,6 +156,8 @@ public final class Constants {
 
     public static final int PIGEON_ID = 10;
 
+    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.2, 0.0, 0.0); // TODO: tune
+
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     // gear ratios:
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
@@ -147,9 +173,9 @@ public final class Constants {
     public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
+    // multiply by 12.0 because voltage control is used
     public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.15 * 12.0); // TODO: not tuned at all
-    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0); // multiply by 12.0 because
-    // voltage control is used
+    public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0);
 
     public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
     public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
@@ -175,8 +201,8 @@ public final class Constants {
     public static final double TELE_DRIVE_MAX_ANGULAR_ACCELERATION = 3;
 
     // Auton constraints
-    public static final double AUTO_kP_TRANSLATION = 0.5;
-    public static final double AUTO_kP_ROTATION = 0.1;
+    public static final double AUTO_kP_TRANSLATION = 5;
+    public static final double AUTO_kP_ROTATION = 5;
 
     public static final double AUTO_DRIVE_MAX_SPEED = DRIVETRAIN_MAX_SPEED / 2.0;
     public static final double AUTO_DRIVE_MAX_ANGULAR_SPEED = DRIVETRAIN_MAX_ANGULAR_SPEED / 2.0;
@@ -189,5 +215,50 @@ public final class Constants {
         AUTO_DRIVE_MAX_SPEED, // Max module speed, in m/s
         DRIVE_BASE_RADIUS,
         new ReplanningConfig());
+  }
+
+  public static final class Vision {
+    public static final String TARGET_CAMERA = "limelight";
+    public static final int PIPELINE = 0;
+    public static final double CAMERA_HEIGHT_METERS = 280.0 / 100.0;
+    // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
+    public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
+        new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
+        new Rotation3d(0, 0, 0));
+
+    // public static final double CAMERA_PITCH_RADIANS =
+    // Units.degreesToRadians(29.7); // 29.5
+    public static final double CAMERA_PITCH_RADIANS = 0;
+    public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 0.0;
+
+    public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFields.k2024Crescendo
+        .loadAprilTagLayoutField();
+
+    public static final class Measurements {
+      public static final class Speaker {
+        // height is Z axis
+        public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
+            .get().getZ();
+        // https://lakotarobotics.com/2024/01/2024-game-crescendo/
+        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) + Units.feetToMeters(6.5)) / 2.0);
+
+        public static final double SHOOTER_TO_GOAL_HEIGHT_METERS = GOAL_HEIGHT_METERS
+            - Shooter.HEIGHT_OFF_GROUND_METERS;
+      }
+    }
+
+    public static final class MaxDistances {
+      public static final double SPEAKER = 1.7; // meters
+    }
+
+    public static final class FiducialIDs {
+      public static final int SPEAKER_BLUE = 7;
+      public static final int SPEAKER_RED = 4;
+    }
+  }
+
+  public static final class LEDs {
+    public static final int LED_DIO_PORT = 8;
+    public static final int LED_LENGTH = 41;
   }
 }

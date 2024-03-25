@@ -18,8 +18,6 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private final Camera camera;
   private final LED led;
 
-  private double angle;
-
   public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED led) {
     this.shooterRotation = shooterRotation;
     this.camera = camera;
@@ -30,7 +28,6 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("SHOOTER COMMAND");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -46,9 +43,10 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
           - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
       System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
       if (this.isInRange(shooterDistanceFromSpeaker)) {
-        this.angle = Units.radiansToDegrees(
+        double angle = Units.radiansToDegrees(
             Math.atan(
                 Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
+        angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
         System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
         // this.shooterRotation.setAngle(angle);
         this.led.setLEDs();
