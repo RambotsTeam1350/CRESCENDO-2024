@@ -148,9 +148,12 @@ public class RobotContainer {
     this.operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.intakePowerSubsystem));
     this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
     this.operatorController.x().toggleOnTrue(RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
-    this.operatorController.back().onTrue(new FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
+    // this.operatorController.back().onTrue(new
+    // FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
     this.operatorController.b().toggleOnTrue(
         new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
+    this.operatorController.back().onTrue(new RotateShooterToAngle(shooterRotationSubsystem, 38.64));
+
   }
 
   /**

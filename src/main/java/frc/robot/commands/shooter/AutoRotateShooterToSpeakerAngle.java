@@ -39,16 +39,17 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
           Constants.Vision.Measurements.Speaker.APRIL_TAG_HEIGHT_METERS,
           Constants.Vision.CAMERA_PITCH_RADIANS,
           Units.degreesToRadians(this.camera.getBestTarget().getPitch()));
-      double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
-          - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
+      double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker;
+      // - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
       System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
       if (this.isInRange(shooterDistanceFromSpeaker)) {
         double angle = Units.radiansToDegrees(
             Math.atan(
                 Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
         angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
+        // angle = 3;
         System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
-        // this.shooterRotation.setAngle(angle);
+        this.shooterRotation.setAngle(angle);
         this.led.setLEDs();
       }
     }

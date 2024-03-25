@@ -34,7 +34,7 @@ public class IntakeRotation extends SubsystemBase {
         this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
 
         this.PIDController = new ConfiguredPIDController(Constants.Intake.ROTATION_MOTOR_PID_CONFIG);
-        this.PIDController.setTolerance(5);
+        this.PIDController.setTolerance(2);
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
     }
 
@@ -54,7 +54,7 @@ public class IntakeRotation extends SubsystemBase {
         double voltage = this.PIDController.calculate(this.getAngle(), angle);
         // 0 velocity because we do not care about the velocity of the rotation motor,
         // we just want to get it to a specific angle
-        voltage += this.motorFeedForward.calculate(0);
+        voltage += this.motorFeedForward.calculate(0) * Math.signum(voltage);
         this.motor.setVoltage(voltage);
     }
 

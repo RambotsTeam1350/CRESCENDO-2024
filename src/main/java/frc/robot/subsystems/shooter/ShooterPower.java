@@ -46,6 +46,12 @@ public class ShooterPower extends SubsystemBase {
         this.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 
+    public void setMaxPercent() {
+        this.motor1.set(0.725);
+        this.motor2.set(0.725);
+
+    }
+
     public void setMotorsVelocitySetpoint(double velocity) { // RPM
         this.motor1.getPIDController().setReference(this.motor1FeedForward.calculate(velocity),
                 ControlType.kVoltage);

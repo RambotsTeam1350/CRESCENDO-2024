@@ -14,7 +14,8 @@ public class RunStopShooter extends Command {
 
     @Override
     public void initialize() {
-        this.shooterPower.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+        this.shooterPower.setMaxPercent();
+        // this.shooterPower.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 
     @Override

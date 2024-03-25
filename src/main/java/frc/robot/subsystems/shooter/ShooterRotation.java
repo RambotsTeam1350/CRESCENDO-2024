@@ -29,7 +29,7 @@ public class ShooterRotation extends SubsystemBase {
         this.throughBoreEncoder.setPositionOffset(Constants.Shooter.ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET);
 
         this.PIDController = new ConfiguredPIDController(Constants.Shooter.ROTATION_MOTOR_PID_CONFIG);
-        this.PIDController.setTolerance(3); // TODO: figure out tolerance
+        this.PIDController.setTolerance(0.05); // TODO: figure out tolerance
 
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Shooter.ROTATION_MOTOR_FF_CONFIG);
     }
@@ -37,6 +37,7 @@ public class ShooterRotation extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Through Bore Angle", this.getAngle());
+        SmartDashboard.putNumber("shooter abs", this.throughBoreEncoder.getAbsolutePosition());
         SmartDashboard.putBoolean("shooter at setpoint", this.atSetpoint());
     }
 
@@ -51,7 +52,12 @@ public class ShooterRotation extends SubsystemBase {
                 Constants.Shooter.MAXIMUM_DEGREES_UP);
         double voltage = this.PIDController.calculate(this.getAngle(), angle);
         // 0 velocity because we do not care about the velocity of the rotation motor
-        voltage += this.motorFeedForward.calculate(0);
+        if (voltage < 0) {
+            voltage -= 0.12;
+        } else {
+            voltage += 0.12;
+        }
+        // voltage += this.motorFeedForward.calculate(0) * Math.signum(voltage);
         System.out.println(voltage);
         this.motor.setVoltage(voltage);
     }

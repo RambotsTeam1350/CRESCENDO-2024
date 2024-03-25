@@ -26,13 +26,13 @@ public class RotateShooterToAngle extends Command {
 
     @Override
     public void execute() {
-        // this.intakeRotation.setAngle(this.kAngle);
+        this.shooterRotation.setAngle(this.kAngle);
     }
 
-    // @Override
-    // public boolean isFinished() {
-    // // return this.intakeRotation.atSetpoint();
-    // }
+    @Override
+    public boolean isFinished() {
+        return this.shooterRotation.atSetpoint();
+    }
 
     @Override
     public void end(boolean interrupted) {

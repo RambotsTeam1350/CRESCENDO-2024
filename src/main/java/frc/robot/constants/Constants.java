@@ -62,7 +62,7 @@ public final class Constants {
     // moving out from the robot is + degrees
     public static final double UP_DEGREES = 0.0;
     public static final double STRAIGHT_DEGREES = 90.0;
-    public static final double DOWN_DEGREES = 213.0;
+    public static final double DOWN_DEGREES = 208.0;
     public static final double MAXIMUM_DEGREES_UP = 0.0;
     public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 
@@ -88,26 +88,26 @@ public final class Constants {
 
     // ask Katemaya about the gears (Vivic counted these)
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2487;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2468;
 
     public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    public static final double MAXIMUM_DEGREES_UP = 38.64;
+    public static final double MAXIMUM_DEGREES_UP = 38.9;
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 0.0;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 13;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.005 * 12.0, 0, 0); // TODO: tune
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.022 * 12.0, 0, 0); // TODO: tune
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.13);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.19);
 
-    public static final double HEIGHT_OFF_GROUND_METERS = 0.0; // TODO: find
+    public static final double HEIGHT_OFF_GROUND_METERS = 44.25 / 100.0;
   }
 
   public static final class Climber { // left and right is based on the perspective of the intake
@@ -219,7 +219,7 @@ public final class Constants {
   public static final class Vision {
     public static final String TARGET_CAMERA = "limelight";
     public static final int PIPELINE = 0;
-    public static final double CAMERA_HEIGHT_METERS = 280.0 / 1000.0;
+    public static final double CAMERA_HEIGHT_METERS = 28.0 / 100.0;
     // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
     public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
         new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
@@ -228,7 +228,7 @@ public final class Constants {
     // public static final double CAMERA_PITCH_RADIANS =
     // Units.degreesToRadians(29.7); // 29.5
     public static final double CAMERA_PITCH_RADIANS = 0;
-    public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 0.0;
+    public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 22.0 / 100.0;
 
     public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFields.k2024Crescendo
         .loadAprilTagLayoutField();
@@ -240,7 +240,9 @@ public final class Constants {
         public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
             .get().getZ();
         // https://lakotarobotics.com/2024/01/2024-game-crescendo/
-        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) + Units.feetToMeters(6.5)) / 2.0);
+        // public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
+        // Units.feetToMeters(6.5)) / 2.0);
+        public static final double GOAL_HEIGHT_METERS = 2.25;
 
         public static final double SHOOTER_TO_GOAL_HEIGHT_METERS = GOAL_HEIGHT_METERS
             - Shooter.HEIGHT_OFF_GROUND_METERS;
@@ -248,7 +250,7 @@ public final class Constants {
     }
 
     public static final class MaxDistances {
-      public static final double SPEAKER = 1.7; // meters
+      public static final double SPEAKER = 4; // meters
     }
 
     public static final class FiducialIDs {
