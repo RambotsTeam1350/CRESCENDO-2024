@@ -143,9 +143,9 @@ public class Drivetrain extends SubsystemBase {
                                                                                                     // control
     // w/ joystick
     if (halfSpeed) {
-      frontSpeed *= 0.5;
-      sideSpeed *= 0.5;
-      turnSpeed *= 0.5;
+      frontSpeed *= 0.25;
+      sideSpeed *= 0.25;
+      turnSpeed *= 0.25;
     }
     if (deadband) {
       frontSpeed = Math.abs(frontSpeed) > 0.1 ? frontSpeed : 0;

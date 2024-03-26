@@ -54,7 +54,7 @@ public class IntakeRotation extends SubsystemBase {
         double voltage = this.PIDController.calculate(this.getAngle(), angle);
         // 0 velocity because we do not care about the velocity of the rotation motor,
         // we just want to get it to a specific angle
-        voltage += this.motorFeedForward.calculate(0) * Math.signum(voltage);
+        voltage += (this.motorFeedForward.calculate(0) * Math.signum(voltage));
         this.motor.setVoltage(voltage);
     }
 
