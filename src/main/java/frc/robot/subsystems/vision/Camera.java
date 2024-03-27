@@ -58,6 +58,16 @@ public class Camera extends SubsystemBase {
         return this.targets;
     }
 
+    public PhotonTrackedTarget getSpeakerTarget() {
+        for (PhotonTrackedTarget target : this.targets) {
+            if (target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_BLUE
+                    || target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_RED) {
+                return target;
+            }
+        }
+        return null;
+    }
+
     public PhotonTrackedTarget getBestTarget() {
         return this.bestTarget;
     }

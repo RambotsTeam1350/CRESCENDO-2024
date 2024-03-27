@@ -18,7 +18,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
-import frc.lib.drivers.ConfiguredPIDController;
 import frc.lib.structs.CANSparkPIDFConfig;
 import frc.lib.structs.FFConfig;
 import frc.lib.structs.PIDConfig;
@@ -178,7 +177,8 @@ public final class Constants {
     public static final double DRIVE_MOTOR_VCONVERSION = DRIVE_MOTOR_PCONVERSION / 60.0;
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
 
-    public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
+    // public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
+    public static final int DRIVE_MOTOR_SMART_LIMIT = 30;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
     // multiply by 12.0 because voltage control is used

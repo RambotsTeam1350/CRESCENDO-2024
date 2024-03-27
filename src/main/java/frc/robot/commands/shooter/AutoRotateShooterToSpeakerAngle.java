@@ -16,18 +16,15 @@ import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.vision.Camera;
 
 public class AutoRotateShooterToSpeakerAngle extends Command {
-  private final ShooterRotation shooterRotation;
-  private final Camera camera;
+  private final ShooterRotation shooterRotationSubsystem;
+  private final Camera cameraSubsystem;
   private final LED led;
 
-  private boolean hasDesiredTarget;
-  private PhotonTrackedTarget target;
-
-  public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED led) {
-    this.shooterRotation = shooterRotation;
-    this.camera = camera;
-    this.led = led;
-    addRequirements(this.shooterRotation);
+  public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED ledSubsystem) {
+    this.shooterRotationSubsystem = shooterRotation;
+    this.cameraSubsystem = camera;
+    this.led = ledSubsystem;
+    addRequirements(this.shooterRotationSubsystem);
     // , this.camera, this.led); i am going to experiment with this
   }
 
@@ -40,27 +37,18 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (!this.camera.hasTarget()) {
-      return;
-    }
-    for (PhotonTrackedTarget target : this.camera.getTargets()) {
-      if (target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_BLUE
-          || target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_RED) {
-        this.target = target;
-        this.hasDesiredTarget = true;
-      }
-    }
-    if (!this.hasDesiredTarget) {
+    PhotonTrackedTarget speakerTarget = this.cameraSubsystem.getSpeakerTarget();
+    if (speakerTarget == null) {
       return;
     }
     double cameraDistanceFromSpeaker = PhotonUtils.calculateDistanceToTargetMeters(
         Constants.Vision.CAMERA_HEIGHT_METERS,
         Constants.Vision.Measurements.Speaker.APRIL_TAG_HEIGHT_METERS,
         Constants.Vision.CAMERA_PITCH_RADIANS,
-        Units.degreesToRadians(this.target.getPitch()));
+        Units.degreesToRadians(speakerTarget.getPitch()));
     double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
         - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
-    SmartDashboard.putNumber("target yaw", this.target.getYaw());
+    SmartDashboard.putNumber("target yaw", speakerTarget.getYaw());
     // System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
     if (this.isInRange(shooterDistanceFromSpeaker)) {
       double angle = Units.radiansToDegrees(
@@ -69,7 +57,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
       // angle = 3;
       System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
-      this.shooterRotation.setAngle(angle);
+      this.shooterRotationSubsystem.setAngle(angle);
       this.led.setLEDs();
     }
   }
@@ -77,13 +65,13 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    this.shooterRotation.stopMotor();
+    this.shooterRotationSubsystem.stopMotor();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return this.shooterRotation.atSetpoint();
+    return this.shooterRotationSubsystem.atSetpoint();
   }
 
   private boolean isInRange(double positionX) {

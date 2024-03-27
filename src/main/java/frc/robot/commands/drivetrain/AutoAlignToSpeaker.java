@@ -3,16 +3,12 @@ package frc.robot.commands.drivetrain;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.Constants;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.subsystems.vision.Camera;
 
 public class AutoAlignToSpeaker extends Command {
     private final Drivetrain drivetrainSubystem;
     private final Camera cameraSubsystem;
-
-    private boolean hasDesiredTarget;
-    private PhotonTrackedTarget target;
 
     public AutoAlignToSpeaker(Drivetrain drivetrainSubsystem, Camera cameraSubsystem) {
         this.drivetrainSubystem = drivetrainSubsystem;
@@ -25,20 +21,11 @@ public class AutoAlignToSpeaker extends Command {
 
     @Override
     public void execute() {
-        if (!this.cameraSubsystem.hasTarget()) {
+        PhotonTrackedTarget speakerTarget = this.cameraSubsystem.getSpeakerTarget();
+        if (speakerTarget == null) {
             return;
         }
-        for (PhotonTrackedTarget target : this.cameraSubsystem.getTargets()) {
-            if (target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_BLUE
-                    || target.getFiducialId() == Constants.Vision.FiducialIDs.SPEAKER_RED) {
-                this.target = target;
-                this.hasDesiredTarget = true;
-            }
-        }
-        if (!this.hasDesiredTarget) {
-            return;
-        }
-        this.drivetrainSubystem.rotateToFaceVisionTarget(this.cameraSubsystem.getBestTarget().getYaw());
+        this.drivetrainSubystem.rotateToFaceVisionTarget(speakerTarget.getYaw());
     }
 
     @Override
