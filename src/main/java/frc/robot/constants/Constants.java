@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
+import frc.lib.drivers.ConfiguredPIDController;
 import frc.lib.structs.CANSparkPIDFConfig;
 import frc.lib.structs.FFConfig;
 import frc.lib.structs.PIDConfig;
@@ -84,28 +85,29 @@ public final class Constants {
     public static final int POWER_MOTOR_1_ID = 3;
     public static final int POWER_MOTOR_2_ID = 4;
     public static final int ROTATION_MOTOR_ID = 5;
-    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 9;
+    public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 7;
 
     // ask Katemaya about the gears (Vivic counted these)
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.2468;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.462;
 
     public static final double MAXIMUM_DEGREES_DOWN = 0.0;
     public static final double MAXIMUM_DEGREES_UP = 38.9;
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 13;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 16;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.022 * 12.0, 0, 0); // TODO: tune
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.03 * 12.0, 0.009 * 12.0, 0.0002 * 12.0); // TODO:
+    // tune
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.19);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.275);
 
     public static final double HEIGHT_OFF_GROUND_METERS = 44.25 / 100.0;
   }
@@ -128,21 +130,26 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 11;
       public static final int ANGLE_MOTOR_ID = 12;
       public static final int CANCODER_ID = 1;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.125488;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.124512;
+      // public static final double CANCODER_ALIGNMENT_OFFSET = 0.374512;
+
     }
 
     public static final class FR {
       public static final int DRIVE_MOTOR_ID = 21;
       public static final int ANGLE_MOTOR_ID = 22;
       public static final int CANCODER_ID = 2;
-      public static final double CANCODER_ALIGNMENT_OFFSET = 0.346924;
+      public static final double CANCODER_ALIGNMENT_OFFSET = 0.344482;
+      // public static final double CANCODER_ALIGNMENT_OFFSET = -0.149170;
     }
 
     public static final class BL {
       public static final int DRIVE_MOTOR_ID = 31;
       public static final int ANGLE_MOTOR_ID = 32;
       public static final int CANCODER_ID = 3;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.007812;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.005371;
+      // public static final double CANCODER_ALIGNMENT_OFFSET = 0.491455;
+
     }
 
     // apparently SPARKMAX ids over 40 cause issues so i just subtracted 6 from the
@@ -151,7 +158,9 @@ public final class Constants {
       public static final int DRIVE_MOTOR_ID = 35;
       public static final int ANGLE_MOTOR_ID = 36;
       public static final int CANCODER_ID = 4;
-      public static final double CANCODER_ALIGNMENT_OFFSET = -0.427734;
+      public static final double CANCODER_ALIGNMENT_OFFSET = -0.427002;
+      // public static final double CANCODER_ALIGNMENT_OFFSET = -0.073975;
+
     }
 
     public static final int PIGEON_ID = 10;
@@ -173,11 +182,14 @@ public final class Constants {
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
     // multiply by 12.0 because voltage control is used
-    public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0.15 * 12.0); // TODO: not tuned at all
+    public static final PIDConfig DRIVE_MOTOR_PID_CONFIG = new PIDConfig(0 * 12.0); // TODO: not tuned at all
     public static final PIDConfig ANGLE_MOTOR_PID_CONFIG = new PIDConfig(0.4 * 12.0);
 
-    public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118, 2.617);
-    public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
+    // public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.118,
+    // 2.617);
+    public static final FFConfig DRIVE_MOTOR_FF_CONFIG = new FFConfig(0.12, 2.617);
+    // public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.132);
+    public static final FFConfig ANGLE_MOTOR_FF_CONFIG = new FFConfig(0.134);
 
     public static final double DRIVETRAIN_MAX_SPEED = 4.5 * 1.0;
     public static final double DRIVETRAIN_MAX_ANGULAR_SPEED = 3.5 * Math.PI;
@@ -230,6 +242,8 @@ public final class Constants {
     public static final double CAMERA_PITCH_RADIANS = 0;
     public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 22.0 / 100.0;
 
+    public static final PIDConfig DRIVETRAIN_ROTATION_PID_CONFIG = new PIDConfig(0.05);
+
     public static final AprilTagFieldLayout APRIL_TAG_FIELD_LAYOUT = AprilTagFields.k2024Crescendo
         .loadAprilTagLayoutField();
 
@@ -260,7 +274,7 @@ public final class Constants {
   }
 
   public static final class LEDs {
-    public static final int LED_DIO_PORT = 8;
+    public static final int LED_PWM_PORT = 9;
     public static final int LED_LENGTH = 41;
   }
 }

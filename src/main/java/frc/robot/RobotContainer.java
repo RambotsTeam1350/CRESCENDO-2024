@@ -20,6 +20,7 @@ import frc.robot.commands.routines.IntakeNote;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
+import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
 import frc.robot.commands.intake.FeedNote;
 import frc.robot.commands.intake.ForceSlowGrabNote;
 import frc.robot.commands.intake.GrabNote;
@@ -152,6 +153,8 @@ public class RobotContainer {
     // FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
     this.operatorController.b().toggleOnTrue(
         new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
+    // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
+    // this.cameraSubsystem)));
     this.operatorController.back().onTrue(new RotateShooterToAngle(shooterRotationSubsystem, 38.64));
 
   }

@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.drivers.ConfiguredPIDController;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.Swerve;
 import frc.robot.subsystems.vision.Camera;
 
@@ -124,11 +125,12 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     this.poseEstimator.update(getHeadingRotation2d(), getModulePositions());
-    Optional<EstimatedRobotPose> visionEstimatedRobotPose = this.cameraSubsystem.getEstimatedRobotPose();
-    if (visionEstimatedRobotPose.isPresent()) {
-      this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
-          visionEstimatedRobotPose.get().timestampSeconds);
-    }
+    // Optional<EstimatedRobotPose> visionEstimatedRobotPose =
+    // this.cameraSubsystem.getEstimatedRobotPose();
+    // if (visionEstimatedRobotPose.isPresent()) {
+    // this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
+    // visionEstimatedRobotPose.get().timestampSeconds);
+    // }
     this.field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());
@@ -175,6 +177,19 @@ public class Drivetrain extends SubsystemBase {
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
     this.setModuleStates(moduleStates);
+  }
+
+  // see AutoAlignToSpeaker
+  public void rotateToFaceVisionTarget(double currentYaw) {
+    double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
+    SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+    this.setModuleStates(moduleStates);
+  }
+
+  public boolean isAtHeadingSetpoint() {
+    return this.headingPIDController.atSetpoint();
   }
 
   public void setAllIdleMode(boolean brake) {

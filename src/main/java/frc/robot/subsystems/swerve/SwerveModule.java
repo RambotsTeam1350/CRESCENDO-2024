@@ -139,7 +139,7 @@ public class SwerveModule extends SubsystemBase {
         : desiredState.angle; // Prevent rotating module if speed is less then 1%. Prevents Jittering.
 
     double voltage = this.anglePIDController.calculate(this.getTurnMotorPosition(), desiredState.angle.getRadians());
-    voltage += this.angleFeedforward.calculate(0);
+    voltage += this.angleFeedforward.calculate(0) * Math.signum(voltage);
     this.angleMotor.setVoltage(voltage);
     this.lastAngle = angle;
   }

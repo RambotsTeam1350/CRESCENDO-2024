@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
 public class LED extends SubsystemBase {
-  private final AddressableLED led = new AddressableLED(Constants.LEDs.LED_DIO_PORT);
+  private final AddressableLED led = new AddressableLED(Constants.LEDs.LED_PWM_PORT);
   private final AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(Constants.LEDs.LED_LENGTH);
   private int rainbowFirstPixelHue;
 
@@ -24,7 +24,6 @@ public class LED extends SubsystemBase {
   public void setLEDs() {
     this.ledBuffer.setRGB(10, 255, 0, 0);
     this.led.setData(ledBuffer);
-    this.led.start();
   }
 
   // this is for fun if i'm bored

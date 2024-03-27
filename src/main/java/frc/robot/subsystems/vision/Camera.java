@@ -1,5 +1,6 @@
 package frc.robot.subsystems.vision;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.photonvision.EstimatedRobotPose;
@@ -20,6 +21,7 @@ public class Camera extends SubsystemBase {
     private PhotonPipelineResult latestResult;
     private boolean hasTarget = false;
     private PhotonTrackedTarget bestTarget;
+    private List<PhotonTrackedTarget> targets;
 
     private final AprilTagFieldLayout aprilTagFieldLayout;
     private final PhotonPoseEstimator photonPoseEstimator;
@@ -39,6 +41,7 @@ public class Camera extends SubsystemBase {
 
         if (this.latestResult.hasTargets()) {
             this.bestTarget = this.latestResult.getBestTarget();
+            this.targets = this.latestResult.getTargets();
             this.hasTarget = true;
         } else {
             this.hasTarget = false;
@@ -51,12 +54,12 @@ public class Camera extends SubsystemBase {
         return this.latestResult;
     }
 
-    public PhotonTrackedTarget getBestTarget() {
-        return this.bestTarget;
+    public List<PhotonTrackedTarget> getTargets() {
+        return this.targets;
     }
 
-    public int getTargetFiducialID() {
-        return this.bestTarget.getFiducialId();
+    public PhotonTrackedTarget getBestTarget() {
+        return this.bestTarget;
     }
 
     public boolean hasTarget() {
