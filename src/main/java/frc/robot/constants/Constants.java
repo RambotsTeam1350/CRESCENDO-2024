@@ -94,8 +94,8 @@ public final class Constants {
     public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 30.97;
 
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = MAXIMUM_DEGREES_DOWN / 360
-        / ROTATION_THROUGH_BORE_CONVERSION_FACTOR;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.3716 - (MAXIMUM_DEGREES_DOWN / 360
+        / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
 
     // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
     // 0.27685;
@@ -259,12 +259,14 @@ public final class Constants {
       public static final class Speaker {
         // https://github.com/wpilibsuite/allwpilib/blob/main/apriltag/src/main/native/resources/edu/wpi/first/apriltag/2024-crescendo.json
         // height is Z axis
+        // this is equal to 1.4511020000000001
         public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
             .get().getZ();
         // https://lakotarobotics.com/2024/01/2024-game-crescendo/
-        // public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
-        // Units.feetToMeters(6.5)) / 2.0);
-        public static final double GOAL_HEIGHT_METERS = 2.25;
+        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
+            Units.feetToMeters(6.5)) / 2.0);
+        // public static final double GOAL_HEIGHT_METERS = 2.25; // this is the number i
+        // measured on our in-house speaker
 
         public static final double SHOOTER_TO_GOAL_HEIGHT_METERS = GOAL_HEIGHT_METERS
             - Shooter.HEIGHT_OFF_GROUND_METERS;
