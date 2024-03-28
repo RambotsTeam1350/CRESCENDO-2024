@@ -87,15 +87,23 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 7;
 
     // ask Katemaya about the gears (Vivic counted these)
-    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.3716;
 
-    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    public static final double MAXIMUM_DEGREES_UP = 30.97;
+    // public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    // public static final double MAXIMUM_DEGREES_UP = 30.97;
+    public static final double MAXIMUM_DEGREES_DOWN = 23.0;
+    public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 30.97;
+
+    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = MAXIMUM_DEGREES_DOWN / 360
+        / ROTATION_THROUGH_BORE_CONVERSION_FACTOR;
+
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // 0.27685;
+
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 23;
+    // public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 23;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
