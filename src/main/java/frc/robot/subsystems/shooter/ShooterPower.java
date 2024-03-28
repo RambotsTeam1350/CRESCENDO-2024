@@ -1,6 +1,5 @@
 package frc.robot.subsystems.shooter;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -44,14 +43,18 @@ public class ShooterPower extends SubsystemBase {
     }
 
     public void setMaxVelocitySetpoint() {
-        this.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+        this.setMotorsVelocity(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 
-    public void setMotorsVelocitySetpoint(double velocity) { // RPM
-        this.motor1.getPIDController().setReference(this.motor1FeedForward.calculate(velocity),
-                ControlType.kVoltage);
-        this.motor2.getPIDController().setReference(this.motor2FeedForward.calculate(velocity),
-                ControlType.kVoltage);
+    // public void setMaxPercent() {
+    // this.motor1.set(0.725);
+    // this.motor2.set(0.725);
+    // }
+
+    public void setMotorsVelocity(double velocity) { // RPM
+        this.speedMotorsRunning = true;
+        this.motor1.setVoltage(this.motor1FeedForward.calculate(velocity));
+        this.motor2.setVoltage(this.motor2FeedForward.calculate(velocity));
     }
 
     public void stopSpeedMotors() {

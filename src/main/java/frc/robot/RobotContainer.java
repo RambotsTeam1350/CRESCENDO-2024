@@ -20,21 +20,26 @@ import frc.robot.commands.routines.IntakeNote;
 import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
+import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
 import frc.robot.commands.intake.FeedNote;
 import frc.robot.commands.intake.ForceSlowGrabNote;
 import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.RunStopShooter;
 import frc.robot.commands.shooter.StopShooter;
+import frc.robot.commands.shooter.AutoRotateShooterToSpeakerAngle;
+import frc.robot.commands.shooter.RotateShooterToAngle;
 import frc.robot.commands.shooter.RunShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
 import frc.robot.subsystems.shooter.ShooterPower;
 import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.swerve.Drivetrain;
+import frc.robot.subsystems.vision.Camera;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -47,6 +52,8 @@ import frc.robot.subsystems.swerve.Drivetrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final Camera cameraSubsystem;
+
   private final Drivetrain drivetrainSubsystem;
 
   private final Climber climberSubsystem;
@@ -59,6 +66,8 @@ public class RobotContainer {
 
   private final ColorSensor colorSensorSubsystem;
 
+  private final LED ledSubsystem;
+
   private final CommandXboxController driverController;
   private final CommandXboxController operatorController;
 
@@ -68,13 +77,21 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
-    this.drivetrainSubsystem = new Drivetrain();
+    this.cameraSubsystem = new Camera();
+
+    this.drivetrainSubsystem = new Drivetrain(this.cameraSubsystem);
+
     this.climberSubsystem = new Climber();
+
     this.intakeRotationSubsystem = new IntakeRotation();
     this.intakePowerSubsystem = new IntakePower();
+
     this.shooterRotationSubsystem = new ShooterRotation();
     this.shooterPowerSubsystem = new ShooterPower();
+
     this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
+
+    this.ledSubsystem = new LED();
 
     this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
     this.operatorController = new CommandXboxController(Constants.Controllers.OPERATOR_PORT);
@@ -132,7 +149,14 @@ public class RobotContainer {
     this.operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.intakePowerSubsystem));
     this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
     this.operatorController.x().toggleOnTrue(RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
-    this.operatorController.back().onTrue(new FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
+    // this.operatorController.back().onTrue(new
+    // FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
+    this.operatorController.b().toggleOnTrue(
+        new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
+    // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
+    // this.cameraSubsystem)));
+    this.operatorController.back().onTrue(new RotateShooterToAngle(shooterRotationSubsystem, 38.64));
+
   }
 
   /**

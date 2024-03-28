@@ -1,11 +1,10 @@
 package frc.robot.subsystems.intake;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -35,7 +34,7 @@ public class IntakeRotation extends SubsystemBase {
         this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
 
         this.PIDController = new ConfiguredPIDController(Constants.Intake.ROTATION_MOTOR_PID_CONFIG);
-        this.PIDController.setTolerance(5);
+        this.PIDController.setTolerance(2);
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
     }
 
@@ -50,11 +49,12 @@ public class IntakeRotation extends SubsystemBase {
      * @param angle the desired angle in degrees
      */
     public void setAngle(double angle) {
+        // to prevent Accidents(TM)
+        angle = MathUtil.clamp(angle, Constants.Intake.MAXIMUM_DEGREES_UP, Constants.Intake.MAXIMUM_DEGREES_DOWN);
         double voltage = this.PIDController.calculate(this.getAngle(), angle);
         // 0 velocity because we do not care about the velocity of the rotation motor,
         // we just want to get it to a specific angle
-        voltage += this.motorFeedForward.calculate(0);
-        System.out.println(voltage);
+        voltage += (this.motorFeedForward.calculate(0) * Math.signum(voltage));
         this.motor.setVoltage(voltage);
     }
 

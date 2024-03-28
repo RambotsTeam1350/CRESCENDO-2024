@@ -9,8 +9,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -28,11 +26,11 @@ public class SwerveModule extends SubsystemBase {
   private RelativeEncoder driveEncoder;
   private RelativeEncoder angleEncoder;
 
-  private PIDController drivePIDController;
-  private PIDController anglePIDController;
+  private ConfiguredPIDController drivePIDController;
+  private ConfiguredPIDController anglePIDController;
 
-  private SimpleMotorFeedforward driveFeedforward;
-  private SimpleMotorFeedforward angleFeedforward;
+  private ConfiguredSimpleMotorFeedforward driveFeedforward;
+  private ConfiguredSimpleMotorFeedforward angleFeedforward;
 
   private CANcoder angleAbsoluteEncoder;
 
@@ -141,7 +139,7 @@ public class SwerveModule extends SubsystemBase {
         : desiredState.angle; // Prevent rotating module if speed is less then 1%. Prevents Jittering.
 
     double voltage = this.anglePIDController.calculate(this.getTurnMotorPosition(), desiredState.angle.getRadians());
-    voltage += this.angleFeedforward.calculate(0);
+    voltage += this.angleFeedforward.calculate(0) * Math.signum(voltage);
     this.angleMotor.setVoltage(voltage);
     this.lastAngle = angle;
   }

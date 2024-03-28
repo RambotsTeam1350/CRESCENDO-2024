@@ -5,6 +5,9 @@
 package frc.robot.subsystems.swerve;
 
 import java.text.DecimalFormat;
+import java.util.Optional;
+
+import org.photonvision.EstimatedRobotPose;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -22,9 +25,14 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.lib.drivers.ConfiguredPIDController;
+import frc.robot.constants.Constants;
 import frc.robot.constants.Constants.Swerve;
+import frc.robot.subsystems.vision.Camera;
 
 public class Drivetrain extends SubsystemBase {
+  private final Camera cameraSubsystem;
+
   private SwerveModule frontLeft;
   private SwerveModule frontRight;
   private SwerveModule backLeft;
@@ -35,12 +43,16 @@ public class Drivetrain extends SubsystemBase {
   private SlewRateLimiter turnLimiter;
 
   private Pigeon2 gyro;
+  private ConfiguredPIDController headingPIDController = new ConfiguredPIDController(Swerve.HEADING_PID_CONFIG);
 
   private SwerveDrivePoseEstimator poseEstimator;
+
   private Field2d field;
 
   /** Creates a new SwerveDrivetrain. */
-  public Drivetrain() {
+  public Drivetrain(Camera cameraSubsystem) {
+    this.cameraSubsystem = cameraSubsystem;
+
     new Thread(() -> {
       try {
         Thread.sleep(1000);
@@ -113,6 +125,12 @@ public class Drivetrain extends SubsystemBase {
   @Override
   public void periodic() {
     this.poseEstimator.update(getHeadingRotation2d(), getModulePositions());
+    // Optional<EstimatedRobotPose> visionEstimatedRobotPose =
+    // this.cameraSubsystem.getEstimatedRobotPose();
+    // if (visionEstimatedRobotPose.isPresent()) {
+    // this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
+    // visionEstimatedRobotPose.get().timestampSeconds);
+    // }
     this.field.setRobotPose(getPose());
 
     SmartDashboard.putNumber("Robot Angle", getHeading());
@@ -127,9 +145,9 @@ public class Drivetrain extends SubsystemBase {
                                                                                                     // control
     // w/ joystick
     if (halfSpeed) {
-      frontSpeed *= 0.5;
-      sideSpeed *= 0.5;
-      turnSpeed *= 0.5;
+      frontSpeed *= 0.25;
+      sideSpeed *= 0.25;
+      turnSpeed *= 0.25;
     }
     if (deadband) {
       frontSpeed = Math.abs(frontSpeed) > 0.1 ? frontSpeed : 0;
@@ -151,6 +169,27 @@ public class Drivetrain extends SubsystemBase {
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds, centerOfRotation);
 
     this.setModuleStates(moduleStates);
+  }
+
+  public void rotateToAngle(double angle) { // UNTESTED BE CAREFUL
+    double turnSpeed = -this.headingPIDController.calculate(this.getHeading(), angle);
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
+    SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+    this.setModuleStates(moduleStates);
+  }
+
+  // see AutoAlignToSpeaker
+  public void rotateToFaceVisionTarget(double currentYaw) {
+    double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
+    SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
+    this.setModuleStates(moduleStates);
+  }
+
+  public boolean isAtHeadingSetpoint() {
+    return this.headingPIDController.atSetpoint();
   }
 
   public void setAllIdleMode(boolean brake) {

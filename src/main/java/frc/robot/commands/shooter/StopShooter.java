@@ -6,8 +6,8 @@ import frc.robot.subsystems.shooter.ShooterPower;
 public class StopShooter extends Command {
     private ShooterPower shooterPower;
 
-    public StopShooter(ShooterPower shooter) {
-        this.shooterPower = shooter;
+    public StopShooter(ShooterPower shooterPower) {
+        this.shooterPower = shooterPower;
         addRequirements(this.shooterPower);
     }
 

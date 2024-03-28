@@ -7,13 +7,13 @@ import frc.robot.subsystems.shooter.ShooterPower;
 public class RunShooter extends Command {
     private ShooterPower shooterPower;
 
-    public RunShooter(ShooterPower shooter) {
-        this.shooterPower = shooter;
+    public RunShooter(ShooterPower shooterPower) {
+        this.shooterPower = shooterPower;
         addRequirements(this.shooterPower);
     }
 
     @Override
     public void initialize() {
-        this.shooterPower.setMotorsVelocitySetpoint(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
+        this.shooterPower.setMotorsVelocity(Constants.Shooter.SPEED_MOTORS_MAX_RPM);
     }
 }
