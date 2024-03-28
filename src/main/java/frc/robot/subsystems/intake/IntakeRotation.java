@@ -40,7 +40,7 @@ public class IntakeRotation extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Intake Through Bore Angle", this.getAngle());
+        SmartDashboard.putNumber("Intake Angle", this.getAngle());
     }
 
     /**

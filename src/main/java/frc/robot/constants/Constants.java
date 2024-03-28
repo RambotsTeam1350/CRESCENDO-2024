@@ -94,7 +94,7 @@ public final class Constants {
     public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 30.97;
 
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.3716 - (MAXIMUM_DEGREES_DOWN / 360
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.346924 - (MAXIMUM_DEGREES_DOWN / 360
         / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
 
     // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =

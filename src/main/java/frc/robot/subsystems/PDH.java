@@ -23,7 +23,7 @@ public class PDH extends SubsystemBase {
     private final GenericEntry channel1currentEntry;
 
     public PDH() {
-        this.pdh = new PowerDistribution(0, ModuleType.kRev);
+        this.pdh = new PowerDistribution(1, ModuleType.kRev);
 
         this.PDHTab = Shuffleboard.getTab("PDH");
         this.voltageEntry = this.PDHTab.add("Voltage", this.pdh.getVoltage()).getEntry();

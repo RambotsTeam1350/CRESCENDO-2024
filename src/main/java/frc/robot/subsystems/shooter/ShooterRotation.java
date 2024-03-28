@@ -36,10 +36,10 @@ public class ShooterRotation extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Shooter Through Bore Angle", this.getAngle());
-        SmartDashboard.putNumber("shooter abs",
-                this.throughBoreEncoder.getAbsolutePosition());
-        SmartDashboard.putBoolean("shooter at setpoint", this.atSetpoint());
+        SmartDashboard.putNumber("Shooter Angle", this.getAngle());
+        // SmartDashboard.putNumber("Shooter Absolute Position",
+        // this.throughBoreEncoder.getAbsolutePosition());
+        SmartDashboard.putBoolean("Shooter At Setpoint", this.atSetpoint());
     }
 
     /**

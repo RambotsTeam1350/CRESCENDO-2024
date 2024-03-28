@@ -34,6 +34,7 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.PDH;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
 import frc.robot.subsystems.shooter.ShooterPower;
@@ -52,6 +53,8 @@ import frc.robot.subsystems.vision.Camera;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final PDH pdhSubsystem;
+
   private final Camera cameraSubsystem;
 
   private final Drivetrain drivetrainSubsystem;
@@ -77,6 +80,8 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    this.pdhSubsystem = new PDH();
+
     this.cameraSubsystem = new Camera();
 
     this.drivetrainSubsystem = new Drivetrain(this.cameraSubsystem);
