@@ -19,11 +19,12 @@ import frc.lib.structs.CANSparkPIDFConfig;
  */
 
 public class PIDCANSparkFlex extends CANSparkFlex {
-    public PIDCANSparkFlex(int deviceId, MotorType motorType, IdleMode idleMode, boolean isInverted,
+    public PIDCANSparkFlex(int deviceId, MotorType motorType, IdleMode idleMode, int currentLimit, boolean isInverted,
             CANSparkPIDFConfig pidfConfig) {
         super(deviceId, motorType);
         this.restoreFactoryDefaults();
         this.setIdleMode(idleMode);
+        this.setSmartCurrentLimit(currentLimit);
         this.setInverted(isInverted);
         this.getPIDController().setOutputRange(pidfConfig.kMinOutput, pidfConfig.kMaxOutput);
         this.getPIDController().setP(pidfConfig.kP);

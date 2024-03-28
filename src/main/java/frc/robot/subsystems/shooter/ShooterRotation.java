@@ -23,7 +23,7 @@ public class ShooterRotation extends SubsystemBase {
 
     public ShooterRotation() {
         this.motor = new ConfiguredCANSparkMax(Constants.Shooter.ROTATION_MOTOR_ID, MotorType.kBrushless,
-                IdleMode.kBrake, false);
+                IdleMode.kBrake, 40, false);
 
         this.throughBoreEncoder = new DutyCycleEncoder(Constants.Shooter.ROTATION_THROUGH_BORE_ENCODER_DIO_PORT);
         this.throughBoreEncoder.setPositionOffset(Constants.Shooter.ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET);
