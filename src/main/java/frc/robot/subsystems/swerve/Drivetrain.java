@@ -144,15 +144,16 @@ public class Drivetrain extends SubsystemBase {
                                                                                                     // rotational speed
                                                                                                     // control
     // w/ joystick
-    if (halfSpeed) {
-      frontSpeed *= 0.25;
-      sideSpeed *= 0.25;
-      turnSpeed *= 0.25;
-    }
     if (deadband) {
       frontSpeed = Math.abs(frontSpeed) > 0.1 ? frontSpeed : 0;
       sideSpeed = Math.abs(sideSpeed) > 0.1 ? sideSpeed : 0;
       turnSpeed = Math.abs(turnSpeed) > 0.1 ? turnSpeed : 0;
+    }
+
+    if (halfSpeed) {
+      frontSpeed *= 0.25;
+      sideSpeed *= 0.25;
+      turnSpeed *= 0.25;
     }
 
     frontSpeed = frontLimiter.calculate(frontSpeed) * Swerve.TELE_DRIVE_MAX_SPEED;
