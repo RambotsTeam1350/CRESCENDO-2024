@@ -88,14 +88,14 @@ public final class Constants {
 
     // ask Katemaya about the gears (Vivic counted these)
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.462;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.3716;
 
     public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    public static final double MAXIMUM_DEGREES_UP = 38.9;
+    public static final double MAXIMUM_DEGREES_UP = 30.97;
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 16;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 23;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
@@ -178,7 +178,7 @@ public final class Constants {
     public static final double ANGLE_MOTOR_VCONVERSION = ANGLE_MOTOR_PCONVERSION / 60.0;
 
     // public static final int DRIVE_MOTOR_SMART_LIMIT = 45;
-    public static final int DRIVE_MOTOR_SMART_LIMIT = 30;
+    public static final int DRIVE_MOTOR_SMART_LIMIT = 35;
     public static final int ANGLE_MOTOR_SMART_LIMIT = 25;
 
     // multiply by 12.0 because voltage control is used
