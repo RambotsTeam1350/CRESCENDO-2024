@@ -87,26 +87,34 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 7;
 
     // ask Katemaya about the gears (Vivic counted these)
-    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.3716;
 
-    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    public static final double MAXIMUM_DEGREES_UP = 30.97;
+    // public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    // public static final double MAXIMUM_DEGREES_UP = 30.97;
+    public static final double MAXIMUM_DEGREES_DOWN = 23.0;
+    public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
+
+    public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.346924 - (MAXIMUM_DEGREES_DOWN / 360
+        / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
+
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // 0.27685;
+
     // since 0 degrees on encoder isn't EXACTLY 0 degrees of shooter angle in the
     // real world (this is by design so the shooter doesn't hit the robot when it's
     // up), we need to account for that
-    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 23;
+    // public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 23;
 
     public static final double SPEED_MOTORS_MAX_RPM = MotorFreeSpeeds.NEO_VORTEX;
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.03 * 12.0, 0.009 * 12.0, 0.0002 * 12.0); // TODO:
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.031 * 12.0, 0.009 * 12.0, 0.0002 * 12.0); // TODO:
     // tune
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.275);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.28325);
 
     public static final double HEIGHT_OFF_GROUND_METERS = 44.25 / 100.0;
   }
@@ -235,11 +243,11 @@ public final class Constants {
     // https://docs.wpilib.org/en/stable/docs/software/basic-programming/coordinate-system.html#robot-coordinate-system
     public static final Transform3d ROBOT_TO_CAM_TRANSFORM = new Transform3d(
         new Translation3d(17.25 / 100.0, 0.0, 23.6 / 100.0),
-        new Rotation3d(0, 0, 0));
+        new Rotation3d(0, Units.degreesToRadians(15), 0));
 
     // public static final double CAMERA_PITCH_RADIANS =
     // Units.degreesToRadians(29.7); // 29.5
-    public static final double CAMERA_PITCH_RADIANS = 0;
+    public static final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(15);
     public static final double CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS = 22.0 / 100.0;
 
     public static final PIDConfig DRIVETRAIN_ROTATION_PID_CONFIG = new PIDConfig(0.05);
@@ -251,12 +259,14 @@ public final class Constants {
       public static final class Speaker {
         // https://github.com/wpilibsuite/allwpilib/blob/main/apriltag/src/main/native/resources/edu/wpi/first/apriltag/2024-crescendo.json
         // height is Z axis
+        // this is equal to 1.4511020000000001
         public static final double APRIL_TAG_HEIGHT_METERS = APRIL_TAG_FIELD_LAYOUT.getTagPose(FiducialIDs.SPEAKER_BLUE)
             .get().getZ();
         // https://lakotarobotics.com/2024/01/2024-game-crescendo/
-        // public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
-        // Units.feetToMeters(6.5)) / 2.0);
-        public static final double GOAL_HEIGHT_METERS = 2.25;
+        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
+            Units.feetToMeters(6.5)) / 2.0);
+        // public static final double GOAL_HEIGHT_METERS = 2.25; // this is the number i
+        // measured on our in-house speaker
 
         public static final double SHOOTER_TO_GOAL_HEIGHT_METERS = GOAL_HEIGHT_METERS
             - Shooter.HEIGHT_OFF_GROUND_METERS;

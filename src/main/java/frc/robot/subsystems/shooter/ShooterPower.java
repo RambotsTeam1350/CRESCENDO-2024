@@ -22,9 +22,9 @@ public class ShooterPower extends SubsystemBase {
     public ShooterPower() {
         // opposite direction spin to shoot
         this.motor1 = new PIDCANSparkFlex(Constants.Shooter.POWER_MOTOR_1_ID, MotorType.kBrushless,
-                IdleMode.kCoast, false, Constants.Shooter.POWER_MOTOR_SPARK_PIDF_CONFIG);
+                IdleMode.kCoast, 60, false, Constants.Shooter.POWER_MOTOR_SPARK_PIDF_CONFIG);
         this.motor2 = new PIDCANSparkFlex(Constants.Shooter.POWER_MOTOR_2_ID, MotorType.kBrushless,
-                IdleMode.kCoast, true, Constants.Shooter.POWER_MOTOR_SPARK_PIDF_CONFIG);
+                IdleMode.kCoast, 60, true, Constants.Shooter.POWER_MOTOR_SPARK_PIDF_CONFIG);
 
         this.motor1FeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Shooter.POWER_MOTOR_1_FF_CONFIG);
         this.motor2FeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Shooter.POWER_MOTOR_2_FF_CONFIG);

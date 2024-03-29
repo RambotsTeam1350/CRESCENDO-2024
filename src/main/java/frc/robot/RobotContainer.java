@@ -17,10 +17,10 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.routines.IntakeNote;
-import frc.robot.commands.SwerveDrive;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
+import frc.robot.commands.drivetrain.SwerveDrive;
 import frc.robot.commands.intake.FeedNote;
 import frc.robot.commands.intake.ForceSlowGrabNote;
 import frc.robot.commands.intake.GrabNote;
@@ -34,6 +34,7 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.PDH;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
 import frc.robot.subsystems.shooter.ShooterPower;
@@ -52,6 +53,8 @@ import frc.robot.subsystems.vision.Camera;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private final PDH pdhSubsystem;
+
   private final Camera cameraSubsystem;
 
   private final Drivetrain drivetrainSubsystem;
@@ -77,6 +80,8 @@ public class RobotContainer {
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer() {
+    this.pdhSubsystem = new PDH();
+
     this.cameraSubsystem = new Camera();
 
     this.drivetrainSubsystem = new Drivetrain(this.cameraSubsystem);
@@ -155,7 +160,8 @@ public class RobotContainer {
         new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
     // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
     // this.cameraSubsystem)));
-    this.operatorController.back().onTrue(new RotateShooterToAngle(shooterRotationSubsystem, 38.64));
+    this.operatorController.back()
+        .onTrue(new RotateShooterToAngle(shooterRotationSubsystem, Constants.Shooter.MAXIMUM_DEGREES_UP));
 
   }
 

@@ -26,7 +26,7 @@ public class IntakeRotation extends SubsystemBase {
 
     public IntakeRotation() {
         this.motor = new ConfiguredCANSparkMax(Constants.Intake.ROTATION_MOTOR_ID, MotorType.kBrushless,
-                IdleMode.kBrake, true);
+                IdleMode.kBrake, 40, true);
 
         this.throughBoreEncoder = new DutyCycleEncoder(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_DIO_PORT);
         this.throughBoreEncoder.setPositionOffset(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET);
@@ -40,7 +40,7 @@ public class IntakeRotation extends SubsystemBase {
 
     @Override
     public void periodic() {
-        SmartDashboard.putNumber("Intake Through Bore Angle", this.getAngle());
+        SmartDashboard.putNumber("Intake Angle", this.getAngle());
     }
 
     /**
