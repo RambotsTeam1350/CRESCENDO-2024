@@ -52,7 +52,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       double angle = Units.radiansToDegrees(
           Math.atan(
               Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
-      // angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
+      angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
       SmartDashboard.putNumber("Shooter Angle Setpoint", angle);
       // System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
       this.shooterRotationSubsystem.setAngle(angle);

@@ -89,19 +89,17 @@ public final class Constants {
 
     // ask Katemaya about the gears (Vivic counted these)
 
-    // public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    // public static final double MAXIMUM_DEGREES_UP = 30.97;
-    public static final double MAXIMUM_DEGREES_DOWN = 20;
-    public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
+    public static final double MAXIMUM_DEGREES_DOWN = 0.0;
+    public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 32;
+    // public static final double MAXIMUM_DEGREES_DOWN = 20 - 2;
+    // public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 19;
 
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
     // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
-    // 0.135 - (8.0 / 360.0
-    // / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
-    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
     // -1.0
     // * (12.0 / 360.0 / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = -0.1375;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.1375;
 
     // - (MAXIMUM_DEGREES_DOWN / 360.0
     // / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
