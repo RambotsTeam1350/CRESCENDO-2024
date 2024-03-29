@@ -43,7 +43,8 @@ public final class Constants {
 
   public static final class Colors {
     public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-    public static final Color NOTE_COLOR = new Color(132, 28, 94);
+    public static final Color DEFAULT_COLOR = new Color(85, 120, 50);
+    public static final Color NOTE_COLOR = new Color(100, 110, 41);
   }
 
   public static final class Controllers {
@@ -60,9 +61,9 @@ public final class Constants {
     public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
     // the intake treats 0 degrees as the intake being up inside the robot, and
     // moving out from the robot is + degrees
-    public static final double UP_DEGREES = 0.0;
+    public static final double UP_DEGREES = 0;
     public static final double STRAIGHT_DEGREES = 90.0;
-    public static final double DOWN_DEGREES = 208.0;
+    public static final double DOWN_DEGREES = 205.0;
     public static final double MAXIMUM_DEGREES_UP = 0.0;
     public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 
@@ -90,12 +91,17 @@ public final class Constants {
 
     // public static final double MAXIMUM_DEGREES_DOWN = 0.0;
     // public static final double MAXIMUM_DEGREES_UP = 30.97;
-    public static final double MAXIMUM_DEGREES_DOWN = 23.0;
+    public static final double MAXIMUM_DEGREES_DOWN = 20;
     public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
 
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.346924 - (MAXIMUM_DEGREES_DOWN / 360
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.135 + -1.0 * (8.0 / 360.0
         / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // -0.1542;
+
+    // - (MAXIMUM_DEGREES_DOWN / 360.0
+    // / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
 
     // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
     // 0.27685;
@@ -172,7 +178,7 @@ public final class Constants {
 
     public static final int PIGEON_ID = 10;
 
-    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.2, 0.0, 0.0); // TODO: tune
+    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(5, 0.0, 0.0); // TODO: tune
 
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
@@ -274,7 +280,7 @@ public final class Constants {
     }
 
     public static final class MaxDistances {
-      public static final double SPEAKER = 4; // meters
+      public static final double SPEAKER = 3.5; // meters
     }
 
     public static final class FiducialIDs {

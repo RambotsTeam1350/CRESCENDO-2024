@@ -182,7 +182,10 @@ public class Drivetrain extends SubsystemBase {
 
   // see AutoAlignToSpeaker
   public void rotateToFaceVisionTarget(double currentYaw) {
-    double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
+    double turnSpeed = -this.headingPIDController.calculate(currentYaw, 0);
+    SmartDashboard.putNumber("current yaw", currentYaw);
+    SmartDashboard.putNumber("pid angle", -this.headingPIDController.calculate(currentYaw, 0));
+
     turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
