@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+
 import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -19,8 +21,8 @@ public class PDH extends SubsystemBase {
     private final GenericEntry totalPowerEntry; // watts
     private final GenericEntry totalEnergyEntry; // joules
 
-    private final ShuffleboardLayout channelsLayout;
-    private final GenericEntry channel1currentEntry;
+    private final ShuffleboardLayout channelCurrentsLayout;
+    private final ArrayList<GenericEntry> channelCurrentEntries;
 
     public PDH() {
         this.pdh = new PowerDistribution(1, ModuleType.kRev);
@@ -32,8 +34,13 @@ public class PDH extends SubsystemBase {
         this.totalPowerEntry = this.PDHTab.add("Total Power", this.pdh.getTotalPower()).getEntry();
         this.totalEnergyEntry = this.PDHTab.add("Total Energy", this.pdh.getTotalEnergy()).getEntry();
 
-        this.channelsLayout = this.PDHTab.getLayout("Channels", BuiltInLayouts.kList);
-        this.channel1currentEntry = this.channelsLayout.add("Channel 1 Current", this.pdh.getCurrent(1)).getEntry();
+        this.channelCurrentsLayout = this.PDHTab.getLayout("Channels", BuiltInLayouts.kList);
+        this.channelCurrentEntries = new ArrayList<GenericEntry>();
+        for (int i = 0; i < 24; i++) {
+            this.channelCurrentEntries
+                    .add(this.channelCurrentsLayout.add("Channel " + i + " Current", this.pdh.getCurrent(i))
+                            .getEntry());
+        }
     }
 
     @Override
@@ -44,6 +51,8 @@ public class PDH extends SubsystemBase {
         this.totalPowerEntry.setDouble(this.pdh.getTotalPower());
         this.totalEnergyEntry.setDouble(this.pdh.getTotalEnergy());
 
-        this.channel1currentEntry.setDouble(this.pdh.getCurrent(1));
+        for (int i = 0; i < 24; i++) {
+            this.channelCurrentEntries.get(i).setDouble(this.pdh.getCurrent(i));
+        }
     }
 }

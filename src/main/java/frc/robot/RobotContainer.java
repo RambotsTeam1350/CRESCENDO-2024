@@ -190,7 +190,6 @@ public class RobotContainer {
     NamedCommands.registerCommand("Spool Up Shooter", new RunShooter(shooterPowerSubsystem).withTimeout(0.1));
     NamedCommands.registerCommand("Stop Shooter", new StopShooter(this.shooterPowerSubsystem));
     NamedCommands.registerCommand("Feed Note", new FeedNote(this.intakePowerSubsystem).withTimeout(2));
-    NamedCommands.registerCommand("Stop Feed Note", new InstantCommand(this.intakePowerSubsystem::stopMotor));
   }
 
   public Drivetrain getDrivetrainSubsystem() {
