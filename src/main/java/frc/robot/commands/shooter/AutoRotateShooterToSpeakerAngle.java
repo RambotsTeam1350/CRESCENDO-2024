@@ -64,6 +64,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     this.shooterRotationSubsystem.stopMotor();
+    this.led.stopLED();
   }
 
   // Returns true when the command should end.
