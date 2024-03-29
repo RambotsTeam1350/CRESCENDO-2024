@@ -186,10 +186,17 @@ public class RobotContainer {
         new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem));
     NamedCommands.registerCommand("Grab Note",
         new GrabNote(this.intakePowerSubsystem, this.colorSensorSubsystem));
-    NamedCommands.registerCommand("Run Shooter", new RunShooter(shooterPowerSubsystem).withTimeout(1.5));
+    NamedCommands.registerCommand("Shooter Up",
+        RotateShooterToAngle.createShooterUpCommand(this.shooterRotationSubsystem).withTimeout(3));
+    NamedCommands.registerCommand("Shoot Note", new RunStopShooter(shooterPowerSubsystem).withTimeout(3)
+        .alongWith(new FeedNote(intakePowerSubsystem)).withTimeout(2));
+    // NamedCommands.registerCommand("Run Shooter", new
+    // RunShooter(shooterPowerSubsystem).withTimeout(1.5));
     NamedCommands.registerCommand("Spool Up Shooter", new RunShooter(shooterPowerSubsystem).withTimeout(0.1));
-    NamedCommands.registerCommand("Stop Shooter", new StopShooter(this.shooterPowerSubsystem));
-    NamedCommands.registerCommand("Feed Note", new FeedNote(this.intakePowerSubsystem).withTimeout(2));
+    // NamedCommands.registerCommand("Stop Shooter", new
+    // StopShooter(this.shooterPowerSubsystem));
+    // NamedCommands.registerCommand("Feed Note", new
+    // FeedNote(this.intakePowerSubsystem).withTimeout(2));
   }
 
   public Drivetrain getDrivetrainSubsystem() {

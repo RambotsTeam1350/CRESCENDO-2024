@@ -14,19 +14,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Run Shooter"
+            "name": "Shooter Up"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Feed Note"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Stop Shooter"
+            "name": "Shoot Note"
           }
         },
         {
