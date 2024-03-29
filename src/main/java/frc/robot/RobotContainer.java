@@ -160,7 +160,8 @@ public class RobotContainer {
         new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem, this.cameraSubsystem, this.ledSubsystem));
     // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
     // this.cameraSubsystem)));
-    this.operatorController.back().onTrue(new RotateShooterToAngle(shooterRotationSubsystem, 38.64));
+    this.operatorController.back()
+        .onTrue(new RotateShooterToAngle(shooterRotationSubsystem, Constants.Shooter.MAXIMUM_DEGREES_UP));
 
   }
 

@@ -14,7 +14,7 @@ public class ClimbDown extends Command {
 
     @Override
     public void initialize() {
-        this.climber.setVoltageSetpoint(8 * Constants.Climber.UP_DIRECTION);
+        this.climber.setVoltageSetpoint(16 * Constants.Climber.UP_DIRECTION);
     }
 
     @Override
