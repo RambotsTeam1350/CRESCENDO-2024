@@ -22,8 +22,12 @@ public class LED extends SubsystemBase {
   }
 
   public void setLEDs() {
-    this.ledBuffer.setRGB(10, 255, 0, 0);
+    // actually needs a for loop the size of the lights
+    for (int i = 0; i < ledBuffer.getLength(); i++) {
+      this.ledBuffer.setRGB(i, 255, 0, 0);
+    }
     this.led.setData(ledBuffer);
+
   }
 
   // this is for fun if i'm bored
@@ -47,6 +51,10 @@ public class LED extends SubsystemBase {
     // Check bounds
     this.rainbowFirstPixelHue %= 180;
     this.led.setData(ledBuffer);
+  }
+
+  public void stopLED() {
+    this.led.stop();
   }
 
 }
