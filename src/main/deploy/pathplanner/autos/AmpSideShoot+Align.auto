@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.2701377665399518,
-      "y": 5.550562440965166
+      "x": 0.6582647415516658,
+      "y": 6.694182261478986
     },
-    "rotation": 0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,12 +20,18 @@
         {
           "type": "path",
           "data": {
-            "pathName": "MiddleSpeakerToRightSidePathTest"
+            "pathName": "SourceSideSpeakerToOut"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Zero Heading"
           }
         }
       ]
     }
   },
-  "folder": "testing",
+  "folder": "competition",
   "choreoAuto": false
 }

@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7238225656575535,
-      "y": 4.450647836521938
+      "x": 0.7529593763712814,
+      "y": 4.581763484733713
     },
     "rotation": -60.0
   },
@@ -11,6 +11,12 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake Up"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -40,19 +46,13 @@
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "RightSpeakerToFifthNote"
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "Spool Up Shooter"
+                        "pathName": "(ARCHIVE) URI1"
                       }
                     },
                     {
                       "type": "path",
                       "data": {
-                        "pathName": "FifthNoteToRightSpeaker"
+                        "pathName": "(ARCHIVE) URI2"
                       }
                     }
                   ]
@@ -65,18 +65,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Feed Note"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "RightSpeakerStraighten"
           }
         },
         {
