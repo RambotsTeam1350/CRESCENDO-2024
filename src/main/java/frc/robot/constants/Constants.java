@@ -58,12 +58,19 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // 0.8465;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.1609;
+
     // the intake treats 0 degrees as the intake being up inside the robot, and
     // moving out from the robot is + degrees
     public static final double UP_DEGREES = 0;
+    // public static final double UP_DEGREES = 205;
+
     public static final double STRAIGHT_DEGREES = 90.0;
     public static final double DOWN_DEGREES = 205.0;
+    // public static final double DOWN_DEGREES = 0;
+
     public static final double MAXIMUM_DEGREES_UP = 0.0;
     public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 

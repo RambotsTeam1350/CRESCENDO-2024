@@ -22,6 +22,7 @@ import frc.robot.commands.SetLEDs;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
+import frc.robot.commands.drivetrain.AutonomousGyroReset;
 import frc.robot.commands.drivetrain.SwerveDrive;
 import frc.robot.commands.intake.FeedNote;
 import frc.robot.commands.intake.SlowGrabNote;
@@ -202,6 +203,10 @@ public class RobotContainer {
         public void registerNamedCommands() {
                 NamedCommands.registerCommand("Zero Heading",
                                 new InstantCommand(this.drivetrainSubsystem::zeroHeading));
+                NamedCommands.registerCommand("AlignGyroAmpSide",
+                                new AutonomousGyroReset(drivetrainSubsystem, "Amp"));
+                NamedCommands.registerCommand("AlignGyroSourceSide",
+                                new AutonomousGyroReset(drivetrainSubsystem, "Source"));
                 NamedCommands.registerCommand("Stop Modules", new InstantCommand(drivetrainSubsystem::stopModules));
                 NamedCommands.registerCommand("Intake Up",
                                 RotateIntakeToAngle.createIntakeUpCommand(this.intakeRotationSubsystem));
