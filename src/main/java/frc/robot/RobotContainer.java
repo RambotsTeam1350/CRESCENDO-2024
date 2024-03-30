@@ -100,7 +100,8 @@ public class RobotContainer {
                 this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
 
                 this.ledSubsystem = new LED();
-                this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem, cameraSubsystem));
+                // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
+                // cameraSubsystem));
 
                 this.driverController = new CommandXboxController(Constants.Controllers.DRIVER_PORT);
                 this.operatorController = new CommandXboxController(Constants.Controllers.OPERATOR_PORT);
@@ -113,7 +114,7 @@ public class RobotContainer {
 
                 this.configureBindings();
 
-                autoChooser = AutoBuilder.buildAutoChooser("Test Auto");
+                autoChooser = AutoBuilder.buildAutoChooser("USE THIS IF ALL ELSE FAILS");
                 SmartDashboard.putData("Auto Chooser", autoChooser);
         }
 
@@ -134,16 +135,16 @@ public class RobotContainer {
         private void configureBindings() {
                 this.driverController.start()
                                 .onTrue(new InstantCommand(drivetrainSubsystem::zeroHeading, this.drivetrainSubsystem));
+
                 this.operatorController.povUp().whileTrue(new ClimbUp(this.climberSubsystem));
+
                 this.operatorController.povDown().whileTrue(new ClimbDown(this.climberSubsystem));
+
                 this.operatorController.povLeft()
                                 .toggleOnTrue(RotateIntakeToAngle.createIntakeUpCommand(this.intakeRotationSubsystem));
-                this.operatorController.y()
-                                .toggleOnTrue(RotateIntakeToAngle
-                                                .createIntakeStraightCommand(this.intakeRotationSubsystem));
-                // this.m_operatorController.povRight()
-                // .whileTrue(new RotateIntakeToAngle(this.m_intake,
-                // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
+
+                this.operatorController.y().toggleOnTrue(
+                                RotateIntakeToAngle.createIntakeStraightCommand(this.intakeRotationSubsystem));
 
                 // this.operatorController.povRight()
                 // .toggleOnTrue(new
@@ -153,26 +154,25 @@ public class RobotContainer {
                 // new RotateIntakeToAngle(this.intakeRotationSubsystem,
                 // Constants.Intake.UP_ABSOLUTE_ENCODER_VALUE)));
 
+                // this.m_operatorController.povRight()
+                // .whileTrue(new RotateIntakeToAngle(this.m_intake,
+                // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
                 this.operatorController.povRight()
-                                .toggleOnTrue(
-                                                new IntakeNote(this.intakeRotationSubsystem, this.intakePowerSubsystem,
-                                                                this.colorSensorSubsystem));
+                                .toggleOnTrue(new IntakeNote(this.intakeRotationSubsystem, this.intakePowerSubsystem,
+                                                this.colorSensorSubsystem));
+
                 this.operatorController.a().whileTrue(new RunStopShooter(this.shooterPowerSubsystem));
+
                 this.operatorController.leftBumper().whileTrue(new SlowGrabNote(this.intakePowerSubsystem));
+
                 this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
+
                 this.operatorController.x()
                                 .toggleOnTrue(RotateIntakeToAngle
                                                 .createIntakeDownCommand(this.intakeRotationSubsystem));
-                // this.operatorController.back().onTrue(new
-                // FeedNote(this.intakePowerSubsystem).withTimeout(0.125));
                 // this.operatorController.b().toggleOnTrue(new
                 // AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem));
-                this.operatorController.b().toggleOnTrue(
-                                new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
-                                                this.cameraSubsystem,
-                                                this.ledSubsystem)
-                                                .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
-                                                                .withTimeout(3)));
+
                 // this.operatorController.b().toggleOnTrue(
                 // new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
                 // this.cameraSubsystem,
@@ -182,8 +182,16 @@ public class RobotContainer {
                 // .andThen(new ShootNote(shooterPowerSubsystem, intakePowerSubsystem)));
                 // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
                 // this.cameraSubsystem)));
+
+                this.operatorController.b().toggleOnTrue(
+                                new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
+                                                this.cameraSubsystem,
+                                                this.ledSubsystem)
+                                                .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
+                                                                .withTimeout(3)));
                 this.operatorController.back()
                                 .onTrue(RotateShooterToAngle.createShooterUpCommand(shooterRotationSubsystem));
+
                 this.operatorController.start()
                                 .onTrue(RotateShooterToAngle.createShooterDownCommand(shooterRotationSubsystem));
 
@@ -223,20 +231,12 @@ public class RobotContainer {
                                 new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
                                                 this.cameraSubsystem,
                                                 this.ledSubsystem).withTimeout(3));
-                // NamedCommands.registerCommand("Shoot Note", new
-                // RunStopShooter(shooterPowerSubsystem).withTimeout(3)
-                // .alongWith(new FeedNote(intakePowerSubsystem)).withTimeout(2));
-                // NamedCommands.registerCommand("Shoot Note", new
-                // RunStopShooter(shooterPowerSubsystem).withTimeout(2.75)
-                // .alongWith(Commands.waitSeconds(1.5).andThen(new
-                // FeedNote(intakePowerSubsystem))
-                // .withTimeout(1.5 + 1))); // 5 2 3
                 NamedCommands.registerCommand("Shoot Note", new ShootNote(shooterPowerSubsystem, intakePowerSubsystem));
 
                 // NamedCommands.registerCommand("Run Shooter", new
                 // RunShooter(shooterPowerSubsystem).withTimeout(1.5));
-                NamedCommands.registerCommand("Spool Up Shooter",
-                                new RunShooter(shooterPowerSubsystem).withTimeout(0.1));
+                // NamedCommands.registerCommand("Spool Up Shooter",
+                // new RunShooter(shooterPowerSubsystem).withTimeout(0.1));
                 // NamedCommands.registerCommand("Stop Shooter", new
                 // StopShooter(this.shooterPowerSubsystem));
                 // NamedCommands.registerCommand("Feed Note", new
