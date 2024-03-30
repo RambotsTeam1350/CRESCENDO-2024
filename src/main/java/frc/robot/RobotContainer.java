@@ -17,13 +17,14 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.routines.IntakeNote;
+import frc.robot.commands.routines.ShootNote;
 import frc.robot.commands.SetLEDs;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
 import frc.robot.commands.drivetrain.SwerveDrive;
 import frc.robot.commands.intake.FeedNote;
-import frc.robot.commands.intake.ForceSlowGrabNote;
+import frc.robot.commands.intake.SlowGrabNote;
 import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeToAngle;
 import frc.robot.commands.shooter.RunStopShooter;
@@ -156,7 +157,7 @@ public class RobotContainer {
                                                 new IntakeNote(this.intakeRotationSubsystem, this.intakePowerSubsystem,
                                                                 this.colorSensorSubsystem));
                 this.operatorController.a().whileTrue(new RunStopShooter(this.shooterPowerSubsystem));
-                this.operatorController.leftBumper().whileTrue(new ForceSlowGrabNote(this.intakePowerSubsystem));
+                this.operatorController.leftBumper().whileTrue(new SlowGrabNote(this.intakePowerSubsystem));
                 this.operatorController.rightBumper().whileTrue(new FeedNote(this.intakePowerSubsystem));
                 this.operatorController.x()
                                 .toggleOnTrue(RotateIntakeToAngle
@@ -171,11 +172,19 @@ public class RobotContainer {
                                                 this.ledSubsystem)
                                                 .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
                                                                 .withTimeout(3)));
+                // this.operatorController.b().toggleOnTrue(
+                // new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
+                // this.cameraSubsystem,
+                // this.ledSubsystem).withTimeout(3)
+                // .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
+                // .withTimeout(3))
+                // .andThen(new ShootNote(shooterPowerSubsystem, intakePowerSubsystem)));
                 // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
                 // this.cameraSubsystem)));
                 this.operatorController.back()
-                                .onTrue(new RotateShooterToAngle(shooterRotationSubsystem,
-                                                Constants.Shooter.MAXIMUM_DEGREES_UP));
+                                .onTrue(RotateShooterToAngle.createShooterUpCommand(shooterRotationSubsystem));
+                this.operatorController.start()
+                                .onTrue(RotateShooterToAngle.createShooterDownCommand(shooterRotationSubsystem));
 
         }
 
@@ -205,12 +214,20 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Shooter Up",
                                 RotateShooterToAngle.createShooterUpCommand(this.shooterRotationSubsystem)
                                                 .withTimeout(3));
+                NamedCommands.registerCommand("ARSTSA",
+                                new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
+                                                this.cameraSubsystem,
+                                                this.ledSubsystem).withTimeout(3));
                 // NamedCommands.registerCommand("Shoot Note", new
                 // RunStopShooter(shooterPowerSubsystem).withTimeout(3)
                 // .alongWith(new FeedNote(intakePowerSubsystem)).withTimeout(2));
-                NamedCommands.registerCommand("Shoot Note", new RunStopShooter(shooterPowerSubsystem).withTimeout(5)
-                                .alongWith(Commands.waitSeconds(2).andThen(new FeedNote(intakePowerSubsystem))
-                                                .withTimeout(4)));
+                // NamedCommands.registerCommand("Shoot Note", new
+                // RunStopShooter(shooterPowerSubsystem).withTimeout(2.75)
+                // .alongWith(Commands.waitSeconds(1.5).andThen(new
+                // FeedNote(intakePowerSubsystem))
+                // .withTimeout(1.5 + 1))); // 5 2 3
+                NamedCommands.registerCommand("Shoot Note", new ShootNote(shooterPowerSubsystem, intakePowerSubsystem));
+
                 // NamedCommands.registerCommand("Run Shooter", new
                 // RunShooter(shooterPowerSubsystem).withTimeout(1.5));
                 NamedCommands.registerCommand("Spool Up Shooter",

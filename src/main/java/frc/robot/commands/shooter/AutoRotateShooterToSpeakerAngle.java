@@ -74,7 +74,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return this.shooterRotationSubsystem.atSetpoint() || this.cameraSubsystem.getSpeakerTarget() == null;
+    return this.shooterRotationSubsystem.atSetpoint();
+    // || this.cameraSubsystem.getSpeakerTarget() == null;
   }
 
   private boolean isInRange(double positionX) {

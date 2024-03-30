@@ -1,9 +1,10 @@
 package frc.robot.commands.routines;
 
-import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import frc.robot.commands.intake.GrabNote;
 import frc.robot.commands.intake.RotateIntakeToAngle;
+import frc.robot.commands.intake.SlowGrabNote;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
@@ -16,7 +17,7 @@ public class IntakeNote extends SequentialCommandGroup {
                                 RotateIntakeToAngle.createIntakeDownCommand(intakeRotationSubsystem)
                                                 .alongWith(new GrabNote(intakePowerSubsystem, colorSensorSubsystem)),
                                 // run intake power motors for a bit to ensure note gets positioned correctly
-                                Commands.waitSeconds(0.03),
+                                new SlowGrabNote(intakePowerSubsystem).withTimeout(0.25),
                                 // rotate intake back up
                                 RotateIntakeToAngle.createIntakeUpCommand(intakeRotationSubsystem));
         }
