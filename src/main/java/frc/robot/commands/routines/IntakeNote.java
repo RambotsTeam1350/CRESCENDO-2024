@@ -16,7 +16,7 @@ public class IntakeNote extends SequentialCommandGroup {
                                 RotateIntakeToAngle.createIntakeDownCommand(intakeRotationSubsystem)
                                                 .alongWith(new GrabNote(intakePowerSubsystem, colorSensorSubsystem)),
                                 // run intake power motors for a bit to ensure note gets positioned correctly
-                                Commands.waitSeconds(0.075),
+                                Commands.waitSeconds(0.03),
                                 // rotate intake back up
                                 RotateIntakeToAngle.createIntakeUpCommand(intakeRotationSubsystem));
         }

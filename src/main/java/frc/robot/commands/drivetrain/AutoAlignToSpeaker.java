@@ -13,6 +13,7 @@ public class AutoAlignToSpeaker extends Command {
     public AutoAlignToSpeaker(Drivetrain drivetrainSubsystem, Camera cameraSubsystem) {
         this.drivetrainSubystem = drivetrainSubsystem;
         this.cameraSubsystem = cameraSubsystem;
+        addRequirements(drivetrainSubsystem);
     }
 
     @Override

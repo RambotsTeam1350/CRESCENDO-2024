@@ -38,7 +38,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     DataLogManager.start();
     DriverStation.startDataLog(DataLogManager.getLog());
-    CameraServer.startAutomaticCapture();
+    // CameraServer.startAutomaticCapture();
     this.m_robotContainer = new RobotContainer();
   }
 

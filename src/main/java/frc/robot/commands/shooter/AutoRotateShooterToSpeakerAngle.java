@@ -47,8 +47,9 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
         Units.degreesToRadians(speakerTarget.getPitch()));
     double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
         - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
-    // System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
+    SmartDashboard.putNumber("PositionX", shooterDistanceFromSpeaker);
     if (this.isInRange(shooterDistanceFromSpeaker)) {
+      SmartDashboard.putBoolean("In Shooter Range", true);
       double angle = Units.radiansToDegrees(
           Math.atan(
               Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
@@ -57,6 +58,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       // System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
       this.shooterRotationSubsystem.setAngle(angle);
       this.led.setLEDs();
+    } else {
+      SmartDashboard.putBoolean("In Shooter Range", false);
     }
   }
 

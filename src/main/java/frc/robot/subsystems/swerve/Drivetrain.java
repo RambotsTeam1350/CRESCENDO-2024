@@ -120,6 +120,8 @@ public class Drivetrain extends SubsystemBase {
         Swerve.AUTO_CONFIG,
         () -> isRedAlliance(),
         this);
+
+    this.headingPIDController.setTolerance(1.5);
   }
 
   @Override
@@ -133,10 +135,12 @@ public class Drivetrain extends SubsystemBase {
     // }
     this.field.setRobotPose(getPose());
 
-    SmartDashboard.putNumber("Robot Angle", getHeading());
-    SmartDashboard.putNumber("Robot X", getPose().getX());
-    SmartDashboard.putNumber("Robot Y", getPose().getY());
-    SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-gyro.getRate() / 180)) + "pi rad/s");
+    SmartDashboard.putBoolean("At Heading Setpoint", this.isAtHeadingSetpoint());
+    // SmartDashboard.putNumber("Robot Angle", getHeading());
+    // SmartDashboard.putNumber("Robot X", getPose().getX());
+    // SmartDashboard.putNumber("Robot Y", getPose().getY());
+    // SmartDashboard.putString("Angular Speed", new
+    // DecimalFormat("#.00").format((-gyro.getRate() / 180)) + "pi rad/s");
   }
 
   public void controllerDrive(double frontSpeed, double sideSpeed, double turnSpeed,
@@ -182,7 +186,7 @@ public class Drivetrain extends SubsystemBase {
 
   // see AutoAlignToSpeaker
   public void rotateToFaceVisionTarget(double currentYaw) {
-    double turnSpeed = -this.headingPIDController.calculate(currentYaw, 0);
+    double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
     SmartDashboard.putNumber("current yaw", currentYaw);
     SmartDashboard.putNumber("pid angle", -this.headingPIDController.calculate(currentYaw, 0));
 
