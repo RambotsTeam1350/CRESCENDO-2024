@@ -11,6 +11,7 @@ public class SetLEDs extends Command {
     public SetLEDs(LED ledSubsystem, Camera cameraSubsystem) {
         this.ledSubsystem = ledSubsystem;
         this.cameraSubsystem = cameraSubsystem;
+        addRequirements(this.ledSubsystem);
         // DO NOT ADD REQUIREMENTS, THIS COMMAND IS NOT SUPPOSED TO BE INTERRUPTED
     }
 

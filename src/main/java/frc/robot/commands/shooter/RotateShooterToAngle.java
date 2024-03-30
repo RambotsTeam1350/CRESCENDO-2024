@@ -1,6 +1,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.shooter.ShooterRotation;
 
 public class RotateShooterToAngle extends Command {
@@ -37,5 +38,13 @@ public class RotateShooterToAngle extends Command {
     @Override
     public void end(boolean interrupted) {
         this.shooterRotation.stopMotor();
+    }
+
+    public static Command createShooterUpCommand(ShooterRotation shooterRotation) {
+        return new RotateShooterToAngle(shooterRotation, Constants.Shooter.MAXIMUM_DEGREES_UP);
+    }
+
+    public static Command createShooterDownCommand(ShooterRotation shooterRotation) {
+        return new RotateShooterToAngle(shooterRotation, Constants.Shooter.MAXIMUM_DEGREES_DOWN);
     }
 }

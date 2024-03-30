@@ -13,6 +13,7 @@ public class AutoAlignToSpeaker extends Command {
     public AutoAlignToSpeaker(Drivetrain drivetrainSubsystem, Camera cameraSubsystem) {
         this.drivetrainSubystem = drivetrainSubsystem;
         this.cameraSubsystem = cameraSubsystem;
+        addRequirements(drivetrainSubsystem);
     }
 
     @Override
@@ -31,6 +32,7 @@ public class AutoAlignToSpeaker extends Command {
     @Override
     public boolean isFinished() {
         return this.drivetrainSubystem.isAtHeadingSetpoint();
+        // || this.cameraSubsystem.getSpeakerTarget() == null;
     }
 
     @Override

@@ -20,6 +20,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private final Camera cameraSubsystem;
   private final LED led;
 
+  private boolean isInRange = false;
+
   public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED ledSubsystem) {
     this.shooterRotationSubsystem = shooterRotation;
     this.cameraSubsystem = camera;
@@ -36,6 +38,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("In Speaker Range", this.isInRange);
     PhotonTrackedTarget speakerTarget = this.cameraSubsystem.getSpeakerTarget();
     if (speakerTarget == null) {
       return;
@@ -47,8 +50,9 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
         Units.degreesToRadians(speakerTarget.getPitch()));
     double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
         - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
-    // System.out.println("POSITION X: " + cameraDistanceFromSpeaker);
+    SmartDashboard.putNumber("Distance From Speaker", shooterDistanceFromSpeaker);
     if (this.isInRange(shooterDistanceFromSpeaker)) {
+      this.isInRange = true;
       double angle = Units.radiansToDegrees(
           Math.atan(
               Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
@@ -71,9 +75,10 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   @Override
   public boolean isFinished() {
     return this.shooterRotationSubsystem.atSetpoint();
+    // || this.cameraSubsystem.getSpeakerTarget() == null;
   }
 
   private boolean isInRange(double positionX) {
-    return positionX <= Constants.Vision.MaxDistances.SPEAKER;
+    return this.isInRange = positionX <= Constants.Vision.MaxDistances.SPEAKER;
   }
 }

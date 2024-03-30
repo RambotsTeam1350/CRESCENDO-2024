@@ -37,8 +37,8 @@ public class ShooterRotation extends SubsystemBase {
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Shooter Angle", this.getAngle());
-        // SmartDashboard.putNumber("Shooter Absolute Position",
-        // this.throughBoreEncoder.getAbsolutePosition());
+        SmartDashboard.putNumber("Shooter Absolute Position",
+                this.throughBoreEncoder.getAbsolutePosition());
         SmartDashboard.putBoolean("Shooter At Setpoint", this.atSetpoint());
     }
 
@@ -63,7 +63,7 @@ public class ShooterRotation extends SubsystemBase {
      */
     public double getAngle() {
         // https://github.wpilib.org/allwpilib/docs/release/java/edu/wpi/first/wpilibj/DutyCycleEncoder.html#getAbsolutePosition()
-        return (this.throughBoreEncoder.getAbsolutePosition() -
+        return (this.throughBoreEncoder.getAbsolutePosition() +
                 this.throughBoreEncoder.getPositionOffset()) * 360.0
                 * Constants.Shooter.ROTATION_THROUGH_BORE_CONVERSION_FACTOR;
     }

@@ -32,15 +32,15 @@ public class IntakeRotation extends SubsystemBase {
         this.throughBoreEncoder.setPositionOffset(Constants.Intake.ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET);
 
         this.topLimitSwitch = new DigitalInput(Constants.Intake.TOP_LIMIT_SWITCH_DIO_PORT);
-
         this.PIDController = new ConfiguredPIDController(Constants.Intake.ROTATION_MOTOR_PID_CONFIG);
-        this.PIDController.setTolerance(2);
+        this.PIDController.setTolerance(1.5);
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Intake.ROTATION_MOTOR_FF_CONFIG);
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putNumber("Intake Angle", this.getAngle());
+        SmartDashboard.putNumber("Intake Absolute Position", this.throughBoreEncoder.getAbsolutePosition());
     }
 
     /**

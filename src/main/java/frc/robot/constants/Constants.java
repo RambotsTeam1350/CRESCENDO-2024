@@ -43,7 +43,8 @@ public final class Constants {
 
   public static final class Colors {
     public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
-    public static final Color NOTE_COLOR = new Color(132, 28, 94);
+    public static final Color DEFAULT_COLOR = new Color(85, 120, 50);
+    public static final Color NOTE_COLOR = new Color(100, 110, 41);
   }
 
   public static final class Controllers {
@@ -57,12 +58,19 @@ public final class Constants {
     public static final int ROTATION_THROUGH_BORE_ENCODER_DIO_PORT = 0;
     public static final int TOP_LIMIT_SWITCH_DIO_PORT = 4;
 
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.323;
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // 0.8465;
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.1609;
+
     // the intake treats 0 degrees as the intake being up inside the robot, and
     // moving out from the robot is + degrees
-    public static final double UP_DEGREES = 0.0;
+    public static final double UP_DEGREES = 0;
+    // public static final double UP_DEGREES = 205;
+
     public static final double STRAIGHT_DEGREES = 90.0;
-    public static final double DOWN_DEGREES = 208.0;
+    public static final double DOWN_DEGREES = 205.0;
+    // public static final double DOWN_DEGREES = 0;
+
     public static final double MAXIMUM_DEGREES_UP = 0.0;
     public static final double MAXIMUM_DEGREES_DOWN = 215.0;
 
@@ -88,14 +96,20 @@ public final class Constants {
 
     // ask Katemaya about the gears (Vivic counted these)
 
-    // public static final double MAXIMUM_DEGREES_DOWN = 0.0;
-    // public static final double MAXIMUM_DEGREES_UP = 30.97;
-    public static final double MAXIMUM_DEGREES_DOWN = 23.0;
-    public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
+    public static final double MAXIMUM_DEGREES_DOWN = 17.39;
+    public static final double MAXIMUM_DEGREES_UP = 56;
+    // public static final double MAXIMUM_DEGREES_DOWN = 20 - 2;
+    // public static final double MAXIMUM_DEGREES_UP = MAXIMUM_DEGREES_DOWN + 33;
+    public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 0;
 
     public static final double ROTATION_THROUGH_BORE_CONVERSION_FACTOR = 1.0 / (13.0 * 4.0 / 12.0);
-    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.346924 - (MAXIMUM_DEGREES_DOWN / 360
-        / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
+    // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
+    // -1.0
+    // * (12.0 / 360.0 / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
+    public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET = 0.0962;
+
+    // - (MAXIMUM_DEGREES_DOWN / 360.0
+    // / ROTATION_THROUGH_BORE_CONVERSION_FACTOR);
 
     // public static final double ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET =
     // 0.27685;
@@ -109,12 +123,12 @@ public final class Constants {
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.031 * 12.0, 0.009 * 12.0, 0.0002 * 12.0); // TODO:
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.032 * 12.0, 0.01 * 12.0, 0.00062 * 12.0); // TODO:
     // tune
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.28325);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.31);
 
     public static final double HEIGHT_OFF_GROUND_METERS = 44.25 / 100.0;
   }
@@ -172,7 +186,7 @@ public final class Constants {
 
     public static final int PIGEON_ID = 10;
 
-    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.2, 0.0, 0.0); // TODO: tune
+    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.0058, 0.0, 0.0000001); // TODO: tune
 
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
@@ -274,7 +288,7 @@ public final class Constants {
     }
 
     public static final class MaxDistances {
-      public static final double SPEAKER = 4; // meters
+      public static final double SPEAKER = 3.75; // meters
     }
 
     public static final class FiducialIDs {

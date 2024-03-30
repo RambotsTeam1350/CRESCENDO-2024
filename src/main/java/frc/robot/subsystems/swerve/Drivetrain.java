@@ -47,7 +47,7 @@ public class Drivetrain extends SubsystemBase {
 
   private SwerveDrivePoseEstimator poseEstimator;
 
-  private Field2d field;
+  // private Field2d field;
 
   /** Creates a new SwerveDrivetrain. */
   public Drivetrain(Camera cameraSubsystem) {
@@ -109,8 +109,8 @@ public class Drivetrain extends SubsystemBase {
         getModulePositions(),
         new Pose2d());
 
-    this.field = new Field2d();
-    SmartDashboard.putData(this.field);
+    // this.field = new Field2d();
+    // SmartDashboard.putData(this.field);
 
     AutoBuilder.configureHolonomic(
         this::getPose,
@@ -120,6 +120,8 @@ public class Drivetrain extends SubsystemBase {
         Swerve.AUTO_CONFIG,
         () -> isRedAlliance(),
         this);
+
+    this.headingPIDController.setTolerance(1.5);
   }
 
   @Override
@@ -131,12 +133,14 @@ public class Drivetrain extends SubsystemBase {
     // this.poseEstimator.addVisionMeasurement(visionEstimatedRobotPose.get().estimatedPose.toPose2d(),
     // visionEstimatedRobotPose.get().timestampSeconds);
     // }
-    this.field.setRobotPose(getPose());
+    // this.field.setRobotPose(getPose());
 
+    SmartDashboard.putBoolean("Heading At Setpoint", this.isAtHeadingSetpoint());
     SmartDashboard.putNumber("Robot Angle", getHeading());
-    SmartDashboard.putNumber("Robot X", getPose().getX());
-    SmartDashboard.putNumber("Robot Y", getPose().getY());
-    SmartDashboard.putString("Angular Speed", new DecimalFormat("#.00").format((-gyro.getRate() / 180)) + "pi rad/s");
+    // SmartDashboard.putNumber("Robot X", getPose().getX());
+    // SmartDashboard.putNumber("Robot Y", getPose().getY());
+    // SmartDashboard.putString("Angular Speed", new
+    // DecimalFormat("#.00").format((-gyro.getRate() / 180)) + "pi rad/s");
   }
 
   public void controllerDrive(double frontSpeed, double sideSpeed, double turnSpeed,
@@ -183,6 +187,10 @@ public class Drivetrain extends SubsystemBase {
   // see AutoAlignToSpeaker
   public void rotateToFaceVisionTarget(double currentYaw) {
     double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
+    // SmartDashboard.putNumber("current yaw", currentYaw);
+    // SmartDashboard.putNumber("heading pid output",
+    // -this.headingPIDController.calculate(currentYaw, 0));
+
     turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);

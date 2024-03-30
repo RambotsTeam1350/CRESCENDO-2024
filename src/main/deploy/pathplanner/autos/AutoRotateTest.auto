@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4707856249343993,
-      "y": 1.4832539146294756
+      "x": 2.5448732352655474,
+      "y": 5.5578466436435985
     },
     "rotation": 0
   },
@@ -12,14 +12,20 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "SourceCornerToOutside"
+            "name": "ARSTSA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
           }
         }
       ]
     }
   },
-  "folder": "competition",
+  "folder": "testing",
   "choreoAuto": false
 }

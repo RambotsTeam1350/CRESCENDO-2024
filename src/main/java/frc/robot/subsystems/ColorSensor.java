@@ -24,7 +24,7 @@ public class ColorSensor extends SubsystemBase {
         this.colorSensor = new ColorSensorV3(port);
         this.colorMatcher = new ColorMatch();
 
-        this.kDefaultColor = this.colorSensor.getColor();
+        this.kDefaultColor = new Color(85, 120, 50);
         this.kNoteColor = Colors.NOTE_COLOR; // found by testing
 
         this.colorMatcher.addColorMatch(kDefaultColor);
@@ -36,15 +36,14 @@ public class ColorSensor extends SubsystemBase {
         this.detectedColor = this.colorSensor.getColor();
         this.colorMatch = this.colorMatcher.matchClosestColor(this.detectedColor);
 
-        // this.noteDetected = this.m_colorMatch.color == kNoteColor ||
-        // this.m_colorSensor.getProximity() > 35;
-        this.noteDetected = this.colorSensor.getProximity() > 37;
+        this.noteDetected = this.colorSensor.getColor().red * 255.0 > 90;
+        // this.noteDetected = this.colorSensor.getProximity() > 60;
 
         SmartDashboard.putBoolean("Note Detected", this.noteDetected);
         // SmartDashboard.putNumber("IR", this.m_colorSensor.getIR());
-        // SmartDashboard.putNumber("Red", this.m_detectedColor.red * 255.0);
-        // SmartDashboard.putNumber("Blue", this.m_detectedColor.blue * 255.0);
-        // SmartDashboard.putNumber("Green", this.m_detectedColor.green * 255.0);
+        SmartDashboard.putNumber("Red", this.detectedColor.red * 255.0);
+        // SmartDashboard.putNumber("Blue", this.detectedColor.blue * 255.0);
+        // SmartDashboard.putNumber("Green", this.detectedColor.green * 255.0);
         SmartDashboard.putNumber("Proximity", this.colorSensor.getProximity());
     }
 

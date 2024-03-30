@@ -15,7 +15,7 @@ public class FeedNote extends Command {
     @Override
     public void initialize() {
         this.intakePowerSubsystem.setMotorVelocitySetpoint(
-                Constants.Intake.POWER_MOTOR_MAX_RPM * 0.2 * Constants.Intake.POWER_MOTOR_OUT_DIRECTION);
+                Constants.Intake.POWER_MOTOR_MAX_RPM * 0.5 * Constants.Intake.POWER_MOTOR_OUT_DIRECTION);
     }
 
     @Override
