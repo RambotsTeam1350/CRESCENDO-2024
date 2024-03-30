@@ -20,6 +20,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   private final Camera cameraSubsystem;
   private final LED led;
 
+  private boolean isInRange = false;
+
   public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED ledSubsystem) {
     this.shooterRotationSubsystem = shooterRotation;
     this.cameraSubsystem = camera;
@@ -36,6 +38,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putBoolean("In Speaker Range", this.isInRange);
     PhotonTrackedTarget speakerTarget = this.cameraSubsystem.getSpeakerTarget();
     if (speakerTarget == null) {
       return;
@@ -47,19 +50,17 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
         Units.degreesToRadians(speakerTarget.getPitch()));
     double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
         - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
-    SmartDashboard.putNumber("PositionX", shooterDistanceFromSpeaker);
+    SmartDashboard.putNumber("Position X", shooterDistanceFromSpeaker);
     if (this.isInRange(shooterDistanceFromSpeaker)) {
-      SmartDashboard.putBoolean("In Shooter Range", true);
+      this.isInRange = true;
       double angle = Units.radiansToDegrees(
           Math.atan(
               Constants.Vision.Measurements.Speaker.SHOOTER_TO_GOAL_HEIGHT_METERS / shooterDistanceFromSpeaker));
-      angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
+      // angle -= Constants.Shooter.MAXIMUM_DEGREES_DOWN_ZERO_OFFSET;
       SmartDashboard.putNumber("Shooter Angle Setpoint", angle);
       // System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
       this.shooterRotationSubsystem.setAngle(angle);
       this.led.setLEDs();
-    } else {
-      SmartDashboard.putBoolean("In Shooter Range", false);
     }
   }
 
@@ -73,10 +74,10 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return this.shooterRotationSubsystem.atSetpoint();
+    return this.shooterRotationSubsystem.atSetpoint() || this.cameraSubsystem.getSpeakerTarget() == null;
   }
 
   private boolean isInRange(double positionX) {
-    return positionX <= Constants.Vision.MaxDistances.SPEAKER;
+    return this.isInRange = positionX <= Constants.Vision.MaxDistances.SPEAKER;
   }
 }
