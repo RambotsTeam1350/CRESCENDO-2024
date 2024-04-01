@@ -164,7 +164,7 @@ public final class Constants {
 
     public static final int PIGEON_ID = 10;
 
-    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.006, 0.0, 0.00001); // TODO: tune
+    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.008, 0.0, 0.0); // TODO: tune
 
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549
