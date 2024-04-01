@@ -44,7 +44,7 @@ public class ColorSensor extends SubsystemBase {
         SmartDashboard.putNumber("Red", this.detectedColor.red * 255.0);
         // SmartDashboard.putNumber("Blue", this.detectedColor.blue * 255.0);
         // SmartDashboard.putNumber("Green", this.detectedColor.green * 255.0);
-        SmartDashboard.putNumber("Proximity", this.colorSensor.getProximity());
+        // SmartDashboard.putNumber("Proximity", this.colorSensor.getProximity());
     }
 
     public boolean isNoteDetected() {

@@ -35,6 +35,7 @@ import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LEDCANdle;
 import frc.robot.subsystems.PDH;
 import frc.robot.subsystems.intake.IntakePower;
 import frc.robot.subsystems.intake.IntakeRotation;
@@ -70,7 +71,7 @@ public class RobotContainer {
 
         private final ColorSensor colorSensorSubsystem;
 
-        private final LED ledSubsystem;
+        private final LEDCANdle ledSubsystem;
 
         private final CommandXboxController driverController;
         private final CommandXboxController operatorController;
@@ -97,7 +98,8 @@ public class RobotContainer {
 
                 this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
 
-                this.ledSubsystem = new LED();
+                // this.ledSubsystem = new LED();
+                this.ledSubsystem = new LEDCANdle();
                 // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
                 // cameraSubsystem));
 

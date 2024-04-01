@@ -42,7 +42,7 @@ public final class Constants {
   }
 
   public static final class Colors {
-    public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kOnboard;
+    public static final I2C.Port COLOR_SENSOR_PORT = I2C.Port.kMXP;
     public static final Color DEFAULT_COLOR = new Color(85, 120, 50);
     public static final Color NOTE_COLOR = new Color(100, 110, 41);
   }

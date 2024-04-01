@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 // import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     DataLogManager.start();
     DriverStation.startDataLog(DataLogManager.getLog());
-    // CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
     this.m_robotContainer = new RobotContainer();
   }
 

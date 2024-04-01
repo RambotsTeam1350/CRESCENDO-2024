@@ -12,17 +12,18 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LEDCANdle;
 import frc.robot.subsystems.shooter.ShooterRotation;
 import frc.robot.subsystems.vision.Camera;
 
 public class AutoRotateShooterToSpeakerAngle extends Command {
   private final ShooterRotation shooterRotationSubsystem;
   private final Camera cameraSubsystem;
-  private final LED led;
+  private final LEDCANdle led;
 
   private boolean isInRange = false;
 
-  public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LED ledSubsystem) {
+  public AutoRotateShooterToSpeakerAngle(ShooterRotation shooterRotation, Camera camera, LEDCANdle ledSubsystem) {
     this.shooterRotationSubsystem = shooterRotation;
     this.cameraSubsystem = camera;
     this.led = ledSubsystem;
@@ -60,7 +61,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       SmartDashboard.putNumber("Shooter Angle Setpoint", angle);
       // System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
       this.shooterRotationSubsystem.setAngle(angle);
-      this.led.setLEDs();
+      // this.led.setLEDs();
     }
   }
 
@@ -68,7 +69,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   @Override
   public void end(boolean interrupted) {
     this.shooterRotationSubsystem.stopMotor();
-    this.led.stopLED();
+    // this.led.stopLED();
   }
 
   // Returns true when the command should end.
