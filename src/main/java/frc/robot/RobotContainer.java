@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.routines.IntakeNote;
+import frc.robot.commands.routines.PrepareToShoot;
 import frc.robot.commands.routines.ShootNote;
-import frc.robot.commands.SetLEDs;
+import frc.robot.commands.LEDCANdleDefaultCommand;
 import frc.robot.commands.climber.ClimbDown;
 import frc.robot.commands.climber.ClimbUp;
 import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
@@ -34,7 +35,6 @@ import frc.robot.commands.shooter.RunShooter;
 import frc.robot.constants.Constants;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ColorSensor;
-import frc.robot.subsystems.LED;
 import frc.robot.subsystems.LEDCANdle;
 import frc.robot.subsystems.PDH;
 import frc.robot.subsystems.intake.IntakePower;
@@ -71,7 +71,7 @@ public class RobotContainer {
 
         private final ColorSensor colorSensorSubsystem;
 
-        private final LEDCANdle ledSubsystem;
+        private final LEDCANdle ledCANdleSubsystem;
 
         private final CommandXboxController driverController;
         private final CommandXboxController operatorController;
@@ -99,7 +99,9 @@ public class RobotContainer {
                 this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
 
                 // this.ledSubsystem = new LED();
-                this.ledSubsystem = new LEDCANdle();
+                this.ledCANdleSubsystem = new LEDCANdle();
+                this.ledCANdleSubsystem
+                                .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem, cameraSubsystem));
                 // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
                 // cameraSubsystem));
 
@@ -159,7 +161,7 @@ public class RobotContainer {
                 // Constants.Intake.DOWN_ABSOLUTE_ENCODER_VALUE));
                 this.operatorController.povRight()
                                 .toggleOnTrue(new IntakeNote(this.intakeRotationSubsystem, this.intakePowerSubsystem,
-                                                this.colorSensorSubsystem));
+                                                this.colorSensorSubsystem, this.ledCANdleSubsystem));
 
                 this.operatorController.a().whileTrue(new RunStopShooter(this.shooterPowerSubsystem));
 
@@ -183,12 +185,15 @@ public class RobotContainer {
                 // .alongWith(new AutoAlignToSpeaker(this.drivetrainSubsystem,
                 // this.cameraSubsystem)));
 
-                this.operatorController.b().toggleOnTrue(
-                                new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
-                                                this.cameraSubsystem,
-                                                this.ledSubsystem)
-                                                .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
-                                                                .withTimeout(3)));
+                // this.operatorController.b().toggleOnTrue(
+                // new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
+                // this.cameraSubsystem,
+                // this.ledCANdleSubsystem)
+                // .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
+                // .withTimeout(3)));
+
+                this.operatorController.b().toggleOnTrue(new PrepareToShoot(shooterRotationSubsystem, cameraSubsystem,
+                                drivetrainSubsystem, ledCANdleSubsystem));
                 this.operatorController.back()
                                 .onTrue(RotateShooterToAngle.createShooterUpCommand(shooterRotationSubsystem));
 
@@ -221,7 +226,8 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Intake Down",
                                 RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
                 NamedCommands.registerCommand("Intake Note",
-                                new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem));
+                                new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem,
+                                                this.ledCANdleSubsystem));
                 NamedCommands.registerCommand("Grab Note",
                                 new GrabNote(this.intakePowerSubsystem, this.colorSensorSubsystem));
                 NamedCommands.registerCommand("Shooter Up",
@@ -230,7 +236,7 @@ public class RobotContainer {
                 NamedCommands.registerCommand("ARSTSA",
                                 new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
                                                 this.cameraSubsystem,
-                                                this.ledSubsystem).withTimeout(3));
+                                                this.ledCANdleSubsystem).withTimeout(3));
                 NamedCommands.registerCommand("Shoot Note", new ShootNote(shooterPowerSubsystem, intakePowerSubsystem));
 
                 // NamedCommands.registerCommand("Run Shooter", new

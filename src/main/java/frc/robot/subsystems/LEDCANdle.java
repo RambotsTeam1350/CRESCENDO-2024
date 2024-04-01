@@ -11,6 +11,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LEDCANdle extends SubsystemBase {
     private final CANdle CANdle;
     private final CANdleConfiguration CANdleConfiguration;
+    private CurrentState currentState;
+
+    public enum CurrentState {
+        BLUE,
+        ORANGE,
+        GREEN,
+        RAINBOW
+    }
 
     public LEDCANdle() {
         this.CANdle = new CANdle(5);
@@ -22,17 +30,34 @@ public class LEDCANdle extends SubsystemBase {
         this.CANdleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
 
         this.CANdle.configAllSettings(this.CANdleConfiguration, 100);
-
-        // this.setAllLedToColor(0, 0, 255);
-        this.rainbow();
     }
 
-    public void setAllLedToColor(int r, int g, int b) {
+    public void setAllToColor(int r, int g, int b) {
         this.CANdle.setLEDs(r, g, b);
         this.CANdle.modulateVBatOutput(1);
     }
 
+    public void setAllToGreen() {
+        this.setAllToColor(0, 255, 0);
+        this.currentState = CurrentState.GREEN;
+    }
+
+    public void setAllToBlue() {
+        this.setAllToColor(0, 0, 255);
+        this.currentState = CurrentState.BLUE;
+    }
+
+    public void setAllToOrange() {
+        this.setAllToColor(255, 165, 0);
+        this.currentState = CurrentState.ORANGE;
+    }
+
     public void rainbow() {
-        this.CANdle.animate(new RainbowAnimation(0.4, 0.25, 23));
+        this.CANdle.animate(new RainbowAnimation(0.4, 0.5, 23));
+        this.currentState = CurrentState.RAINBOW;
+    }
+
+    public CurrentState getCurrentState() {
+        return this.currentState;
     }
 }
