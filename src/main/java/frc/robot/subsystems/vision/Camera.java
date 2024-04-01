@@ -23,16 +23,18 @@ public class Camera extends SubsystemBase {
     private PhotonTrackedTarget bestTarget;
     private List<PhotonTrackedTarget> targets;
 
-    private final AprilTagFieldLayout aprilTagFieldLayout;
-    private final PhotonPoseEstimator photonPoseEstimator;
+    // private final AprilTagFieldLayout aprilTagFieldLayout;
+    // private final PhotonPoseEstimator photonPoseEstimator;
 
     public Camera() {
         this.camera = new PhotonCamera(Constants.Vision.TARGET_CAMERA);
         this.camera.setPipelineIndex(Constants.Vision.PIPELINE);
 
-        this.aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
-        this.photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
-                PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, this.camera, Constants.Vision.ROBOT_TO_CAM_TRANSFORM);
+        // this.aprilTagFieldLayout =
+        // AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
+        // this.photonPoseEstimator = new PhotonPoseEstimator(aprilTagFieldLayout,
+        // PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, this.camera,
+        // Constants.Vision.ROBOT_TO_CAM_TRANSFORM);
     }
 
     @Override
@@ -79,7 +81,7 @@ public class Camera extends SubsystemBase {
         return this.hasTarget;
     }
 
-    public Optional<EstimatedRobotPose> getEstimatedRobotPose() {
-        return this.photonPoseEstimator.update();
-    }
+    // public Optional<EstimatedRobotPose> getEstimatedRobotPose() {
+    // return this.photonPoseEstimator.update();
+    // }
 }
