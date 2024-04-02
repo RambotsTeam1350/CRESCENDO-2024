@@ -74,7 +74,7 @@ public class ShooterRotation extends SubsystemBase {
 
     /**
      * 
-     * @return whether the intake rotation is within 5 degrees of the desired angle
+     * @return whether the intake rotation is within the setpoint tolerance
      */
     public boolean atSetpoint() {
         return this.PIDController.atSetpoint();

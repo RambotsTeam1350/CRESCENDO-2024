@@ -191,7 +191,7 @@ public class Drivetrain extends SubsystemBase {
     // SmartDashboard.putNumber("heading pid output",
     // -this.headingPIDController.calculate(currentYaw, 0));
 
-    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.TELE_DRIVE_MAX_ANGULAR_SPEED;
+    turnSpeed = turnLimiter.calculate(turnSpeed) * Swerve.AUTO_DRIVE_MAX_ANGULAR_SPEED;
     ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, 0, turnSpeed);
     SwerveModuleState[] moduleStates = Swerve.DRIVE_KINEMATICS.toSwerveModuleStates(chassisSpeeds);
     this.setModuleStates(moduleStates);
