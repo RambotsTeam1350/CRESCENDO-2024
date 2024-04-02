@@ -28,4 +28,9 @@ public class LEDCANdleDefaultCommand extends Command {
             this.ledCANdleSubsystem.rainbow();
         }
     }
+
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
