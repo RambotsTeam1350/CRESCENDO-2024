@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6582647415516658,
-      "y": 6.694182261478986
+      "x": 0.7238225656575535,
+      "y": 4.450647836521938
     },
-    "rotation": 60.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -18,9 +18,15 @@
           }
         },
         {
+          "type": "wait",
+          "data": {
+            "waitTime": 7.0
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "AmpSideTaxi"
+            "pathName": "SourceSideTaxi"
           }
         },
         {

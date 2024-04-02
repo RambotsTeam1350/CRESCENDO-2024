@@ -73,10 +73,22 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "MiddleSpeakerNoteToAmpSideNote"
+                  "pathName": "MiddleNoteToAmpSideNote"
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ARSTSA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
           }
         }
       ]
