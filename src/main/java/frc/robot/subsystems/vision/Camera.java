@@ -49,7 +49,7 @@ public class Camera extends SubsystemBase {
             this.hasTarget = false;
         }
 
-        SmartDashboard.putBoolean("Has Target", this.hasTarget());
+        SmartDashboard.putBoolean("Has Speaker Target", this.hasSpeakerTarget());
     }
 
     public PhotonPipelineResult getLatestResult() {
@@ -71,6 +71,10 @@ public class Camera extends SubsystemBase {
             }
         }
         return null;
+    }
+
+    public boolean hasSpeakerTarget() {
+        return this.getSpeakerTarget() != null;
     }
 
     public PhotonTrackedTarget getBestTarget() {
