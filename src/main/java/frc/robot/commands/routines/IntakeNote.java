@@ -23,5 +23,6 @@ public class IntakeNote extends SequentialCommandGroup {
                                 new SlowGrabNote(intakePowerSubsystem).withTimeout(0.45),
                                 // rotate intake back up
                                 RotateIntakeToAngle.createIntakeUpCommand(intakeRotationSubsystem));
+                addRequirements(ledCANdle);
         }
 }

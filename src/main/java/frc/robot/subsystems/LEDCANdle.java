@@ -26,7 +26,7 @@ public class LEDCANdle extends SubsystemBase {
         this.CANdleConfiguration.statusLedOffWhenActive = false;
         this.CANdleConfiguration.disableWhenLOS = false;
         this.CANdleConfiguration.stripType = LEDStripType.RGB;
-        this.CANdleConfiguration.brightnessScalar = 1;
+        this.CANdleConfiguration.brightnessScalar = 0.2;
         this.CANdleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
 
         this.CANdle.configAllSettings(this.CANdleConfiguration, 100);
@@ -34,7 +34,7 @@ public class LEDCANdle extends SubsystemBase {
 
     public void setAllToColor(int r, int g, int b) {
         this.CANdle.setLEDs(r, g, b);
-        this.CANdle.modulateVBatOutput(1);
+        this.CANdle.modulateVBatOutput(0.9);
     }
 
     public void setAllToGreen() {

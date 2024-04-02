@@ -121,7 +121,7 @@ public class Drivetrain extends SubsystemBase {
         () -> isRedAlliance(),
         this);
 
-    this.headingPIDController.setTolerance(1.5);
+    this.headingPIDController.setTolerance(2);
   }
 
   @Override

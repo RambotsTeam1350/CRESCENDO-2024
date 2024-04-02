@@ -10,6 +10,6 @@ import frc.robot.subsystems.shooter.ShooterPower;
 public class ShootNote extends ParallelCommandGroup {
     public ShootNote(ShooterPower shooterPowerSubsystem, IntakePower intakePowerSubsystem) {
         this.addCommands(new RunStopShooter(shooterPowerSubsystem).withTimeout(2.75),
-                Commands.waitSeconds(1.5).andThen(new FeedNote(intakePowerSubsystem).withTimeout(1.5 + 1)));
+                Commands.waitSeconds(1.5).andThen(new FeedNote(intakePowerSubsystem).withTimeout(1.5 + 0.5)));
     }
 }

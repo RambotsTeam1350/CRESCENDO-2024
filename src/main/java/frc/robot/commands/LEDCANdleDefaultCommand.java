@@ -17,6 +17,11 @@ public class LEDCANdleDefaultCommand extends Command {
     }
 
     @Override
+    public void initialize() {
+        // this.ledCANdleSubsystem.rainbow();
+    }
+
+    @Override
     public void execute() {
         if (this.cameraSubsystem.getSpeakerTarget() != null) {
             if (this.ledCANdleSubsystem.getCurrentState() != CurrentState.BLUE) {

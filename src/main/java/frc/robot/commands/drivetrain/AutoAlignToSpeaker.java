@@ -2,6 +2,7 @@ package frc.robot.commands.drivetrain;
 
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.subsystems.vision.Camera;
@@ -26,6 +27,7 @@ public class AutoAlignToSpeaker extends Command {
         if (speakerTarget == null) {
             return;
         }
+        SmartDashboard.putNumber("Speaker Yaw", speakerTarget.getYaw());
         this.drivetrainSubystem.rotateToFaceVisionTarget(speakerTarget.getYaw());
     }
 

@@ -12,11 +12,14 @@ import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.subsystems.vision.Camera;
 
 public class PrepareToShoot extends SequentialCommandGroup {
-    public PrepareToShoot(ShooterRotation shooterRotationSubsystem, Camera cameraSubsystem,
-            Drivetrain drivetrainSubsystem, LEDCANdle ledCANdleSubsystem) {
-        this.addCommands(
-                new AutoRotateShooterToSpeakerAngle(shooterRotationSubsystem, cameraSubsystem, ledCANdleSubsystem)
-                        .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)),
-                new ScheduleCommand(new InstantCommand(() -> ledCANdleSubsystem.setAllToGreen()).withTimeout(5)));
-    }
+        public PrepareToShoot(ShooterRotation shooterRotationSubsystem, Camera cameraSubsystem,
+                        Drivetrain drivetrainSubsystem, LEDCANdle ledCANdleSubsystem) {
+                this.addCommands(
+                                new AutoRotateShooterToSpeakerAngle(shooterRotationSubsystem, cameraSubsystem,
+                                                ledCANdleSubsystem)
+                                                .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
+                                                                .withTimeout(5)),
+                                new ScheduleCommand(new InstantCommand(() -> ledCANdleSubsystem.setAllToGreen())
+                                                .withTimeout(5)));
+        }
 }

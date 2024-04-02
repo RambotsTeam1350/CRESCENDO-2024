@@ -64,7 +64,7 @@ public final class Constants {
     // moving out from the robot is + degrees
     public static final double UP_DEGREES = 0;
     public static final double STRAIGHT_DEGREES = 90.0;
-    public static final double DOWN_DEGREES = 205.0;
+    public static final double DOWN_DEGREES = 204.0;
 
     public static final double MAXIMUM_DEGREES_UP = 0.0;
     public static final double MAXIMUM_DEGREES_DOWN = 215.0;
@@ -91,7 +91,7 @@ public final class Constants {
 
     // ask Katemaya about the gears (Vivic counted these)
 
-    public static final double MAXIMUM_DEGREES_DOWN = 17.39;
+    public static final double MAXIMUM_DEGREES_DOWN = 16.85;
     public static final double MAXIMUM_DEGREES_UP = 56;
     public static final double MAXIMUM_DEGREES_DOWN_ZERO_OFFSET = 0;
 
@@ -102,11 +102,11 @@ public final class Constants {
 
     public static final CANSparkPIDFConfig POWER_MOTOR_SPARK_PIDF_CONFIG = new CANSparkPIDFConfig(0.000006, 0, 0,
         0.000175, 0, 1);
-    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.032 * 12.0, 0.01 * 12.0, 0.00062 * 12.0);
+    public static final PIDConfig ROTATION_MOTOR_PID_CONFIG = new PIDConfig(0.052 * 12.0, 0.00 * 12.0, 0.003 * 12.0);
 
     public static final FFConfig POWER_MOTOR_1_FF_CONFIG = new FFConfig(0.12, 12.0 / 6470.0);
     public static final FFConfig POWER_MOTOR_2_FF_CONFIG = new FFConfig(0.12, 12.0 / 6510.0);
-    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.31);
+    public static final FFConfig ROTATION_MOTOR_FF_CONFIG = new FFConfig(0.215);
 
     public static final double HEIGHT_OFF_GROUND_METERS = 44.25 / 100.0;
   }
@@ -164,7 +164,7 @@ public final class Constants {
 
     public static final int PIGEON_ID = 10;
 
-    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.008, 0.0, 0.0); // TODO: tune
+    public static final PIDConfig HEADING_PID_CONFIG = new PIDConfig(0.0045, 0.0, 0.0005); // TODO: tune
 
     public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
     // https://www.swervedrivespecialties.com/products/mk4i-swerve-module?variant=46872600117549

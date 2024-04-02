@@ -29,7 +29,7 @@ public class ShooterRotation extends SubsystemBase {
         this.throughBoreEncoder.setPositionOffset(Constants.Shooter.ROTATION_THROUGH_BORE_ENCODER_POSITION_OFFSET);
 
         this.PIDController = new ConfiguredPIDController(Constants.Shooter.ROTATION_MOTOR_PID_CONFIG);
-        this.PIDController.setTolerance(0.05); // TODO: figure out tolerance
+        this.PIDController.setTolerance(0.2); // TODO: figure out tolerance
 
         this.motorFeedForward = new ConfiguredSimpleMotorFeedforward(Constants.Shooter.ROTATION_MOTOR_FF_CONFIG);
     }

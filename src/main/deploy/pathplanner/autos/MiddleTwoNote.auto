@@ -24,28 +24,41 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "wait",
           "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake Note"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "MiddleSpeakerToNote"
-                }
-              }
-            ]
+            "waitTime": 0.5
           }
         },
         {
-          "type": "named",
+          "type": "sequential",
           "data": {
-            "name": "ARSTSA"
+            "commands": [
+              {
+                "type": "parallel",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake Note"
+                      }
+                    },
+                    {
+                      "type": "path",
+                      "data": {
+                        "pathName": "MiddleSpeakerToNote"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "ARSTSA"
+                }
+              }
+            ]
           }
         },
         {
