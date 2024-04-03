@@ -19,9 +19,10 @@ public class PrepareToShoot extends SequentialCommandGroup {
                                 new AutoRotateShooterToSpeakerAngle(shooterRotationSubsystem, cameraSubsystem,
                                                 ledCANdleSubsystem)
                                                 .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
-                                                                .withTimeout(5)),
-                                new ScheduleCommand(new RunCommand(() -> ledCANdleSubsystem.setAllToOrange(),
-                                                ledCANdleSubsystem).withTimeout(5)));
+                                                                .withTimeout(5))
+                // new ScheduleCommand(new RunCommand(() -> ledCANdleSubsystem.setAllToOrange(),
+                // ledCANdleSubsystem).withTimeout(5))
+                );
                 addRequirements(ledCANdleSubsystem);
         }
 }

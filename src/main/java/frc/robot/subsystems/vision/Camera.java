@@ -22,6 +22,7 @@ public class Camera extends SubsystemBase {
     private boolean hasTarget = false;
     private PhotonTrackedTarget bestTarget;
     private List<PhotonTrackedTarget> targets;
+    private PhotonTrackedTarget speakerTarget;
 
     // private final AprilTagFieldLayout aprilTagFieldLayout;
     // private final PhotonPoseEstimator photonPoseEstimator;
@@ -44,6 +45,7 @@ public class Camera extends SubsystemBase {
         if (this.latestResult.hasTargets()) {
             this.bestTarget = this.latestResult.getBestTarget();
             this.targets = this.latestResult.getTargets();
+            this.speakerTarget = this.getSpeakerTarget();
             this.hasTarget = true;
         } else {
             this.hasTarget = false;
@@ -61,6 +63,10 @@ public class Camera extends SubsystemBase {
     }
 
     public PhotonTrackedTarget getSpeakerTarget() {
+        return this.speakerTarget;
+    }
+
+    private PhotonTrackedTarget findSpeakerTarget() {
         if (this.targets == null) {
             return null;
         }

@@ -24,7 +24,7 @@
               {
                 "type": "named",
                 "data": {
-                  "name": "Intake Down"
+                  "name": "Intake Note"
                 }
               },
               {
@@ -38,41 +38,21 @@
                       }
                     },
                     {
-                      "type": "parallel",
+                      "type": "path",
                       "data": {
-                        "commands": [
-                          {
-                            "type": "named",
-                            "data": {
-                              "name": "Intake Note"
-                            }
-                          },
-                          {
-                            "type": "sequential",
-                            "data": {
-                              "commands": [
-                                {
-                                  "type": "path",
-                                  "data": {
-                                    "pathName": "MiddleSpeakerToNote"
-                                  }
-                                },
-                                {
-                                  "type": "named",
-                                  "data": {
-                                    "name": "ARSTSA"
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        ]
+                        "pathName": "MiddleSpeakerToNote"
                       }
                     }
                   ]
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ARSTSA"
           }
         },
         {

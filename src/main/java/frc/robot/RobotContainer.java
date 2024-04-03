@@ -100,9 +100,6 @@ public class RobotContainer {
 
                 // this.ledSubsystem = new LED();
                 this.ledCANdleSubsystem = new LEDCANdle();
-                this.ledCANdleSubsystem
-                                .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem,
-                                                cameraSubsystem));
                 // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
                 // cameraSubsystem));
 
@@ -111,6 +108,8 @@ public class RobotContainer {
 
                 this.registerNamedCommands(); // do not move (https://pathplanner.dev/pplib-named-commands.html)
 
+                this.ledCANdleSubsystem
+                                .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem, cameraSubsystem));
                 this.drivetrainSubsystem
                                 .setDefaultCommand(new SwerveDrive(this.drivetrainSubsystem,
                                                 this.driverController.getHID()));
@@ -238,8 +237,9 @@ public class RobotContainer {
                 // new AutoRotateShooterToSpeakerAngle(this.shooterRotationSubsystem,
                 // this.cameraSubsystem,
                 // this.ledCANdleSubsystem).withTimeout(5));
-                NamedCommands.registerCommand("ARSTSA", new PrepareToShoot(shooterRotationSubsystem, cameraSubsystem,
-                                drivetrainSubsystem, ledCANdleSubsystem));
+                NamedCommands.registerCommand("ARSTSA",
+                                new AutoRotateShooterToSpeakerAngle(shooterRotationSubsystem, cameraSubsystem,
+                                                ledCANdleSubsystem));
                 NamedCommands.registerCommand("Shoot Note", new ShootNote(shooterPowerSubsystem, intakePowerSubsystem));
 
                 // NamedCommands.registerCommand("Run Shooter", new

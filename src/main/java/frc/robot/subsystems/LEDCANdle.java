@@ -12,9 +12,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LEDCANdle extends SubsystemBase {
     private final CANdle CANdle;
     private final CANdleConfiguration CANdleConfiguration;
-    private CurrentState currentState;
+    private CurrentState currentState = CurrentState.OFF;
 
     public enum CurrentState {
+        OFF,
         BLUE,
         ORANGE,
         GREEN,
