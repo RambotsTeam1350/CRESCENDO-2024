@@ -100,9 +100,9 @@ public class RobotContainer {
 
                 // this.ledSubsystem = new LED();
                 this.ledCANdleSubsystem = new LEDCANdle();
-                // this.ledCANdleSubsystem
-                // .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem,
-                // cameraSubsystem));
+                this.ledCANdleSubsystem
+                                .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem,
+                                                cameraSubsystem));
                 // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
                 // cameraSubsystem));
 

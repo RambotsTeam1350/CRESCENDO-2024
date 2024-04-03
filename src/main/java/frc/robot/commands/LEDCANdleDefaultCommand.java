@@ -18,7 +18,7 @@ public class LEDCANdleDefaultCommand extends Command {
 
     @Override
     public void initialize() {
-        // this.ledCANdleSubsystem.rainbow();
+        this.ledCANdleSubsystem.rainbow();
     }
 
     @Override

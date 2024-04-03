@@ -21,5 +21,6 @@ public class PrepareToShoot extends SequentialCommandGroup {
                                                                 .withTimeout(5)),
                                 new ScheduleCommand(new InstantCommand(() -> ledCANdleSubsystem.setAllToGreen())
                                                 .withTimeout(5)));
+                addRequirements(ledCANdleSubsystem);
         }
 }

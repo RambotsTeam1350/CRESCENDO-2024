@@ -13,16 +13,16 @@ import frc.robot.subsystems.intake.IntakeRotation;
 
 public class IntakeNote extends SequentialCommandGroup {
         public IntakeNote(IntakeRotation intakeRotationSubsystem, IntakePower intakePowerSubsystem,
-                        ColorSensor colorSensorSubsystem, LEDCANdle ledCANdle) {
+                        ColorSensor colorSensorSubsystem, LEDCANdle ledCANdleSubsystem) {
                 this.addCommands(
                                 // rotate intake down while running intake power motors until note gets detected
                                 RotateIntakeToAngle.createIntakeDownCommand(intakeRotationSubsystem)
                                                 .alongWith(new GrabNote(intakePowerSubsystem, colorSensorSubsystem)),
-                                new InstantCommand(() -> ledCANdle.setAllToOrange()),
+                                new InstantCommand(() -> ledCANdleSubsystem.setAllToOrange()),
                                 // run intake power motors for a bit to ensure note gets positioned correctly
                                 new SlowGrabNote(intakePowerSubsystem).withTimeout(0.45),
                                 // rotate intake back up
                                 RotateIntakeToAngle.createIntakeUpCommand(intakeRotationSubsystem));
-                addRequirements(ledCANdle);
+                addRequirements(ledCANdleSubsystem);
         }
 }
