@@ -6,6 +6,7 @@ import com.ctre.phoenix.led.RainbowAnimation;
 import com.ctre.phoenix.led.CANdle.LEDStripType;
 import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LEDCANdle extends SubsystemBase {
@@ -30,6 +31,11 @@ public class LEDCANdle extends SubsystemBase {
         this.CANdleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
 
         this.CANdle.configAllSettings(this.CANdleConfiguration, 100);
+    }
+
+    @Override
+    public void periodic() {
+        SmartDashboard.putString("LED State", this.getCurrentState().toString());
     }
 
     public void setAllToColor(int r, int g, int b) {
