@@ -2,6 +2,7 @@ package frc.robot.commands.routines;
 
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.AutoAlignToSpeaker;
@@ -19,8 +20,8 @@ public class PrepareToShoot extends SequentialCommandGroup {
                                                 ledCANdleSubsystem)
                                                 .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
                                                                 .withTimeout(5)),
-                                new ScheduleCommand(new InstantCommand(() -> ledCANdleSubsystem.setAllToGreen())
-                                                .withTimeout(5)));
+                                new ScheduleCommand(new RunCommand(() -> ledCANdleSubsystem.setAllToOrange(),
+                                                ledCANdleSubsystem).withTimeout(5)));
                 addRequirements(ledCANdleSubsystem);
         }
 }
