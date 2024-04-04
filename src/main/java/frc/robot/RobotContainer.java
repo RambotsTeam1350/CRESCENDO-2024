@@ -228,7 +228,7 @@ public class RobotContainer {
                                 RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
                 NamedCommands.registerCommand("Intake Note",
                                 new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem,
-                                                this.ledCANdleSubsystem));
+                                                this.ledCANdleSubsystem).withTimeout(6));
                 NamedCommands.registerCommand("Grab Note",
                                 new GrabNote(this.intakePowerSubsystem, this.colorSensorSubsystem));
                 NamedCommands.registerCommand("Shooter Up",
