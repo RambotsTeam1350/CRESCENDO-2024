@@ -45,7 +45,7 @@ public class Camera extends SubsystemBase {
         if (this.latestResult.hasTargets()) {
             this.bestTarget = this.latestResult.getBestTarget();
             this.targets = this.latestResult.getTargets();
-            this.speakerTarget = this.getSpeakerTarget();
+            this.speakerTarget = this.findSpeakerTarget();
             this.hasTarget = true;
         } else {
             this.hasTarget = false;

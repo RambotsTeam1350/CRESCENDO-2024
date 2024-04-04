@@ -26,11 +26,11 @@ public class LEDCANdleDefaultCommand extends Command {
         if (this.cameraSubsystem.getSpeakerTarget() != null) {
             if (this.ledCANdleSubsystem.getCurrentState() != CurrentState.BLUE) {
                 this.ledCANdleSubsystem.setAllToBlue();
-                return;
             }
-        }
-        if (this.ledCANdleSubsystem.getCurrentState() != CurrentState.RAINBOW) {
-            this.ledCANdleSubsystem.rainbow();
+        } else {
+            if (this.ledCANdleSubsystem.getCurrentState() != CurrentState.RAINBOW) {
+                this.ledCANdleSubsystem.rainbow();
+            }
         }
     }
 
