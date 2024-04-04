@@ -100,7 +100,7 @@ public class RobotContainer {
                 this.colorSensorSubsystem = new ColorSensor(Constants.Colors.COLOR_SENSOR_PORT);
 
                 // this.ledSubsystem = new LED();
-                this.ledCANdleSubsystem = new LEDCANdle();
+                this.ledCANdleSubsystem = new LEDCANdle(this.cameraSubsystem);
                 // this.ledSubsystem.setDefaultCommand(new SetLEDs(ledSubsystem,
                 // cameraSubsystem));
 
@@ -109,8 +109,9 @@ public class RobotContainer {
 
                 this.registerNamedCommands(); // do not move (https://pathplanner.dev/pplib-named-commands.html)
 
-                this.ledCANdleSubsystem
-                                .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem, cameraSubsystem));
+                // this.ledCANdleSubsystem
+                // .setDefaultCommand(new LEDCANdleDefaultCommand(ledCANdleSubsystem,
+                // cameraSubsystem));
                 this.drivetrainSubsystem
                                 .setDefaultCommand(new SwerveDrive(this.drivetrainSubsystem,
                                                 this.driverController.getHID()));
@@ -228,7 +229,7 @@ public class RobotContainer {
                                 RotateIntakeToAngle.createIntakeDownCommand(this.intakeRotationSubsystem));
                 NamedCommands.registerCommand("Intake Note",
                                 new IntakeNote(intakeRotationSubsystem, intakePowerSubsystem, colorSensorSubsystem,
-                                                this.ledCANdleSubsystem).withTimeout(4));
+                                                this.ledCANdleSubsystem));
                 NamedCommands.registerCommand("Grab Note",
                                 new GrabNote(this.intakePowerSubsystem, this.colorSensorSubsystem));
                 NamedCommands.registerCommand("Shooter Up",

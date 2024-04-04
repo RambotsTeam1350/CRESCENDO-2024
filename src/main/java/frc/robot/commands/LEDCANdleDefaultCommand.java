@@ -38,4 +38,9 @@ public class LEDCANdleDefaultCommand extends Command {
     public boolean isFinished() {
         return false;
     }
+
+    @Override
+    public void end(boolean interrupted) {
+        this.ledCANdleSubsystem.off();
+    }
 }

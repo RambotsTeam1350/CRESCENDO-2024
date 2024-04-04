@@ -1,9 +1,12 @@
 package frc.robot.commands.drivetrain;
 
+import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.swerve.Drivetrain;
 import frc.robot.subsystems.vision.Camera;
 
@@ -27,8 +30,19 @@ public class AutoAlignToSpeaker extends Command {
         if (speakerTarget == null) {
             return;
         }
-        SmartDashboard.putNumber("Speaker Yaw", speakerTarget.getYaw());
-        this.drivetrainSubystem.rotateToFaceVisionTarget(speakerTarget.getYaw());
+        double cameraDistanceFromSpeaker = PhotonUtils.calculateDistanceToTargetMeters(
+                Constants.Vision.CAMERA_HEIGHT_METERS,
+                Constants.Vision.Measurements.Speaker.APRIL_TAG_HEIGHT_METERS,
+                Constants.Vision.CAMERA_PITCH_RADIANS,
+                Units.degreesToRadians(speakerTarget.getPitch()));
+        double shooterDistanceFromSpeaker = cameraDistanceFromSpeaker
+                - Constants.Vision.CAMERA_DISTANCE_FROM_EDGE_OF_ROBOT_METERS;
+        if (this.isInRange(shooterDistanceFromSpeaker)) {
+            SmartDashboard.putNumber("Speaker Yaw", speakerTarget.getYaw());
+            this.drivetrainSubystem.rotateToFaceVisionTarget(speakerTarget.getYaw());
+        } else {
+            this.cancel();
+        }
     }
 
     @Override
@@ -40,5 +54,9 @@ public class AutoAlignToSpeaker extends Command {
     @Override
     public void end(boolean interrupted) {
         this.drivetrainSubystem.stopModules();
+    }
+
+    private boolean isInRange(double positionX) {
+        return positionX <= Constants.Vision.MaxDistances.SPEAKER;
     }
 }

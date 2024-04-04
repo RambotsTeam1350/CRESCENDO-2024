@@ -8,11 +8,17 @@ import com.ctre.phoenix.led.CANdle.VBatOutputMode;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.vision.Camera;
 
 public class LEDCANdle extends SubsystemBase {
     private final CANdle CANdle;
     private final CANdleConfiguration CANdleConfiguration;
+
+    private final Camera cameraSubsystem;
+
     private CurrentState currentState = CurrentState.OFF;
+
+    private boolean taken = false;
 
     public enum CurrentState {
         OFF,
@@ -22,7 +28,7 @@ public class LEDCANdle extends SubsystemBase {
         RAINBOW
     }
 
-    public LEDCANdle() {
+    public LEDCANdle(Camera cameraSubsystem) {
         this.CANdle = new CANdle(5);
         this.CANdleConfiguration = new CANdleConfiguration();
         this.CANdleConfiguration.statusLedOffWhenActive = false;
@@ -33,17 +39,44 @@ public class LEDCANdle extends SubsystemBase {
 
         this.CANdle.configAllSettings(this.CANdleConfiguration, 100);
 
-        this.rainbow();
+        this.cameraSubsystem = cameraSubsystem;
+
+        this.setAllToGreen();
     }
 
     @Override
     public void periodic() {
         SmartDashboard.putString("LED State", this.getCurrentState().toString());
+        SmartDashboard.putBoolean("taken", taken);
+
+        if (this.taken) {
+            return;
+        }
+
+        if (this.cameraSubsystem.getSpeakerTarget() != null) {
+            if (this.getCurrentState() != CurrentState.BLUE) {
+                this.setAllToBlue();
+            }
+        } else {
+            if (this.getCurrentState() != CurrentState.RAINBOW) {
+                this.rainbow();
+            }
+        }
+
+    }
+
+    public void toggleTaken() {
+        this.taken = !this.taken;
+    }
+
+    public boolean isTaken() {
+        return this.taken;
     }
 
     public void setAllToColor(int r, int g, int b) {
+        this.CANdle.clearAnimation(0);
         this.CANdle.setLEDs(r, g, b);
-        this.CANdle.modulateVBatOutput(0.95);
+        this.CANdle.modulateVBatOutput(1);
     }
 
     public void setAllToGreen() {
@@ -62,8 +95,12 @@ public class LEDCANdle extends SubsystemBase {
     }
 
     public void rainbow() {
-        this.CANdle.animate(new RainbowAnimation(0.4, 0.5, 23));
+        this.CANdle.animate(new RainbowAnimation(0.4, 0.5, 23), 0);
         this.currentState = CurrentState.RAINBOW;
+    }
+
+    public void off() {
+        this.setAllToColor(0, 0, 0);
     }
 
     public CurrentState getCurrentState() {

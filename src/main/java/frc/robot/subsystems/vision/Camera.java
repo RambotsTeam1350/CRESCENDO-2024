@@ -41,15 +41,19 @@ public class Camera extends SubsystemBase {
     @Override
     public void periodic() {
         this.latestResult = camera.getLatestResult();
+        this.bestTarget = this.latestResult.getBestTarget();
+        this.targets = this.latestResult.getTargets();
+        this.speakerTarget = this.findSpeakerTarget();
 
-        if (this.latestResult.hasTargets()) {
-            this.bestTarget = this.latestResult.getBestTarget();
-            this.targets = this.latestResult.getTargets();
-            this.speakerTarget = this.findSpeakerTarget();
-            this.hasTarget = true;
-        } else {
-            this.hasTarget = false;
-        }
+        this.hasTarget = this.latestResult.hasTargets();
+        // if (this.latestResult.hasTargets()) {
+        // // this.bestTarget = this.latestResult.getBestTarget();
+        // // this.targets = this.latestResult.getTargets();
+        // // this.speakerTarget = this.findSpeakerTarget();
+        // this.hasTarget = true;
+        // } else {
+        // this.hasTarget = false;
+        // }
 
         SmartDashboard.putBoolean("Has Speaker Target", this.hasSpeakerTarget());
     }

@@ -27,6 +27,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
     this.cameraSubsystem = camera;
     this.led = ledSubsystem;
     addRequirements(this.shooterRotationSubsystem);
+    SmartDashboard.putData(this);
     // , this.camera, this.led); i am going to experiment with this
   }
 
@@ -61,6 +62,8 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
       // System.out.println("SHOOTER ANGLE SETPOINT: " + angle);
       this.shooterRotationSubsystem.setAngle(angle);
       // this.led.setLEDs();
+    } else {
+      this.cancel();
     }
   }
 

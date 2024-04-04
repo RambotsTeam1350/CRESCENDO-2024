@@ -187,6 +187,7 @@ public class Drivetrain extends SubsystemBase {
   // see AutoAlignToSpeaker
   public void rotateToFaceVisionTarget(double currentYaw) {
     double turnSpeed = this.headingPIDController.calculate(currentYaw, 0);
+    turnSpeed = 0.04 * -Math.signum(currentYaw);
     // SmartDashboard.putNumber("current yaw", currentYaw);
     // SmartDashboard.putNumber("heading pid output",
     // -this.headingPIDController.calculate(currentYaw, 0));

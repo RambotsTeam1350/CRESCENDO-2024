@@ -262,7 +262,7 @@ public final class Constants {
     }
 
     public static final class MaxDistances {
-      public static final double SPEAKER = 3; // meters
+      public static final double SPEAKER = 4.5; // meters
     }
 
     public static final class FiducialIDs {

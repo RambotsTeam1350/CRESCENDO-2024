@@ -1,5 +1,7 @@
 package frc.robot.commands.routines;
 
+import java.time.Instant;
+
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
@@ -16,13 +18,15 @@ public class PrepareToShoot extends SequentialCommandGroup {
         public PrepareToShoot(ShooterRotation shooterRotationSubsystem, Camera cameraSubsystem,
                         Drivetrain drivetrainSubsystem, LEDCANdle ledCANdleSubsystem) {
                 this.addCommands(
+                                new InstantCommand(() -> ledCANdleSubsystem.toggleTaken()),
                                 new AutoRotateShooterToSpeakerAngle(shooterRotationSubsystem, cameraSubsystem,
                                                 ledCANdleSubsystem)
                                                 .alongWith(new AutoAlignToSpeaker(drivetrainSubsystem, cameraSubsystem)
-                                                                .withTimeout(5))
-                // new ScheduleCommand(new RunCommand(() -> ledCANdleSubsystem.setAllToOrange(),
-                // ledCANdleSubsystem).withTimeout(5))
-                );
+                                                                .withTimeout(5)),
+                                // new ScheduleCommand(new InstantCommand(() ->
+                                // ledCANdleSubsystem.setAllToOrange(),
+                                // ledCANdleSubsystem).withTimeout(5)),
+                                new InstantCommand(() -> ledCANdleSubsystem.toggleTaken()));
                 addRequirements(ledCANdleSubsystem);
         }
 }
