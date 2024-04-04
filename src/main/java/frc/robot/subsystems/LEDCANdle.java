@@ -32,6 +32,8 @@ public class LEDCANdle extends SubsystemBase {
         this.CANdleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
 
         this.CANdle.configAllSettings(this.CANdleConfiguration, 100);
+
+        this.rainbow();
     }
 
     @Override

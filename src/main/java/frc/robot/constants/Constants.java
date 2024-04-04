@@ -247,8 +247,11 @@ public final class Constants {
             .get().getZ();
 
         // https://lakotarobotics.com/2024/01/2024-game-crescendo/
-        public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
-            Units.feetToMeters(6.5)) / 2.0);
+        // public static final double GOAL_HEIGHT_METERS = ((Units.feetToMeters(6.9) +
+
+        public static final double GOAL_HEIGHT_METERS = Units.feetToMeters(6.9);
+
+        // Units.feetToMeters(6.5)) / 2.0);
 
         // public static final double GOAL_HEIGHT_METERS = 2.25; // this is the number i
         // measured on our in-house speaker
@@ -259,7 +262,7 @@ public final class Constants {
     }
 
     public static final class MaxDistances {
-      public static final double SPEAKER = 3.75; // meters
+      public static final double SPEAKER = 3; // meters
     }
 
     public static final class FiducialIDs {

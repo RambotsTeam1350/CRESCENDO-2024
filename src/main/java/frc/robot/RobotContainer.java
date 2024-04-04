@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.routines.AutoIntakeNote;
 import frc.robot.commands.routines.IntakeNote;
 import frc.robot.commands.routines.PrepareToShoot;
 import frc.robot.commands.routines.ShootNote;
