@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.PathfindingCommand;
+
 import edu.wpi.first.cameraserver.CameraServer;
 // import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.DataLogManager;
@@ -38,6 +40,7 @@ public class Robot extends TimedRobot {
     DriverStation.startDataLog(DataLogManager.getLog());
     CameraServer.startAutomaticCapture();
     SmartDashboard.putData(CommandScheduler.getInstance());
+    PathfindingCommand.warmupCommand().schedule();
     this.m_robotContainer = new RobotContainer();
   }
 
