@@ -1,0 +1,52 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 7.912346894138233,
+        "y": 0.7783411631223989
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.786379693129757,
+        "y": 0.8551944279814485
+      },
+      "isLocked": false,
+      "linkedName": "Front of Fifth Note"
+    },
+    {
+      "anchor": {
+        "x": 2.073318540155599,
+        "y": 4.497891560597936
+      },
+      "prevControl": {
+        "x": 2.4991045306164685,
+        "y": 2.264326334208224
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 2.0,
+    "maxAngularVelocity": 180.0,
+    "maxAngularAcceleration": 360.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -31.715934531650735,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": "competition",
+  "previewStartingState": {
+    "rotation": 0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

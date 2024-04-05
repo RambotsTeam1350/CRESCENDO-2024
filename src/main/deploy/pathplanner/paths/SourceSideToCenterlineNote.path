@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 7.888428800113415,
+        "x": 7.912346894138233,
         "y": 0.7783411631223989
       },
       "prevControl": {
-        "x": 6.816273408382909,
+        "x": 6.840191502407727,
         "y": 0.7783411631223989
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Front of Fifth Note"
     }
   ],
   "rotationTargets": [

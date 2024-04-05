@@ -35,6 +35,24 @@
               }
             ]
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "CenterlineNoteToSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "ARSTSA"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot Note"
+          }
         }
       ]
     }
