@@ -37,6 +37,7 @@ public class RotateIntakeToAngle extends Command {
 
     @Override
     public void end(boolean interrupted) {
+        System.out.println("RotateIntakeToAngle STOPPING");
         this.intakeRotation.stopMotor();
     }
 

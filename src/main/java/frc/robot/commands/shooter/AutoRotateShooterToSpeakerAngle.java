@@ -34,6 +34,7 @@ public class AutoRotateShooterToSpeakerAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("ARSTSA STARTING");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
